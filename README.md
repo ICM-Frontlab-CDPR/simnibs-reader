@@ -1,0 +1,1 @@
+-doit récupérer toute la logique d'input contenu dans io_pipeline de simnibs-analyze pour la reinjecter ensuite
