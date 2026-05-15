@@ -7,19 +7,28 @@ import simnibs-reader as snr # one
 
 
 
-snb.query( by-targets , by-a-simu-modality)
+snb.query( by-targets , by-a-simu-modality) 
+#--> renvoie les listes de folders concernées (c'est peutetre pas tres utile si les differentes simulations sont bine rangées: )
+# path : simnibs-simu/simnibs-param/simu-subject-1...
 
 
 --- association to a directory
-snr.simulation('path_simu')
+results =snr.simulation('path_simu')
 
-snr.optimization('path_opti')
+results = snr.optimization('path_opti')
 
-snr.segmentation('path_m2m')
-
----puis la possibilité de faire tout ce qui est deja defini dans simnibs-analyze
+results = snr.segmentation('path_m2m')
 
 
+# ---puis la sélection de file
+# quels sont les calculs qui sont multifiles ? est-ce que c'est mportant de les inclures dans l'architecture des maintenant ?
+
+files = results.magnE
+
+# ---puis la possibilité de faire tout ce qui est deja defini dans simnibs-analyze
+
+file.getROI().postprocess().save_as()
+# files.getROI().postprocess().save_as() ?
 
 
 # je vais tester l'utlisation principale maintenant : pourrais tu me reecrire la config stp mais pour le dataset stim SD./Users/hippolyte.dreyfus/Desktop/_stimSD/Data/derivatives/mri/simnibs-simucest ce .txt de simnibs modular qui a été utilisé :/Users/hippolyte.dreyfus/Documents/simnibs-modular/config/stimSD/simulation_stimSD.txt

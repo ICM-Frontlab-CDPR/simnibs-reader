@@ -1,0 +1,11 @@
+#META FOLDERS
+- une classe 'pybids' based pour selectionner le / les folders de results.
+
+#SIMNIBS FOLDERS
+- une classe parent pour les 3 types de folders a lire (m2m,opti,simu)
+- class m2m
+- class opti
+- class simu
+
+#FILES -une classe par type de file
+- 
