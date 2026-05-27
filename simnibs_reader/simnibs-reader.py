@@ -12,7 +12,7 @@ snb.query( by-targets , by-a-simu-modality)
 # path : simnibs-simu/simnibs-param/simu-subject-1...
 
 
---- association to a directory
+# --- association to a directory
 results =snr.simulation('path_simu')
 
 results = snr.optimization('path_opti')
@@ -21,7 +21,7 @@ results = snr.segmentation('path_m2m')
 
 
 # ---puis la sélection de file
-# quels sont les calculs qui sont multifiles ? est-ce que c'est mportant de les inclures dans l'architecture des maintenant ?
+# quels sont les calculs qui sont multifiles ? est-ce que c'est important de les inclures dans l'architecture des maintenant ?
 
 files = results.magnE
 
