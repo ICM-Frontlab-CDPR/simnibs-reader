@@ -4,7 +4,7 @@
 #use case
 import simnibs-bids as snb   # higher level : gerer les experiences multiples etc
 import simnibs-reader as snr # one 
-
+import simnibs ?? #IMPORTANT DECISION Is it secure to use this dependency which is not build in pip (because of simnibs charm binaries ?)
 
 
 snb.query( by-targets , by-a-simu-modality) 
@@ -20,14 +20,13 @@ results = snr.optimization('path_opti')
 results = snr.segmentation('path_m2m')
 
 
-# ---puis la sélection de file
-# quels sont les calculs qui sont multifiles ? est-ce que c'est important de les inclures dans l'architecture des maintenant ?
 
-files = results.magnE
+efields = results.magnE.getROI().postprocess()
+efields.save()
+
 
 # ---puis la possibilité de faire tout ce qui est deja defini dans simnibs-analyze
 
-file.getROI().postprocess().save_as()
 # files.getROI().postprocess().save_as() ?
 
 
