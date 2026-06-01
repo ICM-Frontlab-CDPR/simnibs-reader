@@ -1,18 +1,14 @@
 
+#### definition of nbasic use cases
+# test de l'outil reader d’output (au niveau d’un folder de simulation, )
 
 
-#use case
-import simnibs-bids as snb   # higher level : gerer les experiences multiples etc
 import simnibs-reader as snr # one 
 import simnibs ?? #IMPORTANT DECISION Is it secure to use this dependency which is not build in pip (because of simnibs charm binaries ?)
 
 
-snb.query( by-targets , by-a-simu-modality) 
-#--> renvoie les listes de folders concernées (c'est peutetre pas tres utile si les differentes simulations sont bine rangées: )
-# path : simnibs-simu/simnibs-param/simu-subject-1...
 
-
-# --- association to a directory
+#### A--- Loaders for 3 differents type of results directory :
 results =snr.simulation('path_simu')
 
 results = snr.optimization('path_opti')
@@ -21,13 +17,27 @@ results = snr.segmentation('path_m2m')
 
 
 
-efields = results.magnE.getROI().postprocess()
-efields.save()
+
+#### B--- efield-like nifti files extraction (4 possible steps)
 
 
-# ---puis la possibilité de faire tout ce qui est deja defini dans simnibs-analyze
+# choose your modality
+efield_file = results.get_file('magnE')
 
-# files.getROI().postprocess().save_as() ?
+# extract your ROI
+efields_ROI = efield_file.getROI(by-targets // with a specific nifti mask  // using a mask from freesurfer/spm results)
+
+# postprocess 
+efields_PP = efields_ROI.postprocess( filter= , smoothing= , ... )
+
+#save your data before doing stats
+efields_PP.save( metrics=[mean,median,gaussian,...], format= tsv)
+
+
+#### ZZ--- simnibs-analyze is a pipeline which make all the basic stats of a simnibs simulation, using simnibs-reader
+# puis la possibilité de faire tout ce qui est deja defini dans simnibs-analyze
+
+
 
 
 # je vais tester l'utlisation principale maintenant : pourrais tu me reecrire la config stp mais pour le dataset stim SD./Users/hippolyte.dreyfus/Desktop/_stimSD/Data/derivatives/mri/simnibs-simucest ce .txt de simnibs modular qui a été utilisé :/Users/hippolyte.dreyfus/Documents/simnibs-modular/config/stimSD/simulation_stimSD.txt
@@ -35,7 +45,3 @@ efields.save()
 
 
 
-# ———————
-# Simnibs analyze :
-# - outil de querying d’un sous ensemble des folder de simulation (based on name folder or other ?)
-# - outil reader d’output (au niveau d’un folder de simulation, )
