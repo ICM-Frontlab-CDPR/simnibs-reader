@@ -13,3 +13,6 @@ outputs/
 .ruff_cache
 *.egg-info*    
 *dist/simnibs*
+*.continue*
+*prompts*
+*results*

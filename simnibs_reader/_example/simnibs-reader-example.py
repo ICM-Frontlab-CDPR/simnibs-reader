@@ -1,42 +1,80 @@
+#### simnibs-reader — usage examples
+# No simnibs dependency needed — pure NIfTI-based reader.
 
-#### definition of nbasic use cases
-# test de l'outil reader d’output (au niveau d’un folder de simulation, )
-
-
-import simnibs-reader as snr # one 
-##import simnibs  # ?? IMPORTANT DECISION Is it more secure to not use this dependency which is not build in pip (because of simnibs charm binaries ?)
-
+import sys
+sys.path.insert(0, '/Users/hippolyte.dreyfus/Documents/simnibs-reader')
+import simnibs_reader as snr
 
 
-#### A--- Loaders for 3 differents type of results directory :
-results =snr.simulation('path_simu')
+# ── A — Load a results directory ─────────────────────────────────────────
 
-results = snr.optimization('path_opti')
+# Simulation folder  (contains mni_volumes/, subject_volumes/, ...)
+results = snr.simulation('/Users/hippolyte.dreyfus/Documents/0-tmp-simnibs-output/simulation_simulation_fef_hemianotacs_5626899c')
 
-results = snr.segmentation('path_m2m')
+# Optimization / leadfield folder
+# results = snr.optimization('path/to/optimization_folder')
 
-
-
-
-#### B--- efield-like nifti files extraction (4 possible steps)
-
-
-# choose your modality
-efield_file = results.magnE #pouvoir choisir mni ou subject
-
-# extract your ROI
-efields_ROI = efield_file.getROI(by-targets // with a specific nifti mask  // using a mask from freesurfer/spm results)
-
-# postprocess 
-efields_PP = efields_ROI.postprocess( filter= , smoothing= , ... )
-
-#save your data before doing stats
-efields_PP.save( metrics=[mean,median,gaussian,...], format= tsv)
+# Segmentation folder  (m2m_<subID>/)
+# results = snr.segmentation('/Users/hippolyte.dreyfus/Documents/0-tmp-simnibs-output/m2m_0001')
 
 
+# Quick exploration
+print(results)                   # SimulationResult('...')
+print(results.tree())            # pretty directory tree
+print(results.sim_id)            # e.g. '0001_TDCS_1'
+print(results.available_fields)  # {'mni': [...], 'native': [...]}
 
 
+# ── B — Access an e-field NIfTI (lazy — not loaded until .data) ──────────
+
+efield = results.magnE           # MNI space  (*_MNI_magnE.nii.gz)
+efield = results.magnE_native    # subject space (*_magnE.nii.gz)
+efield = results.magnJ           # current density magnitude (MNI)
+
+print(efield)                    # EFieldAccessor('..._MNI_magnE.nii.gz')
+print(efield.shape)              # (182, 218, 182)
+print(efield.affine)             # 4x4 affine matrix
+data = efield.data               # np.ndarray float32 — loaded here
 
 
+# ── C — Extract an ROI ───────────────────────────────────────────────────
+
+# Option 1 : existing binary NIfTI mask
+roi = efield.get_roi(mask='path/to/roi_mask.nii.gz')
+
+# Option 2 : sphere defined by MNI coordinates
+roi = efield.get_roi(coords=[28, -8, 54], radius=10.0)
+
+# Option 3 : atlas parcel (Phase 2 — not yet implemented)
+# roi = efield.get_roi(atlas='harvard-oxford', region='Frontal Eye Fields')
+
+print(roi)                       # ROIResult(n_voxels=523, mean=0.2341)
+print(roi.stats())               # {'mean': ..., 'median': ..., 'std': ..., ...}
 
 
+# ── D — Post-process ─────────────────────────────────────────────────────
+
+cleaned = roi.postprocess(
+    smooth_fwhm=2.0,             # Gaussian smoothing in mm (None to skip)
+    outlier_method='iqr',        # 'iqr' or 'z'
+    portion=None,                # e.g. 0.95 to trim to central 95%
+)
+
+print(cleaned)                   # CleanedResult(n_kept=501, mean=0.2289)
+print(cleaned.stats())           # same keys as roi.stats()
+
+
+# ── E — Save ─────────────────────────────────────────────────────────────
+
+# Save stats to TSV
+roi.save('results/sub01_fef_roi', metrics=['mean', 'median', 'std'], format='tsv')
+
+# Save cleaned stats
+cleaned.save(
+    'results/sub01_fef_cleaned',
+    metrics=['mean', 'median', 'std', 'n_voxels'],
+    format='tsv',
+)
+
+# Save the cleaned NIfTI volume
+cleaned.save_nifti('results/sub01_fef_cleaned.nii.gz')
