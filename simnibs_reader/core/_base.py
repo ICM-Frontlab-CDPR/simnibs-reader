@@ -64,7 +64,7 @@ class SimNIBSResult:
     # Debug / exploration
     # ------------------------------------------------------------------
 
-    def tree(self, max_depth: int = 3, _prefix: str = "", _depth: int = 0) -> str:
+    def tree(self, max_depth: int = 3) -> str:
         """Return a pretty-printed directory tree (for debug / exploration).
 
         Parameters
@@ -72,41 +72,33 @@ class SimNIBSResult:
         max_depth : int
             Maximum recursion depth (default 3).
         """
-        lines: list[str] = []
-        if _depth == 0:
-            lines.append(str(self.path))
 
-        if _depth >= max_depth:
-            return "\n".join(lines)
+        def _walk(directory: Path, prefix: str, depth: int) -> list[str]:
+            if depth >= max_depth:
+                return []
+            try:
+                entries = sorted(directory.iterdir())
+            except PermissionError:
+                return []
 
-        try:
-            entries = sorted(self.path.iterdir()) if _depth == 0 else sorted(Path(_prefix).iterdir()) if _prefix else []
-        except PermissionError:
-            return "\n".join(lines)
+            dirs = [e for e in entries if e.is_dir() and not e.name.startswith(".")]
+            files = [e for e in entries if e.is_file() and not e.name.startswith(".")]
+            items = dirs + files
+            lines: list[str] = []
 
-        # For recursive calls we need the actual directory
-        target = self.path if _depth == 0 else Path(_prefix)
-        try:
-            entries = sorted(target.iterdir())
-        except PermissionError:
-            return "\n".join(lines)
+            for i, entry in enumerate(items):
+                is_last = i == len(items) - 1
+                connector = "└── " if is_last else "├── "
+                lines.append(f"{prefix}{connector}{entry.name}")
+                if entry.is_dir():
+                    extension = "    " if is_last else "│   "
+                    lines.extend(_walk(entry, prefix + extension, depth + 1))
 
-        dirs = [e for e in entries if e.is_dir() and not e.name.startswith(".")]
-        files = [e for e in entries if e.is_file() and not e.name.startswith(".")]
-        all_entries = dirs + files
+            return lines
 
-        for i, entry in enumerate(all_entries):
-            connector = "└── " if i == len(all_entries) - 1 else "├── "
-            indent = "│   " * _depth
-            lines.append(f"{indent}{connector}{entry.name}")
-            if entry.is_dir() and _depth < max_depth - 1:
-                subtree = self.tree(
-                    max_depth=max_depth, _prefix=str(entry), _depth=_depth + 1
-                )
-                if subtree:
-                    lines.append(subtree)
-
-        return "\n".join(lines)
+        header = [self.path.name]
+        header.extend(_walk(self.path, "", 0))
+        return "\n".join(header)
 
     def __repr__(self) -> str:
         return f"{type(self).__name__}('{self.path}')"
