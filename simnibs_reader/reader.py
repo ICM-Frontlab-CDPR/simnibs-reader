@@ -1,8 +1,8 @@
 from pathlib import Path
 from .loader import SimNIBSLoader
-from .mesh import MeshAccessor
+from .__later__._mesh import MeshAccessor
 from .fields import FieldExtractor
-from .roi import ROIExtractor
+from ._roi import ROIExtractor
 
 class SimNIBSReader:
     def __init__(self, sim_dir: str | Path):

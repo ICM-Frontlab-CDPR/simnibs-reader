@@ -3,9 +3,9 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "simnibs-analyze"
-version = "0.0.1"
-description = "Modular pipeline for brain stimulation modelling (tDCS/TMS) with SimNIBS"
+name = "simnibs-reader"
+version = "0.1.0"
+description = "Lightweight reader for SimNIBS output directories (segmentation, simulation, optimization)"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
@@ -15,11 +15,6 @@ dependencies = [
     "nilearn>=0.10",
     "numpy>=1.24",
     "pandas>=2.0",
-    "pydantic>=2.0",
-    "pyvista>=0.43",
-    "matplotlib>=3.7",
-    "pyyaml>=6.0",
-    "rich>=13.0",
 ]
 
 [project.optional-dependencies]
@@ -28,16 +23,13 @@ dev = [
     "pytest-cov",
     "ruff",
 ]
-citations = [
-    "duecredit>=0.9",
+opti = [
+    "h5py>=3.0",
 ]
-
-[project.scripts]
-simnibs-analyze = "simnibs_analyze.run:cli"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["simnibs_analyze*"]
+include = ["simnibs_reader*"]
 
 [tool.ruff]
 line-length = 100
