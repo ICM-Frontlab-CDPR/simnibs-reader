@@ -152,7 +152,7 @@ class Preprocessor:
             filtered[nonzero] = cleaned
 
         cleaned_img = masking.unmask(filtered, mask_img)
-        return CleanedResult(filtered, cleaned_img, source=roi_result)
+        return CleanedResult(filtered, cleaned_img, source=roi_result, masked_img=masked_img)
 
     # ------------------------------------------------------------------
     # Outlier removal (static, reusable)

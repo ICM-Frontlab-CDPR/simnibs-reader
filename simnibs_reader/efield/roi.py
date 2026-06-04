@@ -222,3 +222,57 @@ class ROIExtractor:
             f"Atlas-based ROI ({atlas}/{region}) is not implemented yet — "
             "coming in Phase 2.  Use mask= or coords= for now."
         )
+
+    @staticmethod
+    def build_extra_mask(
+        inner_mask_path: str | Path,
+        outer_mask_path: str | Path,
+    ) -> nib.Nifti1Image:
+        """Return the extra-ROI mask defined as outer minus inner mask.
+
+        Computes the voxels that belong to the outer mask (e.g. brain mask)
+        but *not* to the inner mask (e.g. lesion mask).  Useful for computing
+        intra/extra-ROI e-field ratios.
+
+        Parameters
+        ----------
+        inner_mask_path : str or Path
+            Path to the inner binary NIfTI mask (e.g. lesion).
+        outer_mask_path : str or Path
+            Path to the outer binary NIfTI mask (e.g. whole-brain mask).
+
+        Returns
+        -------
+        nib.Nifti1Image
+            Binary mask representing ``outer_mask - inner_mask``.
+        """
+        from nilearn.image import math_img
+
+        inner_mask_path = Path(inner_mask_path)
+        outer_mask_path = Path(outer_mask_path)
+
+        if not inner_mask_path.exists():
+            raise FileNotFoundError(
+                f"Inner ROI mask not found: {inner_mask_path}"
+            )
+        if not outer_mask_path.exists():
+            raise FileNotFoundError(
+                f"Outer ROI mask not found: {outer_mask_path}"
+            )
+
+        inner_img = nib.load(str(inner_mask_path))
+        outer_img = nib.load(str(outer_mask_path))
+
+        # Resample inner mask to outer mask space if grids differ
+        if inner_img.shape[:3] != outer_img.shape[:3] or not np.allclose(
+            inner_img.affine, outer_img.affine
+        ):
+            inner_img = image.resample_to_img(
+                inner_img, outer_img, interpolation="nearest"
+            )
+
+        return math_img(
+            "np.clip(outer - inner, 0, 1).astype(np.uint8)",
+            outer=outer_img,
+            inner=inner_img,
+        )

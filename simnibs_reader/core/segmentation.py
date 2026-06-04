@@ -3,7 +3,7 @@ segmentation.py
 ---------------
 Reader for a SimNIBS **head-model** folder (``m2m_<subID>``).
 
-Expected layout (see ``tree/tree-simnibs-charm.txt``)::
+Expected layout (see ``simnibs-tree/tree-simnibs-charm.txt``)::
 
     m2m_<subID>/
     ├── <subID>.msh

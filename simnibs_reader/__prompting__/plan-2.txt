@@ -1,0 +1,7 @@
+donne moi les autres methodes speciales principales a implementer dans un package python simnibs-reader (a part __repr__)
+
+
+---
+peux tu checker que les fonctions de
+@_1_preprocessing.py et @_2_features_extraction.py se retrouvent bien dune maniere ou dune autre dans :
+@accessor.py @postprocess.py et @roi.py

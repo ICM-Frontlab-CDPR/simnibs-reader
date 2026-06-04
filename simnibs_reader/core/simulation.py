@@ -3,7 +3,7 @@ simulation.py
 -------------
 Reader for a SimNIBS **simulation** output folder.
 
-Expected layout (see ``tree/tree-simnibs-simu.txt``)::
+Expected layout (see ``simnibs-tree/tree-simnibs-simu.txt``)::
 
     <simID>/
     ├── <simID>_scalar.msh
