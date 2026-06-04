@@ -16,3 +16,4 @@ outputs/
 *.continue*
 *prompts*
 *results*
+*nii.gz
