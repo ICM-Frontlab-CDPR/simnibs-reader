@@ -1,0 +1,69 @@
+site_name: simnibs-reader
+site_url: https://ICM-Frontlab-CDPR.github.io/simnibs-reader/
+site_description: Load and analyze SimNIBS e-field NIfTI outputs
+
+repo_url: https://github.com/ICM-Frontlab-CDPR/simnibs-reader
+repo_name: ICM-Frontlab-CDPR/simnibs-reader
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+            show_root_heading: true
+            heading_level: 2
+            members_order: source
+            docstring_style: numpy
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Tutorials: tutorials.md
+  - API Reference:
+      - Overview: api/index.md
+      - EFieldAccessor: api/accessor.md
+      - ROIResult: api/roi.md
+      - Postprocessing: api/postprocess.md
+      - Statistics: api/stats.md

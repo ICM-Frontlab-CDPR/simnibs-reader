@@ -23,6 +23,12 @@ dev = [
     "pytest-cov",
     "ruff",
 ]
+docs = [
+    "mkdocs-material",
+    "mkdocstrings[python]",
+    "mkdocs-jupyter",
+]
+
 opti = [
     "h5py>=3.0",
 ]
