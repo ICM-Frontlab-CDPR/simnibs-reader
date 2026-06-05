@@ -35,4 +35,22 @@ Simulate and evaluate SNR across stimulation configurations.
     pip install simnibs-reader jupyterlab nibabel nilearn
     jupyter lab
     ```
-```
+
+
+---
+---
+---
+
+## Folder Types
+
+| Folder             | Contents                                   |
+| ------------------ | ------------------------------------------ |
+| `m2m_<subject>/` | Head model, segmentation labels, MRI preps |
+| `simulation/`    | Per-condition e-field NIfTI outputs        |
+| `optimization/`  | Optimized field maps and electrode configs |
+
+> **Note — SimNIBS-BIDS structure** *(under consideration)*
+> A BIDS-inspired naming convention for multi-subject / multi-condition experiments
+> is being evaluated. The hierarchy `electrodes → currents → conductivities` follows
+> SimNIBS data structures and will be formalized in a future release.
+

@@ -1,40 +1,28 @@
--doit récupérer toute la logique d'input contenu dans io_pipeline de simnibs-analyze pour la réinjecter ensuite sous forme d'une dépdance propre.
-
-
 # simnibs-reader
 
-Python API for easy access of simnibs results with 3 level of organization.
+> Python API for structured access to SimNIBS segmentation/simulation/optimization results.
+>
+> `simnibs-reader` provides a clean Python interface to navigate and query SimNIBS outputs,
+> organized across three levels (folders, files, structures)
 
+[![PyPI version](https://badge.fury.io/py/simnibs-reader.svg)](https://pypi.org/project/simnibs-reader/)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://ICM-Frontlab-CDPR.github.io/simnibs-reader/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Simnibs-bids-structure :**
+📖 **Full documentation → [ICM-Frontlab-CDPR.github.io/simnibs-reader](https://ICM-Frontlab-CDPR.github.io/simnibs-reader/)**
 
-A standardization of the name of the simnibs folders (with bids logic) for multi-simulation/optimiation experiments... check if this is a commun use or not ? because it could lead to overuseof "simulation" rather than "optimization" expe... So what could be the real usecase of this ?
+---
 
-(TO DECIDE : hierarchy of simnibs simulation parameters : electrodes_currents_conductivities (see Simnibs Data Structures)
+## Ecosystem
 
+`simnibs-reader` consume inputs from:
 
-**Description of the files accessible in a folder of simnibs results:**
+* simnibs
+* [simnibs-modular](https://github.com/ICM-Frontlab-CDPR/simnibs-modular) (damaged-brain simnibs preparation)
 
-*Folder type : simulation folder / optimization folder /m2m folder*
+And `simnibs-reader` outputs are consumed by:
 
-- les resultats E-nifti en particulier
-- les surfaces ?
-- dans m2m... les fichiers de preparation de simulations (pour pouvoir spécialisé la simulation)
+* [simnibs-analyze](https://github.com/ICM-Frontlab-CDPR/simnibs-analyze) (basic statistical analysis - preparation for behavioral/clinical correlation)
+* opti-stroke (automated pipeline to optimize tES in clinical usages)
 
-**Description of the variables extractable , for each files :**
-
---> For each nifti file produced:
-
-1- ROI-based easy querying [IMPORTANT : Checker le tool qui permet de creer des ROIs aisement (en native comme en mni)]
-
-2- postprocessing filters (to check si ça doit rester dans analyze ou si c'est necessairement dans le reader !?)
-
-3- metrics extractions
-
-- efield-niftii specific : mean
-- label_preps specific : total amount of a specific label + width / length measure (check the nilearn tool for this)
-
---> other type of file ?
-
-
-This querying tool allows both "a la volée python traitement" ou des save propres de metrics utile pour des analyses futures.
+---
