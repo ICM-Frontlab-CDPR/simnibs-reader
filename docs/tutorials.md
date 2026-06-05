@@ -1,40 +1,38 @@
 # Tutorials
 
-Download the notebooks and run them with your own SimNIBS data.
-
-!!! tip "Before you start"
-    ``bash     pip install simnibs-reader jupyterlab     jupyter lab     ``
+Download the Jupyter notebooks and follow along with your own SimNIBS data.
 
 ---
 
-## :material-notebook: 1 — BIDS Integration
+## :material-notebook: Available Notebooks
 
-Load and analyze SimNIBS outputs organized in a BIDS dataset.
+### 1. BIDS Integration Tutorial
 
-Topics covered : BIDS folder structure · loading multiple subjects · ROI extraction per subject
+How to use `simnibs-reader` with BIDS-formatted datasets.
 
-[:material-download: simnibs-bids-tutorial.ipynb](example/simnibs-bids-tutorial.ipynb){ .md-button .md-button--primary download="simnibs-bids-tutorial.ipynb" }
-
----
-
-## :material-notebook: 2 — Optimization
-
-Find the optimal stimulation configuration by maximizing signal-to-noise ratio in a target ROI.
-
-Topics covered : ROI comparison · `postprocess()` · `stats()` · parameter sweep
-
-[:material-download: snr-optimization-tutorial.ipynb](example/snr-optimization-tutorial.ipynb){ .md-button .md-button--primary download="snr-optimization-tutorial.ipynb" }
+[:material-download: Download simnibs-bids-tutorial.ipynb](example/simnibs-bids-tutorial.ipynb){ .md-button .md-button--primary download }
 
 ---
 
-## :material-notebook: 3 — SNR Simulation
+### 2. SNR Optimization Tutorial
 
-Simulate and visualize SNR across stimulation configurations.
+Optimize signal-to-noise ratio in your e-field analysis pipeline.
 
-Topics covered : e-field visualization · outlier removal · NIfTI export
+[:material-download: Download snr-optimization-tutorial.ipynb](example/snr-optimization-tutorial.ipynb){ .md-button .md-button--primary download }
 
-[:material-download: snr-simulation-tutorial.ipynb](example/snr-simulation-tutorial.ipynb){ .md-button .md-button--primary download="snr-simulation-tutorial.ipynb" }
+---
 
-```
+### 3. SNR Simulation Tutorial
 
+Simulate and evaluate SNR across stimulation configurations.
+
+[:material-download: Download snr-simulation-tutorial.ipynb](example/snr-simulation-tutorial.ipynb){ .md-button .md-button--primary download }
+
+---
+
+!!! tip "Running the notebooks"
+    ```bash
+    pip install simnibs-reader jupyterlab nibabel nilearn
+    jupyter lab
+    ```
 ```
