@@ -15,7 +15,7 @@
 
 ## Ecosystem
 
-`simnibs-reader` consume inputs from:
+`simnibs-reader` consumes inputs from:
 
 * simnibs
 * [simnibs-modular](https://github.com/ICM-Frontlab-CDPR/simnibs-modular) (damaged-brain simnibs preparation)
