@@ -1,0 +1,14 @@
+from pydantic import BaseModel
+import json
+
+class SimConfig(BaseModel):
+    subject: str
+    current_mA: float
+    montage: str
+
+# depuis une string JSON
+data = json.loads('{"subject": "sub-0001", "current_mA": 1.0, "montage": "HDTDCS4x1"}')
+config = SimConfig(**data)
+
+# depuis un fichier JSON — méthode native Pydantic
+config = SimConfig.model_validate_json(open('config.json').read())

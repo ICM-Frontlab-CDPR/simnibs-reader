@@ -7,7 +7,7 @@ type: software
 authors:
   - family-names: Dreyfus
     given-names: Hippolyte
-    email: hippolytedreyfus@orange.fr
+    email: hippolytedreyfus@gmail.com
     affiliation: "ICM Frontlab, Institut du Cerveau (ICM), Paris"
   - family-names: Valero-Cabre
     given-names: Antoni
@@ -16,7 +16,7 @@ authors:
 license: MIT
 repository-code: https://github.com/ICM-Frontlab-CDPR/simnibs-analyze
 version: 3.0.0
-date-released: "2026-03-19"
+date-released: "2026-06-09"
 abstract: >-
   Modular pipeline for SimNIBS e-field analysis: NIfTI volume preprocessing,
   intra/extra-ROI feature extraction, inter/intra-subject analysis and
