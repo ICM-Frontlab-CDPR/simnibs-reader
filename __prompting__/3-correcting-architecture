@@ -1,0 +1,13 @@
+- [ ]  pas sur de bien comprendre la classe Processor ce qu’elle fout la ? toutes les methodes devraient aller dans ROIResults non ?
+- [ ]  et les classes de save aussi… pourquoi elles sont seuleemnt dans le cleand ? C’est une seule classe enfait qu’il faut ‘RoiResults’…
+
+
+---
+---
+bon alors apres reflexion, jep nese que larchitecture n'est pas la bonne : quelles seraient les raisons pour avoir autant de classe :
+
+ ...ok ca je comprends
+
+ ca aussi je comprends les 2 pourquoi pas... par contre dans la fonction 'postprocess' je crois que ca devient un peu nimporte quoi... toutes les methodes implementées dans  devraient faire partie de la classe de roi non ? La classe 'CleanedResults n'a pas de raison d'etre... ses methodes doivent etre deplaces vers RoiResults je pense. pareil pour la class Preprocessor... ce sont des methodes qui devriaent apartenir a RoiResults ?
+
+Dis moi ce que tu en penses 

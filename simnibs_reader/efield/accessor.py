@@ -65,7 +65,7 @@ class EFieldAccessor:
         coords: list[float] | None = None,
         radius: float = 10.0,
         atlas: str | None = None,
-        region: str | None = None,
+        region: str | list[str] | None = None,
     ) -> "ROIResult":  # noqa: F821 — forward ref resolved at runtime
         """Extract e-field values within a region of interest.
 
@@ -80,7 +80,7 @@ class EFieldAccessor:
         ROIResult
             Object holding the extracted 1-D values, the mask image,
             and convenience methods (``.stats()``, ``.postprocess()``,
-            ``.save()``).
+            ``.save()``, ``.save_nifti()``).
         """
         from .roi import ROIExtractor
 

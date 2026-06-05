@@ -14,16 +14,17 @@ Supports three methods for defining an ROI:
 from __future__ import annotations
 
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 
 import nibabel as nib
 import numpy as np
-from nilearn import masking, image
+from nilearn import image, masking
 from nilearn.image import new_img_like
 
 if TYPE_CHECKING:
     from .accessor import EFieldAccessor
 
+from ..io.nifti import load_nifti, resample_to_ref
 from .stats import compute_stats
 
 
@@ -35,14 +36,27 @@ from .stats import compute_stats
 class ROIResult:
     """E-field values extracted within a region of interest.
 
+    This is the main object returned by ``EFieldAccessor.get_roi(...)``.
+    It holds the extracted values and provides methods for statistics,
+    post-processing, and export.
+
+    Calling ``.postprocess()`` returns a **new** ``ROIResult`` with
+    cleaned values (the original is never mutated).
+
     Attributes
     ----------
     values : np.ndarray
-        1-D array of e-field values inside the ROI.
+        1-D array of e-field values inside the ROI (raw or cleaned).
     mask_img : nib.Nifti1Image
         Binary mask used for extraction.
+    masked_img : nib.Nifti1Image or None
+        Volumetric image before outlier removal (set by ``postprocess()``).
+    cleaned_img : nib.Nifti1Image or None
+        Volumetric image after outlier removal (set by ``postprocess()``).
     efield : EFieldAccessor
         Back-reference to the source e-field.
+    is_cleaned : bool
+        ``True`` if this result went through ``postprocess()``.
     """
 
     def __init__(
@@ -50,37 +64,89 @@ class ROIResult:
         values: np.ndarray,
         mask_img: nib.Nifti1Image,
         efield: "EFieldAccessor",
+        *,
+        masked_img: nib.Nifti1Image | None = None,
+        cleaned_img: nib.Nifti1Image | None = None,
+        is_cleaned: bool = False,
     ) -> None:
         self.values = values
         self.mask_img = mask_img
         self.efield = efield
+        self.masked_img = masked_img
+        self.cleaned_img = cleaned_img
+        self.is_cleaned = is_cleaned
 
-    # -- convenience shortcuts --------------------------------------------
+    # -- statistics -------------------------------------------------------
 
     def stats(self) -> dict[str, float | int]:
-        """Descriptive statistics on the extracted values."""
+        """Descriptive statistics on the extracted values (NaN-aware)."""
         return compute_stats(self.values)
+
+    # -- post-processing --------------------------------------------------
 
     def postprocess(
         self,
         smooth_fwhm: float | None = 2.0,
         outlier_method: str = "iqr",
         portion: float | None = None,
-    ) -> "CleanedResult":  # noqa: F821
+    ) -> "ROIResult":
         """Smooth and/or remove outliers.
+
+        Returns a **new** ``ROIResult`` with cleaned values — the original
+        instance is never mutated.
+
+        Parameters
+        ----------
+        smooth_fwhm : float or None
+            FWHM (mm) for Gaussian smoothing applied *before* masking.
+            ``None`` or ``0`` to skip.
+        outlier_method : {"iqr", "z"}
+            Outlier removal strategy.
+        portion : float or None
+            Central portion to keep (e.g. ``0.95``). ``None`` to skip.
 
         Returns
         -------
-        CleanedResult
-            Object with ``.values``, ``.stats()``, ``.save()``.
+        ROIResult
+            New instance with ``.is_cleaned = True``, ``.masked_img``,
+            and ``.cleaned_img`` populated.
         """
-        from .postprocess import Preprocessor
+        from .postprocess import remove_outliers
 
-        return Preprocessor(
-            smooth_fwhm=smooth_fwhm,
-            outlier_method=outlier_method,
-            portion=portion,
-        ).run(self)
+        efield_img = self.efield.img
+        mask_img = self.mask_img
+
+        # Optional smoothing (applied to the full volume before masking)
+        if smooth_fwhm and smooth_fwhm > 0:
+            efield_img = image.smooth_img(efield_img, fwhm=smooth_fwhm)
+
+        # Re-extract values after smoothing
+        roi_values = masking.apply_mask(efield_img, mask_img).astype(np.float64)
+        masked_img = masking.unmask(roi_values, mask_img)
+
+        # Outlier removal (only on non-zero voxels to avoid background bias)
+        filtered = roi_values.copy()
+        nonzero = roi_values > 0
+        if nonzero.any():
+            cleaned_nonzero, _ = remove_outliers(
+                roi_values[nonzero],
+                method=outlier_method,
+                portion=portion,
+            )
+            filtered[nonzero] = cleaned_nonzero
+
+        cleaned_img = masking.unmask(filtered, mask_img)
+
+        return ROIResult(
+            values=filtered,
+            mask_img=mask_img,
+            efield=self.efield,
+            masked_img=masked_img,
+            cleaned_img=cleaned_img,
+            is_cleaned=True,
+        )
+
+    # -- export -----------------------------------------------------------
 
     def save(
         self,
@@ -103,13 +169,37 @@ class ROIResult:
 
         return save_results(self.stats(), path, metrics=metrics, format=format)
 
+    def save_nifti(self, path: str | Path) -> Path:
+        """Write the volumetric result to a NIfTI file.
+
+        Saves ``cleaned_img`` if post-processed, otherwise ``masked_img``.
+
+        Raises
+        ------
+        ValueError
+            If neither image is available (raw extraction without
+            ``postprocess()``).
+        """
+        from ..io.nifti import save_nifti
+
+        img = self.cleaned_img or self.masked_img
+        if img is None:
+            raise ValueError(
+                "No volumetric image to save. Call .postprocess() first, "
+                "or use .save() to export stats only."
+            )
+        return save_nifti(img, path)
+
+    # -- properties -------------------------------------------------------
+
     @property
     def n_voxels(self) -> int:
         return int(self.values.size)
 
     def __repr__(self) -> str:
+        tag = "cleaned" if self.is_cleaned else "raw"
         return (
-            f"ROIResult(n_voxels={self.n_voxels}, "
+            f"ROIResult({tag}, n_voxels={self.n_voxels}, "
             f"mean={np.nanmean(self.values):.4f})"
         )
 
@@ -139,7 +229,7 @@ class ROIExtractor:
         coords: list[float] | None = None,
         radius: float = 10.0,
         atlas: str | None = None,
-        region: str | None = None,
+        region: str | list[str] | None = None,
     ) -> ROIResult:
         """Create or load a mask, apply it, return an ``ROIResult``.
 
@@ -157,12 +247,7 @@ class ROIExtractor:
             )
 
         # Resample mask to e-field grid if needed
-        if mask_img.shape[:3] != self._efield.shape[:3] or not np.allclose(
-            mask_img.affine, self._efield.affine
-        ):
-            mask_img = image.resample_to_img(
-                mask_img, self._efield.img, interpolation="nearest"
-            )
+        mask_img = resample_to_ref(mask_img, self._efield.img, interpolation="nearest")
 
         values = masking.apply_mask(self._efield.img, mask_img)
         return ROIResult(values, mask_img, self._efield)
@@ -174,10 +259,8 @@ class ROIExtractor:
     @staticmethod
     def _from_mask(mask_path: str | Path) -> nib.Nifti1Image:
         """Load an existing binary NIfTI mask."""
-        mask_path = Path(mask_path)
-        if not mask_path.exists():
-            raise FileNotFoundError(f"ROI mask not found: {mask_path}")
-        return nib.load(str(mask_path))
+        _, img = load_nifti(mask_path)
+        return img
 
     def _from_sphere(
         self, coords: list[float], radius_mm: float
@@ -213,15 +296,91 @@ class ROIExtractor:
         return new_img_like(ref_img, data, affine=affine)
 
     @staticmethod
-    def _from_atlas(atlas: str, region: str) -> nib.Nifti1Image:
-        """Build a mask from an atlas parcel (Phase 2).
+    def _from_atlas(
+        atlas: str,
+        region: str | List[str],
+    ) -> nib.Nifti1Image:
+        """Build a binary mask from one or more atlas parcels.
 
-        Will support ``'harvard-oxford'``, ``'aal'``, ``'destrieux'``.
+        The mask is returned in the native atlas space; ``extract()`` then
+        resamples it to the e-field grid via ``resample_to_ref``.
+
+        Parameters
+        ----------
+        atlas : str
+            One of ``'harvard-oxford'``, ``'aal'``, ``'destrieux'``.
+        region : str or list of str
+            One or more parcel labels whose union forms the mask.
+
+        Returns
+        -------
+        nib.Nifti1Image
+            Binary mask in atlas voxel space.
         """
-        raise NotImplementedError(
-            f"Atlas-based ROI ({atlas}/{region}) is not implemented yet — "
-            "coming in Phase 2.  Use mask= or coords= for now."
+        import urllib3
+        from requests.adapters import HTTPAdapter
+        from nilearn import datasets as nl_datasets
+
+        if isinstance(region, str):
+            region = [region]
+
+        _FETCHERS = {
+            "harvard-oxford": lambda: nl_datasets.fetch_atlas_harvard_oxford(
+                "cort-maxprob-thr25-1mm"
+            ),
+            "aal": lambda: nl_datasets.fetch_atlas_aal(),
+            "destrieux": lambda: nl_datasets.fetch_atlas_destrieux_2009(),
+        }
+        if atlas not in _FETCHERS:
+            raise ValueError(
+                f"Atlas '{atlas}' not supported. "
+                f"Available: {list(_FETCHERS)}"
+            )
+
+        # Disable SSL verification for atlas downloads (macOS cert issue)
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        _orig_send = HTTPAdapter.send
+        HTTPAdapter.send = lambda self, *a, **kw: _orig_send(
+            self, *a, **{**kw, "verify": False}
         )
+        try:
+            atlas_data = _FETCHERS[atlas]()
+        finally:
+            HTTPAdapter.send = _orig_send
+
+        # Load atlas image
+        maps = atlas_data.maps
+        atlas_img = maps if isinstance(maps, nib.Nifti1Image) else nib.load(maps)
+        atlas_array = atlas_img.get_fdata()
+        raw_labels = list(atlas_data.labels)
+
+        # AAL provides a separate `indices` list; other atlases use positional indices
+        if hasattr(atlas_data, "indices"):
+            label_map: dict[str, int] = {
+                str(name): int(idx)
+                for name, idx in zip(raw_labels, atlas_data.indices)
+            }
+        else:
+            label_map = {str(name): i for i, name in enumerate(raw_labels)}
+
+        mask_data = np.zeros(atlas_array.shape[:3], dtype=np.uint8)
+        for region_name in region:
+            if region_name not in label_map:
+                # Case-insensitive fallback
+                matches = [
+                    k for k in label_map if k.lower() == region_name.lower()
+                ]
+                if not matches:
+                    raise ValueError(
+                        f"Region '{region_name}' not found in atlas '{atlas}'. "
+                        f"First available labels: {list(label_map)[:10]}"
+                    )
+                region_name = matches[0]
+            mask_data[
+                np.round(atlas_array).astype(int) == label_map[region_name]
+            ] = 1
+
+        return nib.Nifti1Image(mask_data, atlas_img.affine)
 
     @staticmethod
     def build_extra_mask(
@@ -260,16 +419,11 @@ class ROIExtractor:
                 f"Outer ROI mask not found: {outer_mask_path}"
             )
 
-        inner_img = nib.load(str(inner_mask_path))
-        outer_img = nib.load(str(outer_mask_path))
+        _, inner_img = load_nifti(inner_mask_path)
+        _, outer_img = load_nifti(outer_mask_path)
 
         # Resample inner mask to outer mask space if grids differ
-        if inner_img.shape[:3] != outer_img.shape[:3] or not np.allclose(
-            inner_img.affine, outer_img.affine
-        ):
-            inner_img = image.resample_to_img(
-                inner_img, outer_img, interpolation="nearest"
-            )
+        inner_img = resample_to_ref(inner_img, outer_img, interpolation="nearest")
 
         return math_img(
             "np.clip(outer - inner, 0, 1).astype(np.uint8)",

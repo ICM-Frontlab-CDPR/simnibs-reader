@@ -2,14 +2,13 @@
 
 from .accessor import EFieldAccessor
 from .roi import ROIExtractor, ROIResult
-from .postprocess import Preprocessor, CleanedResult
+from .postprocess import remove_outliers
 from .stats import compute_stats
 
 __all__ = [
     "EFieldAccessor",
     "ROIExtractor",
     "ROIResult",
-    "Preprocessor",
-    "CleanedResult",
+    "remove_outliers",
     "compute_stats",
 ]
