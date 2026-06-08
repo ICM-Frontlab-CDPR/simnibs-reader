@@ -35,28 +35,7 @@ from .stats import compute_stats
 
 class ROIResult:
     """E-field values extracted within a region of interest.
-
-    This is the main object returned by ``EFieldAccessor.get_roi(...)``.
-    It holds the extracted values and provides methods for statistics,
-    post-processing, and export.
-
-    Calling ``.postprocess()`` returns a **new** ``ROIResult`` with
-    cleaned values (the original is never mutated).
-
-    Attributes
-    ----------
-    values : np.ndarray
-        1-D array of e-field values inside the ROI (raw or cleaned).
-    mask_img : nib.Nifti1Image
-        Binary mask used for extraction.
-    masked_img : nib.Nifti1Image or None
-        Volumetric image before outlier removal (set by ``postprocess()``).
-    cleaned_img : nib.Nifti1Image or None
-        Volumetric image after outlier removal (set by ``postprocess()``).
-    efield : EFieldAccessor
-        Back-reference to the source e-field.
-    is_cleaned : bool
-        ``True`` if this result went through ``postprocess()``.
+    ...
     """
 
     def __init__(
@@ -69,20 +48,91 @@ class ROIResult:
         cleaned_img: nib.Nifti1Image | None = None,
         is_cleaned: bool = False,
     ) -> None:
-        self.values = values
-        self.mask_img = mask_img
-        self.efield = efield
+        self.values     = values
+        self.mask_img   = mask_img
+        self.efield     = efield
         self.masked_img = masked_img
         self.cleaned_img = cleaned_img
         self.is_cleaned = is_cleaned
+
+    # -- dunders ----------------------------------------------------------
+
+    def __repr__(self) -> str:
+        status = "cleaned" if self.is_cleaned else "raw"
+        return f"ROIResult(n_voxels={self.n_voxels}, status={status})"
+
+    def __len__(self):
+        return self.n_voxels
+
+    def __array__(self, dtype=None):
+        return self.values.astype(dtype) if dtype else self.values
+
+    def __bool__(self):
+        return self.n_voxels > 0
+
+    def __eq__(self, other):
+        return np.array_equal(self.values, other.values)
+
+    def __add__(self, other):
+        return np.concatenate([self.values, other.values])
+
+    # -- properties -------------------------------------------------------
+
+    @property
+    def n_voxels(self) -> int:
+        return int(self.values.size)
+
+    @property
+    def volume_mm3(self) -> float:
+        """Volume of the ROI mask in mm³."""
+        voxel_vol = float(np.prod(self.mask_img.header.get_zooms()[:3]))
+        return float(self.mask_img.get_fdata().sum() * voxel_vol)
 
     # -- statistics -------------------------------------------------------
 
     def stats(self) -> dict[str, float | int]:
         """Descriptive statistics on the extracted values (NaN-aware)."""
-        return compute_stats(self.values)
+        return {
+            **compute_stats(self.values),
+            "volume_mm3": self.volume_mm3,
+            "n_voxels":   self.n_voxels,
+        }
 
-    # -- post-processing --------------------------------------------------
+    # -- post-processing (private helpers) --------------------------------
+
+    def _smooth(self, fwhm: float) -> nib.Nifti1Image:
+        """Return a smoothed copy of the source e-field image."""
+        return image.smooth_img(self.efield.img, fwhm=fwhm)
+
+    def _extract(self, efield_img: nib.Nifti1Image) -> tuple[np.ndarray, nib.Nifti1Image]:
+        """Mask an e-field image → (1-D values, volumetric masked image)."""
+        values     = masking.apply_mask(efield_img, self.mask_img).astype(np.float64)
+        masked_img = masking.unmask(values, self.mask_img)
+        return values, masked_img
+
+    def _clean(
+        self,
+        values: np.ndarray,
+        method: str,
+        portion: float | None,
+    ) -> tuple[np.ndarray, nib.Nifti1Image]:
+        """Remove outliers on non-zero voxels → (filtered values, cleaned image)."""
+        from .postprocess import remove_outliers
+
+        filtered = values.copy()
+        nonzero  = values > 0
+        if nonzero.any():
+            cleaned_nonzero, _ = remove_outliers(
+                values[nonzero],
+                method=method,
+                portion=portion,
+            )
+            filtered[nonzero] = cleaned_nonzero
+
+        cleaned_img = masking.unmask(filtered, self.mask_img)
+        return filtered, cleaned_img
+
+    # -- post-processing (public) -----------------------------------------
 
     def postprocess(
         self,
@@ -92,54 +142,28 @@ class ROIResult:
     ) -> "ROIResult":
         """Smooth and/or remove outliers.
 
-        Returns a **new** ``ROIResult`` with cleaned values — the original
-        instance is never mutated.
+        Returns a **new** ``ROIResult`` — the original is never mutated.
 
         Parameters
         ----------
         smooth_fwhm : float or None
-            FWHM (mm) for Gaussian smoothing applied *before* masking.
-            ``None`` or ``0`` to skip.
+            FWHM (mm) for Gaussian smoothing before masking. ``None`` to skip.
         outlier_method : {"iqr", "z"}
             Outlier removal strategy.
         portion : float or None
             Central portion to keep (e.g. ``0.95``). ``None`` to skip.
-
-        Returns
-        -------
-        ROIResult
-            New instance with ``.is_cleaned = True``, ``.masked_img``,
-            and ``.cleaned_img`` populated.
         """
-        from .postprocess import remove_outliers
-
-        efield_img = self.efield.img
-        mask_img = self.mask_img
-
-        # Optional smoothing (applied to the full volume before masking)
-        if smooth_fwhm and smooth_fwhm > 0:
-            efield_img = image.smooth_img(efield_img, fwhm=smooth_fwhm)
-
-        # Re-extract values after smoothing
-        roi_values = masking.apply_mask(efield_img, mask_img).astype(np.float64)
-        masked_img = masking.unmask(roi_values, mask_img)
-
-        # Outlier removal (only on non-zero voxels to avoid background bias)
-        filtered = roi_values.copy()
-        nonzero = roi_values > 0
-        if nonzero.any():
-            cleaned_nonzero, _ = remove_outliers(
-                roi_values[nonzero],
-                method=outlier_method,
-                portion=portion,
-            )
-            filtered[nonzero] = cleaned_nonzero
-
-        cleaned_img = masking.unmask(filtered, mask_img)
+        efield_img = (
+            self._smooth(smooth_fwhm)
+            if smooth_fwhm and smooth_fwhm > 0
+            else self.efield.img
+        )
+        values, masked_img      = self._extract(efield_img)
+        filtered, cleaned_img   = self._clean(values, outlier_method, portion)
 
         return ROIResult(
             values=filtered,
-            mask_img=mask_img,
+            mask_img=self.mask_img,
             efield=self.efield,
             masked_img=masked_img,
             cleaned_img=cleaned_img,
@@ -154,34 +178,13 @@ class ROIResult:
         metrics: list[str] | None = None,
         format: str = "tsv",
     ) -> Path:
-        """Export statistics to disk.
-
-        Parameters
-        ----------
-        path : str or Path
-            Output file path (extension is added automatically if missing).
-        metrics : list of str, optional
-            Subset of stat keys to export (default: all).
-        format : {"tsv", "csv"}
-            Delimiter format.
-        """
+        """Export statistics to disk (tsv or csv)."""
         from ..io.export import save_results
-
         return save_results(self.stats(), path, metrics=metrics, format=format)
 
     def save_nifti(self, path: str | Path) -> Path:
-        """Write the volumetric result to a NIfTI file.
-
-        Saves ``cleaned_img`` if post-processed, otherwise ``masked_img``.
-
-        Raises
-        ------
-        ValueError
-            If neither image is available (raw extraction without
-            ``postprocess()``).
-        """
+        """Write ``cleaned_img`` (or ``masked_img``) to a NIfTI file."""
         from ..io.nifti import save_nifti
-
         img = self.cleaned_img or self.masked_img
         if img is None:
             raise ValueError(
@@ -189,20 +192,6 @@ class ROIResult:
                 "or use .save() to export stats only."
             )
         return save_nifti(img, path)
-
-    # -- properties -------------------------------------------------------
-
-    @property
-    def n_voxels(self) -> int:
-        return int(self.values.size)
-
-    def __repr__(self) -> str:
-        tag = "cleaned" if self.is_cleaned else "raw"
-        return (
-            f"ROIResult({tag}, n_voxels={self.n_voxels}, "
-            f"mean={np.nanmean(self.values):.4f})"
-        )
-
 
 # ─────────────────────────────────────────────────────────────────────────
 # ROIExtractor — builds the mask then extracts values
