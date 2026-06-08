@@ -27,6 +27,7 @@ from pathlib import Path
 
 from ._base import SimNIBSResult
 from ..efield.accessor import EFieldAccessor
+from .segmentation import SegmentationResult
 
 
 class SimulationResult(SimNIBSResult):
@@ -34,9 +35,31 @@ class SimulationResult(SimNIBSResult):
 
     _kind = "Simulation folder"
 
+    def __init__(self, path: str | Path) -> None:
+        self.segmentation: SegmentationResult | None = None
+        super().__init__(path)
+
     # ------------------------------------------------------------------
-    # Validation
+    # Segmentation back-reference
     # ------------------------------------------------------------------
+
+    def set_segmentation(self, seg: SegmentationResult) -> None:
+        """Attach a :class:`SegmentationResult` to this simulation.
+
+        Once set, downstream methods such as
+        :meth:`~simnibs_reader.efield.roi.ROIResult.filter_tissue` can
+        resolve tissue labels automatically without explicit arguments.
+
+        Parameters
+        ----------
+        seg : SegmentationResult
+            The head-model (``m2m_*``) associated with this simulation.
+        """
+        self.segmentation: SegmentationResult | None = seg
+        # Invalidate cached accessors so they are rebuilt with simulation=self
+        for attr in ("magnE", "magnJ", "E", "J",
+                     "magnE_native", "magnJ_native", "E_native", "J_native"):
+            self.__dict__.pop(attr, None)
 
     def _validate(self) -> None:
         has_mni = bool(self._find("mni_volumes/*.nii.gz"))
@@ -71,22 +94,34 @@ class SimulationResult(SimNIBSResult):
     @cached_property
     def magnE(self) -> EFieldAccessor:
         """E-field magnitude in MNI space (``*_MNI_magnE.nii.gz``)."""
-        return EFieldAccessor(self._find_one("mni_volumes/*_MNI_magnE.nii.gz"))
+        return EFieldAccessor(
+            self._find_one("mni_volumes/*_MNI_magnE.nii.gz"),
+            simulation=self,
+        )
 
     @cached_property
     def magnJ(self) -> EFieldAccessor:
         """Current-density magnitude in MNI space (``*_MNI_magnJ.nii.gz``)."""
-        return EFieldAccessor(self._find_one("mni_volumes/*_MNI_magnJ.nii.gz"))
+        return EFieldAccessor(
+            self._find_one("mni_volumes/*_MNI_magnJ.nii.gz"),
+            simulation=self,
+        )
 
     @cached_property
     def E(self) -> EFieldAccessor:
         """E-field vector in MNI space (``*_MNI_E.nii.gz``)."""
-        return EFieldAccessor(self._find_one("mni_volumes/*_MNI_E.nii.gz"))
+        return EFieldAccessor(
+            self._find_one("mni_volumes/*_MNI_E.nii.gz"),
+            simulation=self,
+        )
 
     @cached_property
     def J(self) -> EFieldAccessor:
         """Current-density vector in MNI space (``*_MNI_J.nii.gz``)."""
-        return EFieldAccessor(self._find_one("mni_volumes/*_MNI_J.nii.gz"))
+        return EFieldAccessor(
+            self._find_one("mni_volumes/*_MNI_J.nii.gz"),
+            simulation=self,
+        )
 
     # ------------------------------------------------------------------
     # E-field accessors  (native / subject space)
@@ -95,22 +130,34 @@ class SimulationResult(SimNIBSResult):
     @cached_property
     def magnE_native(self) -> EFieldAccessor:
         """E-field magnitude in subject space (``*_magnE.nii.gz``)."""
-        return EFieldAccessor(self._find_one("subject_volumes/*_magnE.nii.gz"))
+        return EFieldAccessor(
+            self._find_one("subject_volumes/*_magnE.nii.gz"),
+            simulation=self,
+        )
 
     @cached_property
     def magnJ_native(self) -> EFieldAccessor:
         """Current-density magnitude in subject space."""
-        return EFieldAccessor(self._find_one("subject_volumes/*_magnJ.nii.gz"))
+        return EFieldAccessor(
+            self._find_one("subject_volumes/*_magnJ.nii.gz"),
+            simulation=self,
+        )
 
     @cached_property
     def E_native(self) -> EFieldAccessor:
         """E-field vector in subject space."""
-        return EFieldAccessor(self._find_one("subject_volumes/*_E.nii.gz"))
+        return EFieldAccessor(
+            self._find_one("subject_volumes/*_E.nii.gz"),
+            simulation=self,
+        )
 
     @cached_property
     def J_native(self) -> EFieldAccessor:
         """Current-density vector in subject space."""
-        return EFieldAccessor(self._find_one("subject_volumes/*_J.nii.gz"))
+        return EFieldAccessor(
+            self._find_one("subject_volumes/*_J.nii.gz"),
+            simulation=self,
+        )
 
     # ------------------------------------------------------------------
     # Metadata & discovery

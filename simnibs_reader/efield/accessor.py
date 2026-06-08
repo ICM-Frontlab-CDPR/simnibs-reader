@@ -12,9 +12,13 @@ from __future__ import annotations
 
 from functools import cached_property
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import nibabel as nib
 import numpy as np
+
+if TYPE_CHECKING:
+    from ..core.simulation import SimulationResult
 
 
 class EFieldAccessor:
@@ -26,8 +30,13 @@ class EFieldAccessor:
         Path to the ``.nii.gz`` file.
     """
 
-    def __init__(self, path: str | Path) -> None:
+    def __init__(
+        self,
+        path: str | Path,
+        simulation: "SimulationResult | None" = None,
+    ) -> None:
         self.path = Path(path)
+        self.simulation = simulation
         if not self.path.exists():
             raise FileNotFoundError(f"NIfTI file not found: {self.path}")
 
@@ -94,3 +103,6 @@ class EFieldAccessor:
 
     def __repr__(self) -> str:
         return f"EFieldAccessor('{self.path.name}')"
+
+
+### class other type of file accessors ?

@@ -25,6 +25,7 @@ if TYPE_CHECKING:
     from .accessor import EFieldAccessor
 
 from ..io.nifti import load_nifti, resample_to_ref
+from .labels import parse_lut, resolve_tissue_value, _SIMNIBS_LUT
 from .stats import compute_stats
 
 
@@ -97,6 +98,106 @@ class ROIResult:
             "volume_mm3": self.volume_mm3,
             "n_voxels":   self.n_voxels,
         }
+    
+    # -- tissue filtering -------------------------------------------------
+
+    def filter_tissue(
+        self,
+        tissue: str,
+        label_img: str | Path | None = None,
+        lut: str | Path | None = None,
+    ) -> "ROIResult":
+        """Restrict the ROI to a specific tissue type.
+
+        Returns a **new** ``ROIResult`` — the original is never mutated.
+
+        ``label_img`` can be omitted when a
+        :class:`~simnibs_reader.core.segmentation.SegmentationResult` has been
+        attached to the parent simulation via
+        :meth:`~simnibs_reader.core.simulation.SimulationResult.set_segmentation`;
+        the path is then resolved automatically from
+        ``simulation.segmentation.tissue_labeling_upsampled``.
+
+        Parameters
+        ----------
+        tissue : str
+            Tissue name (e.g. ``"Gray-Matter"``, ``"White-Matter"``).
+            Case-insensitive.
+        label_img : str, Path, or None
+            Path to the SimNIBS tissue labeling NIfTI.  When ``None``, the
+            path is resolved automatically from the attached segmentation.
+        lut : str, Path, or None
+            Path to ``*_LUT.txt``. If omitted, the standard SimNIBS
+            mapping is used.
+
+        Raises
+        ------
+        ValueError
+            If *label_img* is ``None`` and no segmentation is attached to the
+            parent simulation.
+        """
+        resolved_label_img = self._resolve_label_img(label_img)
+        tissue_mask = self._build_tissue_mask(resolved_label_img, tissue, lut)
+        new_mask = self._intersect_masks(self.mask_img, tissue_mask)
+
+        values = masking.apply_mask(self.efield.img, new_mask)
+
+        return ROIResult(
+            values=values,
+            mask_img=new_mask,
+            efield=self.efield,
+        )
+
+    def _resolve_label_img(self, label_img: str | Path | None) -> Path:
+        """Return a concrete path to the tissue labeling NIfTI.
+
+        Priority:
+        1. Explicit *label_img* argument.
+        2. ``self.efield.simulation.segmentation.tissue_labeling_upsampled``.
+        """
+        if label_img is not None:
+            return Path(label_img)
+
+        sim = getattr(self.efield, "simulation", None)
+        seg = getattr(sim, "segmentation", None) if sim is not None else None
+        if seg is not None:
+            return seg.tissue_labeling_upsampled
+
+        raise ValueError(
+            "label_img is required when no SegmentationResult is attached.\n"
+            "Either pass label_img= explicitly, or call "
+            "sim.set_segmentation(seg) beforehand."
+        )
+
+    def _build_tissue_mask(
+        self,
+        label_img_path: str | Path,
+        tissue: str,
+        lut_path: str | Path | None,
+    ) -> nib.Nifti1Image:
+        """Build a binary mask for a single tissue type."""
+        label_nii   = nib.load(str(label_img_path))
+        label_array = np.round(label_nii.get_fdata()).astype(int)
+
+        effective_lut = parse_lut(lut_path) if lut_path else _SIMNIBS_LUT
+        tissue_val = resolve_tissue_value(tissue, effective_lut)
+
+        data = (label_array == tissue_val).astype(np.uint8)
+        return nib.Nifti1Image(data, label_nii.affine)
+
+    @staticmethod
+    def _intersect_masks(
+        mask_a: nib.Nifti1Image,
+        mask_b: nib.Nifti1Image,
+    ) -> nib.Nifti1Image:
+        """Binary intersection of two masks (resampled to same grid)."""
+        mask_b = resample_to_ref(mask_b, mask_a, interpolation="nearest")
+        combined = (
+            mask_a.get_fdata().astype(bool)
+            & mask_b.get_fdata().astype(bool)
+        ).astype(np.uint8)
+        return nib.Nifti1Image(combined, mask_a.affine)
+
 
     # -- post-processing (private helpers) --------------------------------
 
