@@ -13,7 +13,7 @@ snr.simulation("path/")
         │
         │  results.magnE   (cached_property)
         ▼
- EFieldAccessor            ← efield/accessor.py
+ EField            ← efield/accessor.py
  (wrapper lazy NIfTI)
         │
         │  .get_roi(mask=, coords=, radius=)
@@ -23,7 +23,7 @@ snr.simulation("path/")
         │
         │  .extract()
         ▼
- ROIResult                 ← efield/roi.py
+ ROI                 ← efield/roi.py
  (values 1D + mask_img)
         │
         │  .postprocess(smooth_fwhm=, outlier_method=)
@@ -46,7 +46,7 @@ snr.simulation("path/")
 **`core/`** — *"où sont mes fichiers ?"*
 
 - Connaît la structure des dossiers SimNIBS sur le disque
-- Expose des `cached_property` qui retournent des `EFieldAccessor` (jamais des arrays)
+- Expose des `cached_property` qui retournent des `EField` (jamais des arrays)
 - Ne fait aucun calcul, ne charge aucune donnée NIfTI
 
 **`efield/`** — *"que contiennent mes fichiers ?"*
@@ -66,10 +66,10 @@ snr.simulation("path/")
 ### Le principe clé : **chaque objet tient une référence à son parent**
 
 ```python
-CleanedResult.source      # → ROIResult
-ROIResult.efield          # → EFieldAccessor
-ROIResult.mask_img        # → nib.Nifti1Image (le masque utilisé)
-EFieldAccessor.path       # → Path (le fichier sur le disque)
+CleanedResult.source      # → ROI
+ROI.efield          # → EField
+ROI.mask_img        # → nib.Nifti1Image (le masque utilisé)
+EField.path       # → Path (le fichier sur le disque)
 ```
 
 Ce qui permet à `Preprocessor.run()` de remonter jusqu'à l'image originale (`roi_result.efield.img`) pour appliquer le smoothing *avant* le masking, sans que l'utilisateur ait à repasser les arguments.

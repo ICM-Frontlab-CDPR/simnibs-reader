@@ -1,14 +1,14 @@
 """E-field loading, ROI extraction, post-processing, and statistics."""
 
-from .accessor import EFieldAccessor
-from .roi import ROIExtractor, ROIResult
+from .accessor import EField
+from .roi import ROIExtractor, ROI
 from .postprocess import remove_outliers
 from .stats import compute_stats
 
 __all__ = [
-    "EFieldAccessor",
+    "EField",
     "ROIExtractor",
-    "ROIResult",
+    "ROI",
     "remove_outliers",
     "compute_stats",
 ]

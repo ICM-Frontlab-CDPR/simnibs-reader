@@ -1,3 +1,3 @@
-# EFieldAccessor
+# EField
 
-::: simnibs_reader.efield.accessor.EFieldAccessor
+::: simnibs_reader.efield.accessor.EField

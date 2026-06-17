@@ -22,7 +22,7 @@ from functools import cached_property
 from pathlib import Path
 
 from ._base import SimNIBSResult
-from ..efield.accessor import EFieldAccessor
+from ..efield.accessor import EField
 
 
 class OptimizationResult(SimNIBSResult):
@@ -93,14 +93,14 @@ class OptimizationResult(SimNIBSResult):
         return results[0]
 
     @cached_property
-    def magnE(self) -> EFieldAccessor:
+    def magnE(self) -> EField:
         """E-field magnitude from optimal montage (MNI space)."""
-        return EFieldAccessor(self._find_opt("mni_volumes/*_MNI_magnE.nii.gz"))
+        return EField(self._find_opt("mni_volumes/*_MNI_magnE.nii.gz"))
 
     @cached_property
-    def magnE_native(self) -> EFieldAccessor:
+    def magnE_native(self) -> EField:
         """E-field magnitude from optimal montage (subject space)."""
-        return EFieldAccessor(self._find_opt("subject_volumes/*_magnE.nii.gz"))
+        return EField(self._find_opt("subject_volumes/*_magnE.nii.gz"))
 
     @cached_property
     def available_fields(self) -> dict[str, list[Path]]:

@@ -82,9 +82,9 @@ def resample_to_ref(
     >>> sim   = snr.simulation('simu/')
     >>> seg   = snr.segmentation('m2m_sub01/')
     >>> # align an e-field map coming from a different grid onto the T1 grid
-    >>> efield_aligned = resample_to_ref(sim.magnE_native.img, seg.t1)
+    >>> efield_aligned = resample_to_ref(sim.magnE_native, seg.t1)
     >>> # align a binary mask onto the e-field grid
-    >>> mask_aligned = resample_to_ref('M1_lh_fs.nii.gz', sim.magnE_native.img,
+    >>> mask_aligned = resample_to_ref('M1_lh_fs.nii.gz', sim.magnE_native,
     ...                                interpolation='nearest')
     """
     from nilearn import image as nil_image

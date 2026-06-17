@@ -31,7 +31,7 @@ efield = results.magnE           # MNI space  (*_MNI_magnE.nii.gz)
 efield = results.magnE_native    # subject space (*_magnE.nii.gz)
 efield = results.magnJ           # current density magnitude (MNI)
 
-print(efield)                    # EFieldAccessor('..._MNI_magnE.nii.gz')
+print(efield)                    # EField('..._MNI_magnE.nii.gz')
 print(efield.shape)              # (182, 218, 182)
 print(efield.affine)             # 4x4 affine matrix
 data = efield.data               # np.ndarray float32 — loaded here
@@ -48,7 +48,7 @@ roi = efield.get_roi(coords=[28, -8, 54], radius=10.0)
 # Option 3 : atlas parcel (Phase 2 — not yet implemented)
 # roi = efield.get_roi(atlas='harvard-oxford', region='Frontal Eye Fields')
 
-print(roi)                       # ROIResult(n_voxels=523, mean=0.2341)
+print(roi)                       # ROI(n_voxels=523, mean=0.2341)
 print(roi.stats())               # {'mean': ..., 'median': ..., 'std': ..., ...}
 
 

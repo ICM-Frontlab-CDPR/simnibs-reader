@@ -4,8 +4,8 @@
 
 | Class | Description |
 |---|---|
-| [`EFieldAccessor`](accessor.md) | Load and navigate SimNIBS e-field volumes |
-| [`ROIResult`](roi.md) | ROI extraction, cleaning, stats, export |
+| [`EField`](accessor.md) | Load and navigate SimNIBS e-field volumes |
+| [`ROI`](roi.md) | ROI extraction, cleaning, stats, export |
 
 ## Functions
 

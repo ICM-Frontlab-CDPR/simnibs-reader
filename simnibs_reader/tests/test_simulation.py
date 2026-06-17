@@ -8,7 +8,7 @@ import pytest
 
 from simnibs_reader.core.simulation import SimulationResult
 from simnibs_reader.core.segmentation import SegmentationResult
-from simnibs_reader.efield.accessor import EFieldAccessor
+from simnibs_reader.efield.accessor import EField
 
 
 # ---------------------------------------------------------------------------
@@ -62,14 +62,14 @@ class TestSimId:
 # ---------------------------------------------------------------------------
 
 
-class TestEFieldAccessors:
+class TestEFields:
     def test_magnE_is_accessor(self, sim_dir: Path) -> None:
         sim = SimulationResult(sim_dir)
-        assert isinstance(sim.magnE, EFieldAccessor)
+        assert isinstance(sim.magnE, EField)
 
     def test_magnE_native_is_accessor(self, sim_dir: Path) -> None:
         sim = SimulationResult(sim_dir)
-        assert isinstance(sim.magnE_native, EFieldAccessor)
+        assert isinstance(sim.magnE_native, EField)
 
     def test_accessor_carries_simulation_back_ref(self, sim_dir: Path) -> None:
         sim = SimulationResult(sim_dir)
@@ -80,7 +80,7 @@ class TestEFieldAccessors:
         sim = SimulationResult(sim_dir)
         acc = sim.magnE
         assert "img" not in acc.__dict__  # cached_property not yet resolved
-        _ = acc.img                        # trigger load
+        assert isinstance(acc, nib.Nifti1Image)                        # trigger load
         assert "img" in acc.__dict__
 
     def test_cached_property_returns_same_object(self, sim_dir: Path) -> None:

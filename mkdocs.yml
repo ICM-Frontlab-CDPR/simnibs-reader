@@ -67,7 +67,7 @@ nav:
   - Tutorials: tutorials.md
   - API Reference:
       - Overview: api/index.md
-      - EFieldAccessor: api/accessor.md
-      - ROIResult: api/roi.md
+      - EField: api/accessor.md
+      - ROI: api/roi.md
       - Postprocessing: api/postprocess.md
       - Statistics: api/stats.md
