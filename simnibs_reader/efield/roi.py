@@ -100,13 +100,8 @@ class ROIResult:
         }
     
     # -- tissue filtering -------------------------------------------------
-
-    def filter_tissue(
-        self,
-        tissue: str,
-        label_img: str | Path | None = None,
-        lut: str | Path | None = None,
-    ) -> "ROIResult":
+    def filter_tissue(self,tissue: str,label_img: str | Path | None = None,
+        lut: str | Path | None = None,) -> "ROIResult":
         """Restrict the ROI to a specific tissue type.
 
         Returns a **new** ``ROIResult`` — the original is never mutated.
@@ -199,6 +194,65 @@ class ROIResult:
         return nib.Nifti1Image(combined, mask_a.affine)
 
 
+    # -- extra-ROI (complement) -------------------------------------------
+
+    def complement(
+        self,
+        brain_mask: str | Path | None = None,
+    ) -> "ROIResult":
+        """E-field values *outside* this ROI but *inside* the brain.
+
+        Returns a **new** ``ROIResult`` — the original is never mutated.
+
+        Parameters
+        ----------
+        brain_mask : str, Path, or None
+            Path to a binary brain mask NIfTI.  When ``None``, resolved
+            automatically from the attached segmentation's
+            ``final_tissues`` (any tissue > 0 = brain).
+
+        Raises
+        ------
+        ValueError
+            If *brain_mask* is ``None`` and no segmentation is attached.
+        """
+        brain_img = self._resolve_brain_mask(brain_mask)
+        brain_img = resample_to_ref(brain_img, self.mask_img, interpolation="nearest")
+
+        extra_data = (
+            brain_img.get_fdata().astype(bool)
+            & ~self.mask_img.get_fdata().astype(bool)
+        ).astype(np.uint8)
+        extra_mask = nib.Nifti1Image(extra_data, self.mask_img.affine)
+
+        values = masking.apply_mask(self.efield.img, extra_mask)
+        return ROIResult(values=values, mask_img=extra_mask, efield=self.efield)
+
+    def _resolve_brain_mask(
+        self, brain_mask: str | Path | None
+    ) -> nib.Nifti1Image:
+        """Return a binary brain mask image.
+
+        Priority:
+        1. Explicit *brain_mask* path.
+        2. ``segmentation.final_tissues`` binarised (value > 0).
+        """
+        if brain_mask is not None:
+            return nib.load(str(brain_mask))
+
+        sim = getattr(self.efield, "simulation", None)
+        seg = getattr(sim, "segmentation", None) if sim is not None else None
+        if seg is not None:
+            tissues_nii = nib.load(str(seg.final_tissues))
+            data = (tissues_nii.get_fdata() > 0).astype(np.uint8)
+            return nib.Nifti1Image(data, tissues_nii.affine)
+
+        raise ValueError(
+            "brain_mask is required when no SegmentationResult is attached.\n"
+            "Either pass brain_mask= explicitly, or call "
+            "sim.set_segmentation(seg) beforehand."
+        )
+
     # -- post-processing (private helpers) --------------------------------
 
     def _smooth(self, fwhm: float) -> nib.Nifti1Image:
@@ -235,24 +289,17 @@ class ROIResult:
 
     # -- post-processing (public) -----------------------------------------
 
-    def postprocess(
-        self,
-        smooth_fwhm: float | None = 2.0,
-        outlier_method: str = "iqr",
-        portion: float | None = None,
-    ) -> "ROIResult":
-        """Smooth and/or remove outliers.
-
+    def postprocess(self,smooth_fwhm: float | None = 2.0,
+        outlier_method: str = "iqr", portion: float | None = None,) -> "ROIResult":
+        """
+        mooth and/or remove outliers.
         Returns a **new** ``ROIResult`` — the original is never mutated.
 
         Parameters
         ----------
-        smooth_fwhm : float or None
-            FWHM (mm) for Gaussian smoothing before masking. ``None`` to skip.
-        outlier_method : {"iqr", "z"}
-            Outlier removal strategy.
-        portion : float or None
-            Central portion to keep (e.g. ``0.95``). ``None`` to skip.
+        smooth_fwhm : float or None. FWHM (mm) for Gaussian smoothing before masking. ``None`` to skip.
+        outlier_method : {"iqr", "z"}. Outlier removal strategy.
+        portion : float or None. Central portion to keep (e.g. ``0.95``). ``None`` to skip.
         """
         efield_img = (
             self._smooth(smooth_fwhm)
