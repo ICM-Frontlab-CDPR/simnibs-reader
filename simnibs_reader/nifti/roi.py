@@ -165,13 +165,10 @@ class ROI:  ## nilearn a un objet ROI aussi !
             is_cleaned=True,
         )
 
-    def remove_outliers(
-        values: np.ndarray,
-        method: str = "iqr",
-        z_thresh: float = 3.5,
-        iqr_factor: float = 1.5,
-        portion: float | None = None,
-    ) -> tuple[np.ndarray, np.ndarray]:
+    @staticmethod
+    def remove_outliers(values, method="iqr", z_thresh=3.5, iqr_factor=1.5,
+                        portion=None)-> tuple[np.ndarray, np.ndarray]:
+
         """Filter outliers on a 1-D vector.
 
         Parameters

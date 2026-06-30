@@ -55,33 +55,50 @@ class EField:
     def __repr__(self) -> str:
         return f"EField('{self.path.name}')"
 
-    def get_roi(self, method="sphere", **kwargs):
-            """Build an ROI mask and extract e-field values.
+    def get_roi(
+        self,
+        *,
+        mask: str | Path | None = None,
+        coords: list[float] | None = None,
+        radius: float = 10.0,
+        atlas: str | None = None,
+        region: str | list[str] | None = None,
+    ) -> "ROI":
+        """Extract e-field values within a region of interest.
 
-            Parameters
-            ----------
-            method : {"sphere", "mask", "atlas"}
-            **kwargs : forwarded to the corresponding builder.
+        Exactly one source must be given:
+        - mask=             : path to a binary NIfTI mask
+        - coords= (+radius) : spherical ROI in the e-field's own space
+        - atlas= (+region)  : atlas-based parcel
+        """
+        from .roi import ROI
+        from nilearn import masking
 
-            Examples
-            --------
-            >>> efield.get_roi("sphere", coords=[-42, -68, 32], radius=10)
-            >>> efield.get_roi("mask", path="lesion.nii.gz")
-            >>> efield.get_roi("atlas", atlas="harvard-oxford", region="Precentral")
-            """
-            from .roi import ROI
+        sources = [mask is not None, coords is not None, atlas is not None]
+        if sum(sources) != 1:
+            raise ValueError(
+                "Provide exactly one ROI source: `mask=`, `coords=` (+radius), "
+                f"or `atlas=` (+region). Got {sum(sources)}."
+            )
 
-            _builders = {
-                "sphere": self._from_sphere,
-                "mask":   self._from_mask,
-                "atlas":  self._from_atlas,
-            }
-            if method not in _builders:
-                raise ValueError(f"method must be one of {list(_builders)}, got '{method}'")
+        if mask is not None:
+            mask_img = self._from_mask(mask)
+        elif coords is not None:
+            mask_img = self._from_sphere(coords, radius)        # radius → radius_mm (positionnel)
+        else:
+            if region is None:
+                raise ValueError("`atlas=` requires `region=`.")
+            mask_img = self._from_atlas(atlas, region)
 
-            mask_img = _builders[method](**kwargs)
-            mask_img = resample_to_img(mask_img, self, interpolation="nearest")
-            return ROI(mask_img, self)
+        # niimg, pas EField ↓
+        mask_img = resample_to_img(mask_img, self.img, interpolation="nearest")
+
+        # extraction 1-D → ROI « modèle B »
+        values = masking.apply_mask(self.img, mask_img).astype(np.float64)
+        return ROI(values=values, mask_img=mask_img, efield=self)
+
+
+        # plus de load_nifti() indéfini
 
     # ------------------------------------------------------------------
     # Private mask builders
@@ -90,8 +107,7 @@ class EField:
     @staticmethod
     def _from_mask(mask_path: str | Path) -> nib.Nifti1Image:
         """Load an existing binary NIfTI mask."""
-        _, img = load_nifti(mask_path)
-        return img
+        return nib.load(str(mask_path))   
 
     def _from_sphere(
         self, coords: list[float], radius_mm: float
