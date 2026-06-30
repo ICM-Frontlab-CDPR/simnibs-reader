@@ -26,7 +26,7 @@ from functools import cached_property
 from pathlib import Path
 
 from ._base import SimNIBSResult
-from ..efield.efield import EField
+from ..nifti.efield import EField
 from .segmentation import SegmentationResult
 
 

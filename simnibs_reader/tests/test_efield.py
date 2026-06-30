@@ -8,9 +8,9 @@ import nibabel as nib
 import numpy as np
 import pytest
 
-from simnibs_reader.efield.efield import EField
-from simnibs_reader.efield.labels import _SIMNIBS_LUT, parse_lut, resolve_tissue_value
-from simnibs_reader.efield.stats import compute_stats, compute_ratio
+from simnibs_reader.nifti.efield import EField
+from simnibs_reader.nifti.labels import _SIMNIBS_LUT, parse_lut, resolve_tissue_value
+from simnibs_reader.nifti.stats import compute_stats, compute_ratio
 
 
 # ===========================================================================
@@ -73,7 +73,7 @@ class TestEField:
 
 class TestGetROIFromMask:
     def test_returns_roi_result(self, efield_nii: Path, mask_nii: Path) -> None:
-        from simnibs_reader.efield.roi import ROI
+        from simnibs_reader.nifti.roi import ROI
 
         roi = EField(efield_nii).get_roi(mask=mask_nii)
         assert isinstance(roi, ROI)
@@ -182,7 +182,7 @@ class TestFilterTissue:
         assert gm_roi.n_voxels > 0
 
     def test_returns_new_roi_result(self, efield_nii: Path, mask_nii: Path, label_nii: Path) -> None:
-        from simnibs_reader.efield.roi import ROI
+        from simnibs_reader.nifti.roi import ROI
 
         roi = EField(efield_nii).get_roi(mask=mask_nii)
         gm_roi = roi.filter_tissue("Gray-Matter", label_img=label_nii)
