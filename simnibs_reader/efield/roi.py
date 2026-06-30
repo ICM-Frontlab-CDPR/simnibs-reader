@@ -19,12 +19,11 @@ from typing import TYPE_CHECKING, List
 import nibabel as nib
 import numpy as np
 from nilearn import image, masking
-from nilearn.image import new_img_like
+
 
 if TYPE_CHECKING:
-    from .accessor import EField
+    from .efield import EField
 
-from ..io.nifti import load_nifti, resample_to_ref
 from ._labels import parse_lut, resolve_tissue_value, _SIMNIBS_LUT
 from .stats import compute_stats
 
@@ -34,7 +33,7 @@ from .stats import compute_stats
 # ─────────────────────────────────────────────────────────────────────────
 
 
-class ROI:
+class ROI:  ## nilearn a un objet ROI aussi !
     """E-field values extracted within a region of interest.
     ...
     """
@@ -252,9 +251,6 @@ class ROI:
             )
         return save_nifti(img, path)
 
-# ─────────────────────────────────────────────────────────────────────────
-# ROIExtractor — builds the mask then extracts values
-# ─────────────────────────────────────────────────────────────────────────
 
 
 

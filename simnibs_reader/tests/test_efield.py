@@ -8,7 +8,7 @@ import nibabel as nib
 import numpy as np
 import pytest
 
-from simnibs_reader.efield.accessor import EField
+from simnibs_reader.efield.efield import EField
 from simnibs_reader.efield.labels import _SIMNIBS_LUT, parse_lut, resolve_tissue_value
 from simnibs_reader.efield.stats import compute_stats, compute_ratio
 

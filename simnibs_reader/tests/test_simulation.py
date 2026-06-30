@@ -8,7 +8,7 @@ import pytest
 
 from simnibs_reader.core.simulation import SimulationResult
 from simnibs_reader.core.segmentation import SegmentationResult
-from simnibs_reader.efield.accessor import EField
+from simnibs_reader.efield.efield import EField
 
 
 # ---------------------------------------------------------------------------

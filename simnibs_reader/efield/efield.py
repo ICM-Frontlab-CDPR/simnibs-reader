@@ -2,17 +2,18 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 import nibabel as nib
+from nilearn.image import resample_to_img, new_img_like
 import numpy as np
 
 if TYPE_CHECKING:
     from ..core.simulation import SimulationResult
 
 
-class EField(nib.Nifti1Image):
+class EField:
     """E-field NIfTI image with simulation-aware extra methods.
 
-    Inherits fully from ``nib.Nifti1Image`` — compatible with nibabel,
-    nilearn, and any NiftiLike duck-typing check out of the box.
+    Wraps a ``nib.Nifti1Image`` — pass ``efield.img`` or
+    ``str(efield.path)`` to any nibabel / nilearn function.
     """
 
     def __init__(
@@ -20,65 +21,67 @@ class EField(nib.Nifti1Image):
         path: str | Path,
         simulation: "SimulationResult | None" = None,
     ) -> None:
-        if not Path(path).exists():
-            raise FileNotFoundError(f"NIfTI file not found: {path}")
-
         self.path = Path(path)
+        if not self.path.exists():
+            raise FileNotFoundError(f"NIfTI file not found: {self.path}")
         self.simulation = simulation
+        self._img: nib.Nifti1Image = nib.load(str(self.path))  # memmap → pas chargé en RAM
 
-        _img = nib.load(str(self.path))          # memmap → pas chargé en RAM
-        super().__init__(_img.dataobj, _img.affine, _img.header)
+    # ── Accès au Nifti1Image sous-jacent ─────────────────────────
 
-    # affine, shape, header, get_fdata() → tous hérités ✅
-    # Pas besoin de img, data, ni de propriétés déléguées
+    @property
+    def img(self) -> nib.Nifti1Image:
+        """Le vrai ``Nifti1Image`` — à passer à nilearn/nibabel."""
+        return self._img
 
-    def get_roi(
-        self,
-        mask: str | Path | None = None,
-        coords: list[float] | None = None,
-        radius: float = 10.0,
-        atlas: str | None = None,
-        region: str | list[str] | None = None,
-    ) -> "ROI":  # noqa: F821
-        from .roi import ROIExtractor
-        return ROIExtractor(self).extract(
-            mask=mask, coords=coords, radius=radius,
-            atlas=atlas, region=region,
-        )
+    # ── Délégation des attributs courants ────────────────────────
 
+    @property
+    def affine(self) -> np.ndarray:
+        return self._img.affine
+
+    @property
+    def header(self):
+        return self._img.header
+
+    @property
+    def shape(self):
+        return self._img.shape
+
+    def get_fdata(self, **kwargs) -> np.ndarray:
+        return self._img.get_fdata(**kwargs)
+
+    
     def __repr__(self) -> str:
         return f"EField('{self.path.name}')"
-    
-    
-    
-      def extract(
-        self,
-        mask: str | Path | None = None,
-        coords: list[float] | None = None,
-        radius: float = 10.0,
-        atlas: str | None = None,
-        region: str | list[str] | None = None,
-    ) -> ROI:
-        """Create or load a mask, apply it, return an ``ROI``.
 
-        Exactly one of {*mask*, *coords*, *atlas*} must be provided.
-        """
-        if mask is not None:
-            mask_img = self._from_mask(mask)
-        elif coords is not None:
-            mask_img = self._from_sphere(coords, radius)
-        elif atlas is not None and region is not None:
-            mask_img = self._from_atlas(atlas, region)
-        else:
-            raise ValueError(
-                "Provide exactly one of: mask=, coords=, or atlas=+region="
-            )
+    def get_roi(self, method="sphere", **kwargs):
+            """Build an ROI mask and extract e-field values.
 
-        # Resample mask to e-field grid if needed
-        mask_img = resample_to_ref(mask_img, self._efield, interpolation="nearest")
+            Parameters
+            ----------
+            method : {"sphere", "mask", "atlas"}
+            **kwargs : forwarded to the corresponding builder.
 
-        values = masking.apply_mask(self._efield, mask_img)
-        return ROI(values, mask_img, self._efield)
+            Examples
+            --------
+            >>> efield.get_roi("sphere", coords=[-42, -68, 32], radius=10)
+            >>> efield.get_roi("mask", path="lesion.nii.gz")
+            >>> efield.get_roi("atlas", atlas="harvard-oxford", region="Precentral")
+            """
+            from .roi import ROI
+
+            _builders = {
+                "sphere": self._from_sphere,
+                "mask":   self._from_mask,
+                "atlas":  self._from_atlas,
+            }
+            if method not in _builders:
+                raise ValueError(f"method must be one of {list(_builders)}, got '{method}'")
+
+            mask_img = _builders[method](**kwargs)
+            mask_img = resample_to_img(mask_img, self, interpolation="nearest")
+            return ROI(mask_img, self)
 
     # ------------------------------------------------------------------
     # Private mask builders
@@ -102,7 +105,7 @@ class EField(nib.Nifti1Image):
         radius_mm : float
             Sphere radius in millimetres.
         """
-        ref_img = self._efield
+        ref_img = self.img
         affine = ref_img.affine
         shape = ref_img.shape[:3]
 
@@ -409,7 +412,7 @@ class EField(nib.Nifti1Image):
         mask_b: nib.Nifti1Image,
     ) -> nib.Nifti1Image:
         """Binary intersection of two masks (resampled to same grid)."""
-        mask_b = resample_to_ref(mask_b, mask_a, interpolation="nearest")
+        mask_b = resample_to_img(mask_b, mask_a, interpolation="nearest")
         combined = (
             mask_a.get_fdata().astype(bool)
             & mask_b.get_fdata().astype(bool)
@@ -418,4 +421,4 @@ class EField(nib.Nifti1Image):
 
     
     
-    # pour les autres types de fichiers aussi ?
+   
