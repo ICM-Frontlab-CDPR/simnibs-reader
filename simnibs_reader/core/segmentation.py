@@ -136,7 +136,7 @@ class SegmentationResult(SimNIBSResult):
         return {p.stem: p for p in self._find("eeg_positions/*.csv")}
 
     # ------------------------------------------------------------------
-    # DTI (optional)
+    # DTI (optional) --> 
     # ------------------------------------------------------------------
 
     @cached_property
@@ -151,3 +151,92 @@ class SegmentationResult(SimNIBSResult):
             return self._find_one("dMRI_prep/dti_results_T1space/DTI_coregT1_FA.nii.gz")
         except FileNotFoundError:
             return None
+
+     # ------------------------------------------------------------------
+    # Lesions 
+    # ------------------------------------------------------------------
+
+    @cached_property
+    def lesion_native(self) -> Path | None:
+        """Masque de lésion en espace sujet (dans m2m_*/_lesions/)."""
+        try:
+            return self._find_one("_lesions/*brain_lesion.nii.gz")  # à adapter au vrai nom
+        except FileNotFoundError:
+            return None
+
+    @cached_property
+    def lesion_mni(self) -> Path | None:
+        try:
+            return self._find_one("_lesions/*brain_lesion_mni.nii.gz")
+        except FileNotFoundError:
+            return None
+    
+    ## add coherency between eeg files and nifti files  
+    def read_electrodes(
+        self,
+        cap: str | None = None,
+        types: tuple[str, ...] = ("Electrode",),
+    ) -> list[dict]:
+        """Parse un cap EEG SimNIBS → liste de dicts {label, x, y, z}.
+
+        Format CSV SimNIBS (sans header) : Type,x,y,z,label
+        ex. : Electrode,35.1,-81.5,43.3,P2
+                Fiducial,1.4,84.8,-36.5,Nz
+
+        Parameters
+        ----------
+        cap : str or None
+            Stem du fichier CSV (sans extension) ; ex. ``"EEG10-10_Neuroelectrics"``.
+            Si None : préférence Neuroelectrics > Jurak_2007 > premier trouvé.
+        types : tuple of str
+            Types de lignes à inclure. Par défaut ``("Electrode",)`` — exclut
+            les fiducials. Passe ``("Electrode", "Fiducial")`` pour tout garder.
+
+        Returns
+        -------
+        list of dict
+            Chaque dict : ``{"label": str, "x": float, "y": float, "z": float}``.
+            Coordonnées en mm, espace sujet (même repère que T1/magnE_native).
+        """
+        import csv
+
+        caps = self.eeg_positions
+        if not caps:
+            raise FileNotFoundError(
+                f"Aucun eeg_positions/*.csv dans {self.path}"
+            )
+
+        if cap is not None:
+            if cap not in caps:
+                raise FileNotFoundError(
+                    f"Cap '{cap}' introuvable dans {self.path / 'eeg_positions'}. "
+                    f"Disponibles : {sorted(caps)}"
+                )
+            target = caps[cap]
+        else:
+            for preference in ("EEG10-10_Neuroelectrics", "EEG10-10_UI_Jurak_2007"):
+                if preference in caps:
+                    target = caps[preference]
+                    break
+            else:
+                target = next(iter(caps.values()))
+
+        electrodes = []
+        with open(str(target), newline="") as fh:
+            for row in csv.reader(fh):
+                if not row or len(row) < 5:
+                    continue
+                row_type = row[0].strip()
+                if row_type not in types:
+                    continue
+                try:
+                    x, y, z = float(row[1]), float(row[2]), float(row[3])
+                except ValueError:
+                    continue
+                electrodes.append({
+                    "label": row[4].strip(),
+                    "x": x,
+                    "y": y,
+                    "z": z,
+                })
+        return electrodes
