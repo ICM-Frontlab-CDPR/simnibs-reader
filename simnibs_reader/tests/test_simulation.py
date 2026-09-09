@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import nibabel as nib
 import pytest
 
 from simnibs_reader.core.simulation import SimulationResult
@@ -76,12 +77,13 @@ class TestEFields:
         assert sim.magnE.simulation is sim
 
     def test_lazy_loading(self, sim_dir: Path) -> None:
-        """img must NOT be loaded at accessor creation time."""
+        """Array data must NOT be in memory at accessor creation time."""
         sim = SimulationResult(sim_dir)
         acc = sim.magnE
-        assert "img" not in acc.__dict__  # cached_property not yet resolved
-        assert isinstance(acc, nib.Nifti1Image)                        # trigger load
-        assert "img" in acc.__dict__
+        assert isinstance(acc.img, nib.Nifti1Image)
+        assert not acc.img.in_memory  # nibabel array proxy, not yet read
+        acc.data  # trigger the actual read
+        assert acc.img.in_memory
 
     def test_cached_property_returns_same_object(self, sim_dir: Path) -> None:
         sim = SimulationResult(sim_dir)

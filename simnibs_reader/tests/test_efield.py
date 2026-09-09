@@ -9,7 +9,7 @@ import numpy as np
 import pytest
 
 from simnibs_reader.nifti.efield import EField
-from simnibs_reader.nifti.labels import _SIMNIBS_LUT, parse_lut, resolve_tissue_value
+from simnibs_reader.nifti._labels import _SIMNIBS_LUT, parse_lut, resolve_tissue_value
 from simnibs_reader.nifti.stats import compute_stats, compute_ratio
 
 
@@ -29,16 +29,16 @@ class TestEField:
 
     def test_lazy_img_not_loaded_at_init(self, efield_nii: Path) -> None:
         acc = EField(efield_nii)
-        assert "img" not in acc.__dict__
+        assert not acc.img.in_memory
 
     def test_img_cached_after_access(self, efield_nii: Path) -> None:
         acc = EField(efield_nii)
-        assert isinstance(acc, nib.Nifti1Image)
-        assert "img" in acc.__dict__
+        assert isinstance(acc.img, nib.Nifti1Image)
+        assert acc.img is acc.img
 
     def test_img_is_nifti(self, efield_nii: Path) -> None:
         acc = EField(efield_nii)
-        assert isinstance(acc, nib.Nifti1Image)
+        assert isinstance(acc.img, nib.Nifti1Image)
 
     def test_data_dtype(self, efield_nii: Path) -> None:
         acc = EField(efield_nii)

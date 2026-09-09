@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: simnibs-analyze
+title: simnibs-reader
 message: >-
   If you use this software in your research, please cite it using
   the metadata from this file.
@@ -12,16 +12,15 @@ authors:
   - family-names: Valero-Cabre
     given-names: Antoni
     affiliation: "ICM Frontlab, Institut du Cerveau (ICM), Paris"
-    # orcid: "https://orcid.org/0000-0000-0000-0000"  # add if available
 license: MIT
-repository-code: https://github.com/ICM-Frontlab-CDPR/simnibs-analyze
-version: 3.0.0
-date-released: "2026-06-09"
+repository-code: https://github.com/ICM-Frontlab-CDPR/simnibs-reader
+version: 0.2.0
+date-released: "2026-09-09"
 abstract: >-
-  Modular pipeline for SimNIBS e-field analysis: NIfTI volume preprocessing,
-  intra/extra-ROI feature extraction, inter/intra-subject analysis and
-  visualisation. Designed for non-invasive brain stimulation studies
-  (TMS/tDCS) with MNI registration via ANTsPy.
+  Lightweight Python reader for SimNIBS output directories (segmentation,
+  simulation, optimization). Provides structured access to e-field NIfTI
+  volumes, ROI extraction and summary statistics, without requiring a
+  SimNIBS runtime dependency.
 keywords:
   - brain stimulation
   - TMS
@@ -29,4 +28,3 @@ keywords:
   - SimNIBS
   - e-field
   - neuroimaging
-  - MNI

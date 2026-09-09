@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "simnibs-reader"
-version = "0.1.0"
+version = "0.2.0"
 description = "Lightweight reader for SimNIBS output directories (segmentation, simulation, optimization)"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -36,6 +36,11 @@ opti = [
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["simnibs_reader*"]
+exclude = [
+    "simnibs_reader.__later__*",
+    "simnibs_reader.*.__old__*",
+    "simnibs_reader.tests*",
+]
 
 [tool.ruff]
 line-length = 100
