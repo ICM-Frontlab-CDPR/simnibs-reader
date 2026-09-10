@@ -10,7 +10,6 @@ from pathlib import Path
 
 import pandas as pd
 
-
 # Mapping of stat keys available in compute_stats()
 _ALL_METRICS = ["mean", "median", "std", "min", "max", "p5", "p95", "n_voxels"]
 

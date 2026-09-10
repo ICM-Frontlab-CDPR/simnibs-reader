@@ -79,7 +79,7 @@ def parse_lut(lut_path: str | Path) -> dict[str, int]:
         if not line or line.startswith("#"):
             continue
         parts = line.split()
-        if len(parts) < 2:  # noqa: PLR2004
+        if len(parts) < 2:
             raise ValueError(
                 f"LUT parse error at line {lineno}: expected at least "
                 f"2 columns (value name …), got: {raw!r}"

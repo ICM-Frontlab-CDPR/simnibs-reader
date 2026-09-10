@@ -1,3 +1,3 @@
 # ROI
 
-::: simnibs_reader.efield.roi.ROI
+::: simnibs_reader.nifti.roi.ROI

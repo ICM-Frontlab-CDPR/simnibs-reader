@@ -8,10 +8,9 @@ import nibabel as nib
 import numpy as np
 import pytest
 
-from simnibs_reader.nifti.efield import EField
 from simnibs_reader.nifti._labels import _SIMNIBS_LUT, parse_lut, resolve_tissue_value
-from simnibs_reader.nifti.stats import compute_stats, compute_ratio
-
+from simnibs_reader.nifti.efield import EField
+from simnibs_reader.nifti.stats import compute_ratio, compute_stats
 
 # ===========================================================================
 # EField
@@ -208,8 +207,8 @@ class TestFilterTissue:
         self, sim_dir: Path, m2m_dir: Path, mask_nii: Path
     ) -> None:
         """filter_tissue resolves label_img automatically via set_segmentation."""
-        from simnibs_reader.core.simulation import SimulationResult
         from simnibs_reader.core.segmentation import SegmentationResult
+        from simnibs_reader.core.simulation import SimulationResult
 
         sim = SimulationResult(sim_dir)
         sim.set_segmentation(SegmentationResult(m2m_dir))
@@ -318,3 +317,37 @@ class TestComputeRatio:
 
     def test_unknown_method_returns_nan(self) -> None:
         assert np.isnan(compute_ratio(np.array([1.0]), np.array([1.0]), method="mode"))
+
+
+# ===========================================================================
+# io.resample_to_ref
+# ===========================================================================
+
+
+class TestResampleToRef:
+    """`load_nifti(ref=...)` used to raise NameError: resample_to_ref was
+    referenced in the docstring and the call, but never defined."""
+
+    @pytest.fixture
+    def ref_nii(self, tmp_path: Path) -> Path:
+        img = nib.Nifti1Image(np.zeros((5, 5, 5), dtype=np.float32), np.eye(4) * 2)
+        p = tmp_path / "ref.nii.gz"
+        nib.save(img, p)
+        return p
+
+    def test_is_exported(self) -> None:
+        from simnibs_reader.io import resample_to_ref
+
+        assert callable(resample_to_ref)
+
+    def test_matches_reference_shape(self, efield_nii: Path, ref_nii: Path) -> None:
+        from simnibs_reader.io import load_nifti
+
+        _, img = load_nifti(efield_nii, ref=ref_nii)
+        assert img.shape == (5, 5, 5)
+
+    def test_without_ref_keeps_original_grid(self, efield_nii: Path) -> None:
+        from simnibs_reader.io import load_nifti
+
+        _, plain = load_nifti(efield_nii)
+        assert plain.shape == nib.load(str(efield_nii)).shape

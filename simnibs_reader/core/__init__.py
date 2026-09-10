@@ -1,7 +1,7 @@
 """Core result classes for SimNIBS output directories."""
 
-from .simulation import SimulationResult
-from .segmentation import SegmentationResult
 from .optimization import OptimizationResult
+from .segmentation import SegmentationResult
+from .simulation import SimulationResult
 
-__all__ = ["SimulationResult", "SegmentationResult", "OptimizationResult"]
+__all__ = ["OptimizationResult", "SegmentationResult", "SimulationResult"]

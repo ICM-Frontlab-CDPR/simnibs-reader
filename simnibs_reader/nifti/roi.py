@@ -22,9 +22,8 @@ from nilearn import image, masking
 if TYPE_CHECKING:
     from .efield import EField
 
-from ._labels import parse_lut, resolve_tissue_value, _SIMNIBS_LUT
+from ._labels import _SIMNIBS_LUT, parse_lut, resolve_tissue_value
 from .stats import compute_stats
-
 
 # ─────────────────────────────────────────────────────────────────────────
 # ROI — the object the user manipulates after extraction
@@ -54,7 +53,7 @@ class ROI:
         self,
         values: np.ndarray,
         mask_img: nib.Nifti1Image,
-        efield: "EField",
+        efield: EField,
         *,
         masked_img: nib.Nifti1Image | None = None,
         cleaned_img: nib.Nifti1Image | None = None,
@@ -87,7 +86,7 @@ class ROI:
 
     __hash__ = None  # ROI is mutable-ish / value-compared → not hashable
 
-    def __add__(self, other: "ROI") -> np.ndarray:
+    def __add__(self, other: ROI) -> np.ndarray:
         return np.concatenate([self.values, other.values])
 
     # -- properties -------------------------------------------------------
@@ -169,7 +168,7 @@ class ROI:
         smooth_fwhm: float | None = 2.0,
         outlier_method: str = "iqr",
         portion: float | None = None,
-    ) -> "ROI":
+    ) -> ROI:
         """Smooth and/or remove outliers.
 
         Returns a **new** ``ROI`` — the original is never mutated.
@@ -269,7 +268,7 @@ class ROI:
     # Extra-ROI (complement)
     # ------------------------------------------------------------------
 
-    def complement(self, brain_mask: str | Path | None = None) -> "ROI":
+    def complement(self, brain_mask: str | Path | None = None) -> ROI:
         """E-field values *outside* this ROI but *inside* the brain.
 
         Returns a **new** ``ROI`` — the original is never mutated.
@@ -332,7 +331,7 @@ class ROI:
         tissue: str,
         label_img: str | Path | None = None,
         lut: str | Path | None = None,
-    ) -> "ROI":
+    ) -> ROI:
         """Restrict the ROI to a specific tissue type.
 
         Returns a **new** ``ROI`` — the original is never mutated.

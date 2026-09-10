@@ -2,12 +2,13 @@
 
 from .efield import EField
 from .roi import ROI
+
 # from .postprocess import remove_outliers
 # from .stats import compute_stats
 
 __all__ = [
-    "EField",
     "ROI",
+    "EField",
     # "remove_outliers",
     # "compute_stats",
 ]

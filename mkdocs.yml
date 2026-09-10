@@ -61,10 +61,18 @@ plugins:
             show_symbol_type_heading: true
             show_symbol_type_toc: true
 
+exclude_docs: |
+  __later__/
+
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
-  - Tutorials: tutorials.md
+  - Tutorials:
+      - Overview: tutorials.md
+      - FreeSurfer guide:
+          - Quick explanation: example/freesurfer_guide/quick-explain.md
+          - Directory tree: example/freesurfer_guide/tree-freesurfer.md
+          - Important files: example/freesurfer_guide/important-files.md
   - API Reference:
       - Overview: api/index.md
       - EField: api/accessor.md

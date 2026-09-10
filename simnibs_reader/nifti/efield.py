@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 import nibabel as nib
 import numpy as np
-from nilearn.image import resample_to_img, new_img_like
+from nilearn.image import new_img_like, resample_to_img
 
 if TYPE_CHECKING:
     from ..core.simulation import SimulationResult
@@ -21,7 +21,7 @@ class EField:
     def __init__(
         self,
         path: str | Path,
-        simulation: "SimulationResult | None" = None,
+        simulation: SimulationResult | None = None,
     ) -> None:
         self.path = Path(path)
         if not self.path.exists():
@@ -73,7 +73,7 @@ class EField:
         radius: float = 10.0,
         atlas: str | None = None,
         region: str | list[str] | None = None,
-    ) -> "ROI":  # noqa: F821 — forward ref résolu à l'exécution
+    ) -> ROI:  # noqa: F821 — forward ref résolu à l'exécution
         """Extract e-field values within a region of interest.
 
         Exactly one source must be given:
@@ -81,8 +81,9 @@ class EField:
           - ``coords=`` (+radius) : spherical ROI in the e-field's own space
           - ``atlas=`` (+region)  : atlas-based parcel
         """
-        from .roi import ROI
         from nilearn import masking
+
+        from .roi import ROI
 
         sources = [mask is not None, coords is not None, atlas is not None]
         if sum(sources) != 1:
@@ -168,8 +169,8 @@ class EField:
             One or more parcel labels whose union forms the mask.
         """
         import urllib3
-        from requests.adapters import HTTPAdapter
         from nilearn import datasets as nl_datasets
+        from requests.adapters import HTTPAdapter
 
         if isinstance(region, str):
             region = [region]

@@ -7,10 +7,9 @@ from pathlib import Path
 import nibabel as nib
 import pytest
 
-from simnibs_reader.core.simulation import SimulationResult
 from simnibs_reader.core.segmentation import SegmentationResult
+from simnibs_reader.core.simulation import SimulationResult
 from simnibs_reader.nifti.efield import EField
-
 
 # ---------------------------------------------------------------------------
 # Validation
@@ -45,7 +44,8 @@ class TestSimId:
 
     def test_fallback_to_folder_name(self, tmp_path: Path) -> None:
         """No .msh present — sim_id falls back to folder name."""
-        import nibabel as nib, numpy as np
+        import nibabel as nib
+        import numpy as np
 
         root = tmp_path / "my_sim"
         (root / "subject_volumes").mkdir(parents=True)
@@ -82,7 +82,7 @@ class TestEFields:
         acc = sim.magnE
         assert isinstance(acc.img, nib.Nifti1Image)
         assert not acc.img.in_memory  # nibabel array proxy, not yet read
-        acc.data  # trigger the actual read
+        _ = acc.data  # trigger the actual read
         assert acc.img.in_memory
 
     def test_cached_property_returns_same_object(self, sim_dir: Path) -> None:
@@ -102,7 +102,8 @@ class TestFieldsSummary:
         assert sim.fields_summary["Subject"] == "sub01"
 
     def test_empty_when_file_absent(self, tmp_path: Path) -> None:
-        import nibabel as nib, numpy as np
+        import nibabel as nib
+        import numpy as np
 
         root = tmp_path / "no_summary"
         (root / "subject_volumes").mkdir(parents=True)

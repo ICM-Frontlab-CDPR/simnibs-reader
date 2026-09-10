@@ -8,7 +8,6 @@ import pytest
 
 from simnibs_reader.core.segmentation import SegmentationResult
 
-
 # ---------------------------------------------------------------------------
 # Validation
 # ---------------------------------------------------------------------------
@@ -49,7 +48,8 @@ class TestSubjectId:
 
     def test_no_prefix(self, tmp_path: Path) -> None:
         """Folder named without 'm2m_' prefix — subject_id equals folder name."""
-        import nibabel as nib, numpy as np
+        import nibabel as nib
+        import numpy as np
 
         root = tmp_path / "rawname"
         root.mkdir()

@@ -12,6 +12,35 @@ import nibabel as nib
 import numpy as np
 
 
+def resample_to_ref(
+    img: nib.Nifti1Image,
+    ref: str | Path | nib.Nifti1Image,
+    interpolation: str = "continuous",
+) -> nib.Nifti1Image:
+    """Resample ``img`` onto the voxel grid of ``ref``.
+
+    Parameters
+    ----------
+    img : nib.Nifti1Image
+        Image to resample.
+    ref : str, Path, or nib.Nifti1Image
+        Reference image defining the target affine and shape.
+    interpolation : str
+        ``"nearest"`` for label / binary images, ``"continuous"`` (default)
+        for scalar fields, or ``"linear"``.
+
+    Returns
+    -------
+    nib.Nifti1Image
+        ``img`` resampled onto the reference grid.
+    """
+    from nilearn.image import resample_to_img
+
+    if isinstance(ref, (str, Path)):
+        ref = nib.load(str(ref))
+    return resample_to_img(img, ref, interpolation=interpolation)
+
+
 def load_nifti(
     path: str | Path,
     ref: str | Path | nib.Nifti1Image | None = None,
