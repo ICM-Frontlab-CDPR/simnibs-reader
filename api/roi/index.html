@@ -1644,7 +1644,19 @@
 <span class="normal"><a href="#__codelineno-0-429">429</a></span>
 <span class="normal"><a href="#__codelineno-0-430">430</a></span>
 <span class="normal"><a href="#__codelineno-0-431">431</a></span>
-<span class="normal"><a href="#__codelineno-0-432">432</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="k">class</span><span class="w"> </span><span class="nc">ROI</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-432">432</a></span>
+<span class="normal"><a href="#__codelineno-0-433">433</a></span>
+<span class="normal"><a href="#__codelineno-0-434">434</a></span>
+<span class="normal"><a href="#__codelineno-0-435">435</a></span>
+<span class="normal"><a href="#__codelineno-0-436">436</a></span>
+<span class="normal"><a href="#__codelineno-0-437">437</a></span>
+<span class="normal"><a href="#__codelineno-0-438">438</a></span>
+<span class="normal"><a href="#__codelineno-0-439">439</a></span>
+<span class="normal"><a href="#__codelineno-0-440">440</a></span>
+<span class="normal"><a href="#__codelineno-0-441">441</a></span>
+<span class="normal"><a href="#__codelineno-0-442">442</a></span>
+<span class="normal"><a href="#__codelineno-0-443">443</a></span>
+<span class="normal"><a href="#__codelineno-0-444">444</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="k">class</span><span class="w"> </span><span class="nc">ROI</span><span class="p">:</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="w">    </span><span class="sd">"""E-field values extracted within a region of interest.</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Attributes</span>
@@ -1914,136 +1926,148 @@
 <a id="__codelineno-0-300" name="__codelineno-0-300"></a>        <span class="k">return</span> <span class="n">ROI</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">mask_img</span><span class="o">=</span><span class="n">extra_mask</span><span class="p">,</span> <span class="n">efield</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="p">)</span>
 <a id="__codelineno-0-301" name="__codelineno-0-301"></a>
 <a id="__codelineno-0-302" name="__codelineno-0-302"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_resolve_brain_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">brain_mask</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
-<a id="__codelineno-0-303" name="__codelineno-0-303"></a><span class="w">        </span><span class="sd">"""Return a binary brain mask image.</span>
+<a id="__codelineno-0-303" name="__codelineno-0-303"></a><span class="w">        </span><span class="sd">"""Return a binary brain mask image, in the e-field's own space.</span>
 <a id="__codelineno-0-304" name="__codelineno-0-304"></a>
 <a id="__codelineno-0-305" name="__codelineno-0-305"></a><span class="sd">        Priority:</span>
 <a id="__codelineno-0-306" name="__codelineno-0-306"></a><span class="sd">        1. Explicit *brain_mask* path.</span>
-<a id="__codelineno-0-307" name="__codelineno-0-307"></a><span class="sd">        2. ``segmentation.final_tissues`` binarised (value &gt; 0).</span>
-<a id="__codelineno-0-308" name="__codelineno-0-308"></a><span class="sd">        """</span>
-<a id="__codelineno-0-309" name="__codelineno-0-309"></a>        <span class="k">if</span> <span class="n">brain_mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-310" name="__codelineno-0-310"></a>            <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">brain_mask</span><span class="p">))</span>
-<a id="__codelineno-0-311" name="__codelineno-0-311"></a>
-<a id="__codelineno-0-312" name="__codelineno-0-312"></a>        <span class="n">sim</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="p">,</span> <span class="s2">"simulation"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-<a id="__codelineno-0-313" name="__codelineno-0-313"></a>        <span class="n">seg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="s2">"segmentation"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">sim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
-<a id="__codelineno-0-314" name="__codelineno-0-314"></a>        <span class="k">if</span> <span class="n">seg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-315" name="__codelineno-0-315"></a>            <span class="n">tissues_nii</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">final_tissues</span><span class="p">))</span>
-<a id="__codelineno-0-316" name="__codelineno-0-316"></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fdata_3d</span><span class="p">(</span><span class="n">tissues_nii</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>   <span class="c1"># squeeze → 3D</span>
-<a id="__codelineno-0-317" name="__codelineno-0-317"></a>            <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tissues_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
-<a id="__codelineno-0-318" name="__codelineno-0-318"></a>
-<a id="__codelineno-0-319" name="__codelineno-0-319"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-320" name="__codelineno-0-320"></a>            <span class="s2">"brain_mask is required when no SegmentationResult is attached.</span><span class="se">\n</span><span class="s2">"</span>
-<a id="__codelineno-0-321" name="__codelineno-0-321"></a>            <span class="s2">"Either pass brain_mask= explicitly, or call "</span>
-<a id="__codelineno-0-322" name="__codelineno-0-322"></a>            <span class="s2">"sim.set_segmentation(seg) beforehand."</span>
-<a id="__codelineno-0-323" name="__codelineno-0-323"></a>        <span class="p">)</span>
-<a id="__codelineno-0-324" name="__codelineno-0-324"></a>
-<a id="__codelineno-0-325" name="__codelineno-0-325"></a>    <span class="c1"># ------------------------------------------------------------------</span>
-<a id="__codelineno-0-326" name="__codelineno-0-326"></a>    <span class="c1"># Tissue filtering</span>
-<a id="__codelineno-0-327" name="__codelineno-0-327"></a>    <span class="c1"># ------------------------------------------------------------------</span>
-<a id="__codelineno-0-328" name="__codelineno-0-328"></a>
-<a id="__codelineno-0-329" name="__codelineno-0-329"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">filter_tissue</span><span class="p">(</span>
-<a id="__codelineno-0-330" name="__codelineno-0-330"></a>        <span class="bp">self</span><span class="p">,</span>
-<a id="__codelineno-0-331" name="__codelineno-0-331"></a>        <span class="n">tissue</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<a id="__codelineno-0-332" name="__codelineno-0-332"></a>        <span class="n">label_img</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-333" name="__codelineno-0-333"></a>        <span class="n">lut</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-334" name="__codelineno-0-334"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ROI</span><span class="p">:</span>
-<a id="__codelineno-0-335" name="__codelineno-0-335"></a><span class="w">        </span><span class="sd">"""Restrict the ROI to a specific tissue type.</span>
+<a id="__codelineno-0-307" name="__codelineno-0-307"></a><span class="sd">        2. The attached segmentation's tissue map, binarised (value &gt; 0),</span>
+<a id="__codelineno-0-308" name="__codelineno-0-308"></a><span class="sd">           picking the MNI-space version when the e-field is in MNI space.</span>
+<a id="__codelineno-0-309" name="__codelineno-0-309"></a>
+<a id="__codelineno-0-310" name="__codelineno-0-310"></a><span class="sd">        Raises</span>
+<a id="__codelineno-0-311" name="__codelineno-0-311"></a><span class="sd">        ------</span>
+<a id="__codelineno-0-312" name="__codelineno-0-312"></a><span class="sd">        ValueError</span>
+<a id="__codelineno-0-313" name="__codelineno-0-313"></a><span class="sd">            If no *brain_mask* is given and no segmentation is attached.</span>
+<a id="__codelineno-0-314" name="__codelineno-0-314"></a><span class="sd">        """</span>
+<a id="__codelineno-0-315" name="__codelineno-0-315"></a>        <span class="k">if</span> <span class="n">brain_mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-316" name="__codelineno-0-316"></a>            <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">brain_mask</span><span class="p">))</span>
+<a id="__codelineno-0-317" name="__codelineno-0-317"></a>
+<a id="__codelineno-0-318" name="__codelineno-0-318"></a>        <span class="n">sim</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="p">,</span> <span class="s2">"simulation"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<a id="__codelineno-0-319" name="__codelineno-0-319"></a>        <span class="n">seg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="s2">"segmentation"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">sim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+<a id="__codelineno-0-320" name="__codelineno-0-320"></a>        <span class="k">if</span> <span class="n">seg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-321" name="__codelineno-0-321"></a>            <span class="c1"># An MNI e-field needs an MNI tissue map: the native one would be</span>
+<a id="__codelineno-0-322" name="__codelineno-0-322"></a>            <span class="c1"># resampled onto the wrong grid and mask out everything.</span>
+<a id="__codelineno-0-323" name="__codelineno-0-323"></a>            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="p">,</span> <span class="s2">"space"</span><span class="p">,</span> <span class="s2">"native"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"mni"</span><span class="p">:</span>
+<a id="__codelineno-0-324" name="__codelineno-0-324"></a>                <span class="n">tissues_path</span> <span class="o">=</span> <span class="n">seg</span><span class="o">.</span><span class="n">final_tissues_mni</span>
+<a id="__codelineno-0-325" name="__codelineno-0-325"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-326" name="__codelineno-0-326"></a>                <span class="n">tissues_path</span> <span class="o">=</span> <span class="n">seg</span><span class="o">.</span><span class="n">final_tissues</span>
+<a id="__codelineno-0-327" name="__codelineno-0-327"></a>            <span class="n">tissues_nii</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">tissues_path</span><span class="p">))</span>
+<a id="__codelineno-0-328" name="__codelineno-0-328"></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fdata_3d</span><span class="p">(</span><span class="n">tissues_nii</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>   <span class="c1"># squeeze → 3D</span>
+<a id="__codelineno-0-329" name="__codelineno-0-329"></a>            <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tissues_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
+<a id="__codelineno-0-330" name="__codelineno-0-330"></a>
+<a id="__codelineno-0-331" name="__codelineno-0-331"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-332" name="__codelineno-0-332"></a>            <span class="s2">"brain_mask is required when no SegmentationResult is attached.</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-0-333" name="__codelineno-0-333"></a>            <span class="s2">"Either pass brain_mask= explicitly, or call "</span>
+<a id="__codelineno-0-334" name="__codelineno-0-334"></a>            <span class="s2">"sim.set_segmentation(seg) beforehand."</span>
+<a id="__codelineno-0-335" name="__codelineno-0-335"></a>        <span class="p">)</span>
 <a id="__codelineno-0-336" name="__codelineno-0-336"></a>
-<a id="__codelineno-0-337" name="__codelineno-0-337"></a><span class="sd">        Returns a **new** ``ROI`` — the original is never mutated.</span>
-<a id="__codelineno-0-338" name="__codelineno-0-338"></a>
-<a id="__codelineno-0-339" name="__codelineno-0-339"></a><span class="sd">        ``label_img`` can be omitted when a ``SegmentationResult`` has been</span>
-<a id="__codelineno-0-340" name="__codelineno-0-340"></a><span class="sd">        attached to the parent simulation via ``set_segmentation``; the path is</span>
-<a id="__codelineno-0-341" name="__codelineno-0-341"></a><span class="sd">        then resolved automatically from ``segmentation.tissue_labeling_upsampled``.</span>
-<a id="__codelineno-0-342" name="__codelineno-0-342"></a>
-<a id="__codelineno-0-343" name="__codelineno-0-343"></a><span class="sd">        Parameters</span>
-<a id="__codelineno-0-344" name="__codelineno-0-344"></a><span class="sd">        ----------</span>
-<a id="__codelineno-0-345" name="__codelineno-0-345"></a><span class="sd">        tissue : str</span>
-<a id="__codelineno-0-346" name="__codelineno-0-346"></a><span class="sd">            Tissue name (e.g. ``"Gray-Matter"``). Case-insensitive.</span>
-<a id="__codelineno-0-347" name="__codelineno-0-347"></a><span class="sd">        label_img : str, Path, or None</span>
-<a id="__codelineno-0-348" name="__codelineno-0-348"></a><span class="sd">            Path to the SimNIBS tissue labeling NIfTI. ``None`` → auto-resolve.</span>
-<a id="__codelineno-0-349" name="__codelineno-0-349"></a><span class="sd">        lut : str, Path, or None</span>
-<a id="__codelineno-0-350" name="__codelineno-0-350"></a><span class="sd">            Path to ``*_LUT.txt``. If omitted, the standard SimNIBS mapping is used.</span>
-<a id="__codelineno-0-351" name="__codelineno-0-351"></a><span class="sd">        """</span>
-<a id="__codelineno-0-352" name="__codelineno-0-352"></a>        <span class="n">resolved_label_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_label_img</span><span class="p">(</span><span class="n">label_img</span><span class="p">)</span>
-<a id="__codelineno-0-353" name="__codelineno-0-353"></a>        <span class="n">tissue_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tissue_mask</span><span class="p">(</span><span class="n">resolved_label_img</span><span class="p">,</span> <span class="n">tissue</span><span class="p">,</span> <span class="n">lut</span><span class="p">)</span>
-<a id="__codelineno-0-354" name="__codelineno-0-354"></a>        <span class="n">new_mask</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_intersect_masks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_img</span><span class="p">,</span> <span class="n">tissue_mask</span><span class="p">)</span>
-<a id="__codelineno-0-355" name="__codelineno-0-355"></a>
-<a id="__codelineno-0-356" name="__codelineno-0-356"></a>        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">masking</span><span class="o">.</span><span class="n">apply_mask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">new_mask</span><span class="p">))</span>     <span class="c1"># .img !</span>
-<a id="__codelineno-0-357" name="__codelineno-0-357"></a>        <span class="k">return</span> <span class="n">ROI</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">mask_img</span><span class="o">=</span><span class="n">new_mask</span><span class="p">,</span> <span class="n">efield</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="p">)</span>
-<a id="__codelineno-0-358" name="__codelineno-0-358"></a>
-<a id="__codelineno-0-359" name="__codelineno-0-359"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_resolve_label_img</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_img</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<a id="__codelineno-0-360" name="__codelineno-0-360"></a><span class="w">        </span><span class="sd">"""Return a concrete path to the tissue labeling NIfTI.</span>
-<a id="__codelineno-0-361" name="__codelineno-0-361"></a>
-<a id="__codelineno-0-362" name="__codelineno-0-362"></a><span class="sd">        Priority:</span>
-<a id="__codelineno-0-363" name="__codelineno-0-363"></a><span class="sd">        1. Explicit *label_img* argument.</span>
-<a id="__codelineno-0-364" name="__codelineno-0-364"></a><span class="sd">        2. ``self.efield.simulation.segmentation.tissue_labeling_upsampled``.</span>
-<a id="__codelineno-0-365" name="__codelineno-0-365"></a><span class="sd">        """</span>
-<a id="__codelineno-0-366" name="__codelineno-0-366"></a>        <span class="k">if</span> <span class="n">label_img</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-367" name="__codelineno-0-367"></a>            <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">label_img</span><span class="p">)</span>
-<a id="__codelineno-0-368" name="__codelineno-0-368"></a>
-<a id="__codelineno-0-369" name="__codelineno-0-369"></a>        <span class="n">sim</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="p">,</span> <span class="s2">"simulation"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-<a id="__codelineno-0-370" name="__codelineno-0-370"></a>        <span class="n">seg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="s2">"segmentation"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">sim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
-<a id="__codelineno-0-371" name="__codelineno-0-371"></a>        <span class="k">if</span> <span class="n">seg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-372" name="__codelineno-0-372"></a>            <span class="k">return</span> <span class="n">seg</span><span class="o">.</span><span class="n">tissue_labeling_upsampled</span>
+<a id="__codelineno-0-337" name="__codelineno-0-337"></a>    <span class="c1"># ------------------------------------------------------------------</span>
+<a id="__codelineno-0-338" name="__codelineno-0-338"></a>    <span class="c1"># Tissue filtering</span>
+<a id="__codelineno-0-339" name="__codelineno-0-339"></a>    <span class="c1"># ------------------------------------------------------------------</span>
+<a id="__codelineno-0-340" name="__codelineno-0-340"></a>
+<a id="__codelineno-0-341" name="__codelineno-0-341"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">filter_tissue</span><span class="p">(</span>
+<a id="__codelineno-0-342" name="__codelineno-0-342"></a>        <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-343" name="__codelineno-0-343"></a>        <span class="n">tissue</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-0-344" name="__codelineno-0-344"></a>        <span class="n">label_img</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-345" name="__codelineno-0-345"></a>        <span class="n">lut</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-346" name="__codelineno-0-346"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ROI</span><span class="p">:</span>
+<a id="__codelineno-0-347" name="__codelineno-0-347"></a><span class="w">        </span><span class="sd">"""Restrict the ROI to a specific tissue type.</span>
+<a id="__codelineno-0-348" name="__codelineno-0-348"></a>
+<a id="__codelineno-0-349" name="__codelineno-0-349"></a><span class="sd">        Returns a **new** ``ROI`` — the original is never mutated.</span>
+<a id="__codelineno-0-350" name="__codelineno-0-350"></a>
+<a id="__codelineno-0-351" name="__codelineno-0-351"></a><span class="sd">        ``label_img`` can be omitted when a ``SegmentationResult`` has been</span>
+<a id="__codelineno-0-352" name="__codelineno-0-352"></a><span class="sd">        attached to the parent simulation via ``set_segmentation``; the path is</span>
+<a id="__codelineno-0-353" name="__codelineno-0-353"></a><span class="sd">        then resolved automatically from ``segmentation.tissue_labeling_upsampled``.</span>
+<a id="__codelineno-0-354" name="__codelineno-0-354"></a>
+<a id="__codelineno-0-355" name="__codelineno-0-355"></a><span class="sd">        Parameters</span>
+<a id="__codelineno-0-356" name="__codelineno-0-356"></a><span class="sd">        ----------</span>
+<a id="__codelineno-0-357" name="__codelineno-0-357"></a><span class="sd">        tissue : str</span>
+<a id="__codelineno-0-358" name="__codelineno-0-358"></a><span class="sd">            Tissue name (e.g. ``"Gray-Matter"``). Case-insensitive.</span>
+<a id="__codelineno-0-359" name="__codelineno-0-359"></a><span class="sd">        label_img : str, Path, or None</span>
+<a id="__codelineno-0-360" name="__codelineno-0-360"></a><span class="sd">            Path to the SimNIBS tissue labeling NIfTI. ``None`` → auto-resolve.</span>
+<a id="__codelineno-0-361" name="__codelineno-0-361"></a><span class="sd">        lut : str, Path, or None</span>
+<a id="__codelineno-0-362" name="__codelineno-0-362"></a><span class="sd">            Path to ``*_LUT.txt``. If omitted, the standard SimNIBS mapping is used.</span>
+<a id="__codelineno-0-363" name="__codelineno-0-363"></a><span class="sd">        """</span>
+<a id="__codelineno-0-364" name="__codelineno-0-364"></a>        <span class="n">resolved_label_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_label_img</span><span class="p">(</span><span class="n">label_img</span><span class="p">)</span>
+<a id="__codelineno-0-365" name="__codelineno-0-365"></a>        <span class="n">tissue_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tissue_mask</span><span class="p">(</span><span class="n">resolved_label_img</span><span class="p">,</span> <span class="n">tissue</span><span class="p">,</span> <span class="n">lut</span><span class="p">)</span>
+<a id="__codelineno-0-366" name="__codelineno-0-366"></a>        <span class="n">new_mask</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_intersect_masks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_img</span><span class="p">,</span> <span class="n">tissue_mask</span><span class="p">)</span>
+<a id="__codelineno-0-367" name="__codelineno-0-367"></a>
+<a id="__codelineno-0-368" name="__codelineno-0-368"></a>        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">masking</span><span class="o">.</span><span class="n">apply_mask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">new_mask</span><span class="p">))</span>     <span class="c1"># .img !</span>
+<a id="__codelineno-0-369" name="__codelineno-0-369"></a>        <span class="k">return</span> <span class="n">ROI</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">mask_img</span><span class="o">=</span><span class="n">new_mask</span><span class="p">,</span> <span class="n">efield</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="p">)</span>
+<a id="__codelineno-0-370" name="__codelineno-0-370"></a>
+<a id="__codelineno-0-371" name="__codelineno-0-371"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_resolve_label_img</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_img</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<a id="__codelineno-0-372" name="__codelineno-0-372"></a><span class="w">        </span><span class="sd">"""Return a concrete path to the tissue labeling NIfTI.</span>
 <a id="__codelineno-0-373" name="__codelineno-0-373"></a>
-<a id="__codelineno-0-374" name="__codelineno-0-374"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-375" name="__codelineno-0-375"></a>            <span class="s2">"label_img is required when no SegmentationResult is attached.</span><span class="se">\n</span><span class="s2">"</span>
-<a id="__codelineno-0-376" name="__codelineno-0-376"></a>            <span class="s2">"Either pass label_img= explicitly, or call "</span>
-<a id="__codelineno-0-377" name="__codelineno-0-377"></a>            <span class="s2">"sim.set_segmentation(seg) beforehand."</span>
-<a id="__codelineno-0-378" name="__codelineno-0-378"></a>        <span class="p">)</span>
-<a id="__codelineno-0-379" name="__codelineno-0-379"></a>
-<a id="__codelineno-0-380" name="__codelineno-0-380"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_build_tissue_mask</span><span class="p">(</span>
-<a id="__codelineno-0-381" name="__codelineno-0-381"></a>        <span class="bp">self</span><span class="p">,</span>
-<a id="__codelineno-0-382" name="__codelineno-0-382"></a>        <span class="n">label_img_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
-<a id="__codelineno-0-383" name="__codelineno-0-383"></a>        <span class="n">tissue</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<a id="__codelineno-0-384" name="__codelineno-0-384"></a>        <span class="n">lut_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-385" name="__codelineno-0-385"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
-<a id="__codelineno-0-386" name="__codelineno-0-386"></a><span class="w">        </span><span class="sd">"""Build a binary mask for a single tissue type."""</span>
-<a id="__codelineno-0-387" name="__codelineno-0-387"></a>        <span class="n">label_nii</span>   <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">label_img_path</span><span class="p">))</span>
-<a id="__codelineno-0-388" name="__codelineno-0-388"></a>        <span class="n">label_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fdata_3d</span><span class="p">(</span><span class="n">label_nii</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>   <span class="c1"># squeeze → 3D</span>
-<a id="__codelineno-0-389" name="__codelineno-0-389"></a>
-<a id="__codelineno-0-390" name="__codelineno-0-390"></a>        <span class="n">effective_lut</span> <span class="o">=</span> <span class="n">parse_lut</span><span class="p">(</span><span class="n">lut_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">lut_path</span> <span class="k">else</span> <span class="n">_SIMNIBS_LUT</span>
-<a id="__codelineno-0-391" name="__codelineno-0-391"></a>        <span class="n">tissue_val</span>    <span class="o">=</span> <span class="n">resolve_tissue_value</span><span class="p">(</span><span class="n">tissue</span><span class="p">,</span> <span class="n">effective_lut</span><span class="p">)</span>
-<a id="__codelineno-0-392" name="__codelineno-0-392"></a>
-<a id="__codelineno-0-393" name="__codelineno-0-393"></a>        <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">label_array</span> <span class="o">==</span> <span class="n">tissue_val</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-<a id="__codelineno-0-394" name="__codelineno-0-394"></a>        <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">label_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
-<a id="__codelineno-0-395" name="__codelineno-0-395"></a>
-<a id="__codelineno-0-396" name="__codelineno-0-396"></a>    <span class="nd">@staticmethod</span>
-<a id="__codelineno-0-397" name="__codelineno-0-397"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_intersect_masks</span><span class="p">(</span>
-<a id="__codelineno-0-398" name="__codelineno-0-398"></a>        <span class="n">mask_a</span><span class="p">:</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">,</span>
-<a id="__codelineno-0-399" name="__codelineno-0-399"></a>        <span class="n">mask_b</span><span class="p">:</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">,</span>
-<a id="__codelineno-0-400" name="__codelineno-0-400"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
-<a id="__codelineno-0-401" name="__codelineno-0-401"></a><span class="w">        </span><span class="sd">"""Binary intersection of two masks (mask_b resampled onto mask_a)."""</span>
-<a id="__codelineno-0-402" name="__codelineno-0-402"></a>        <span class="n">mask_b</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">resample_to_img</span><span class="p">(</span><span class="n">mask_b</span><span class="p">,</span> <span class="n">mask_a</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">)</span>
-<a id="__codelineno-0-403" name="__codelineno-0-403"></a>        <span class="n">combined</span> <span class="o">=</span> <span class="p">(</span>
-<a id="__codelineno-0-404" name="__codelineno-0-404"></a>            <span class="n">ROI</span><span class="o">.</span><span class="n">_fdata_3d</span><span class="p">(</span><span class="n">mask_a</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
-<a id="__codelineno-0-405" name="__codelineno-0-405"></a>            <span class="o">&amp;</span> <span class="n">ROI</span><span class="o">.</span><span class="n">_fdata_3d</span><span class="p">(</span><span class="n">mask_b</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
-<a id="__codelineno-0-406" name="__codelineno-0-406"></a>        <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-<a id="__codelineno-0-407" name="__codelineno-0-407"></a>        <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">combined</span><span class="p">,</span> <span class="n">mask_a</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
-<a id="__codelineno-0-408" name="__codelineno-0-408"></a>
-<a id="__codelineno-0-409" name="__codelineno-0-409"></a>    <span class="c1"># ------------------------------------------------------------------</span>
-<a id="__codelineno-0-410" name="__codelineno-0-410"></a>    <span class="c1"># Export  (delegates to io/)</span>
-<a id="__codelineno-0-411" name="__codelineno-0-411"></a>    <span class="c1"># ------------------------------------------------------------------</span>
-<a id="__codelineno-0-412" name="__codelineno-0-412"></a>
-<a id="__codelineno-0-413" name="__codelineno-0-413"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span>
-<a id="__codelineno-0-414" name="__codelineno-0-414"></a>        <span class="bp">self</span><span class="p">,</span>
-<a id="__codelineno-0-415" name="__codelineno-0-415"></a>        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
-<a id="__codelineno-0-416" name="__codelineno-0-416"></a>        <span class="n">metrics</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-417" name="__codelineno-0-417"></a>        <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"tsv"</span><span class="p">,</span>
-<a id="__codelineno-0-418" name="__codelineno-0-418"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<a id="__codelineno-0-419" name="__codelineno-0-419"></a><span class="w">        </span><span class="sd">"""Export statistics to disk (tsv or csv)."""</span>
-<a id="__codelineno-0-420" name="__codelineno-0-420"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">..io.export</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_results</span>
-<a id="__codelineno-0-421" name="__codelineno-0-421"></a>        <span class="k">return</span> <span class="n">save_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">(),</span> <span class="n">path</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
-<a id="__codelineno-0-422" name="__codelineno-0-422"></a>
-<a id="__codelineno-0-423" name="__codelineno-0-423"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">save_nifti</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<a id="__codelineno-0-424" name="__codelineno-0-424"></a><span class="w">        </span><span class="sd">"""Write ``cleaned_img`` (or ``masked_img``) to a NIfTI file."""</span>
-<a id="__codelineno-0-425" name="__codelineno-0-425"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">..io.nifti</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_nifti</span>
-<a id="__codelineno-0-426" name="__codelineno-0-426"></a>        <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_img</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">masked_img</span>
-<a id="__codelineno-0-427" name="__codelineno-0-427"></a>        <span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-428" name="__codelineno-0-428"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-429" name="__codelineno-0-429"></a>                <span class="s2">"No volumetric image to save. Call .postprocess() first, "</span>
-<a id="__codelineno-0-430" name="__codelineno-0-430"></a>                <span class="s2">"or use .save() to export stats only."</span>
-<a id="__codelineno-0-431" name="__codelineno-0-431"></a>            <span class="p">)</span>
-<a id="__codelineno-0-432" name="__codelineno-0-432"></a>        <span class="k">return</span> <span class="n">save_nifti</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+<a id="__codelineno-0-374" name="__codelineno-0-374"></a><span class="sd">        Priority:</span>
+<a id="__codelineno-0-375" name="__codelineno-0-375"></a><span class="sd">        1. Explicit *label_img* argument.</span>
+<a id="__codelineno-0-376" name="__codelineno-0-376"></a><span class="sd">        2. ``self.efield.simulation.segmentation.tissue_labeling_upsampled``.</span>
+<a id="__codelineno-0-377" name="__codelineno-0-377"></a><span class="sd">        """</span>
+<a id="__codelineno-0-378" name="__codelineno-0-378"></a>        <span class="k">if</span> <span class="n">label_img</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-379" name="__codelineno-0-379"></a>            <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">label_img</span><span class="p">)</span>
+<a id="__codelineno-0-380" name="__codelineno-0-380"></a>
+<a id="__codelineno-0-381" name="__codelineno-0-381"></a>        <span class="n">sim</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="p">,</span> <span class="s2">"simulation"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<a id="__codelineno-0-382" name="__codelineno-0-382"></a>        <span class="n">seg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="s2">"segmentation"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">sim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+<a id="__codelineno-0-383" name="__codelineno-0-383"></a>        <span class="k">if</span> <span class="n">seg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-384" name="__codelineno-0-384"></a>            <span class="k">return</span> <span class="n">seg</span><span class="o">.</span><span class="n">tissue_labeling_upsampled</span>
+<a id="__codelineno-0-385" name="__codelineno-0-385"></a>
+<a id="__codelineno-0-386" name="__codelineno-0-386"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-387" name="__codelineno-0-387"></a>            <span class="s2">"label_img is required when no SegmentationResult is attached.</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-0-388" name="__codelineno-0-388"></a>            <span class="s2">"Either pass label_img= explicitly, or call "</span>
+<a id="__codelineno-0-389" name="__codelineno-0-389"></a>            <span class="s2">"sim.set_segmentation(seg) beforehand."</span>
+<a id="__codelineno-0-390" name="__codelineno-0-390"></a>        <span class="p">)</span>
+<a id="__codelineno-0-391" name="__codelineno-0-391"></a>
+<a id="__codelineno-0-392" name="__codelineno-0-392"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_build_tissue_mask</span><span class="p">(</span>
+<a id="__codelineno-0-393" name="__codelineno-0-393"></a>        <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-394" name="__codelineno-0-394"></a>        <span class="n">label_img_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
+<a id="__codelineno-0-395" name="__codelineno-0-395"></a>        <span class="n">tissue</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-0-396" name="__codelineno-0-396"></a>        <span class="n">lut_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-397" name="__codelineno-0-397"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
+<a id="__codelineno-0-398" name="__codelineno-0-398"></a><span class="w">        </span><span class="sd">"""Build a binary mask for a single tissue type."""</span>
+<a id="__codelineno-0-399" name="__codelineno-0-399"></a>        <span class="n">label_nii</span>   <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">label_img_path</span><span class="p">))</span>
+<a id="__codelineno-0-400" name="__codelineno-0-400"></a>        <span class="n">label_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fdata_3d</span><span class="p">(</span><span class="n">label_nii</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>   <span class="c1"># squeeze → 3D</span>
+<a id="__codelineno-0-401" name="__codelineno-0-401"></a>
+<a id="__codelineno-0-402" name="__codelineno-0-402"></a>        <span class="n">effective_lut</span> <span class="o">=</span> <span class="n">parse_lut</span><span class="p">(</span><span class="n">lut_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">lut_path</span> <span class="k">else</span> <span class="n">_SIMNIBS_LUT</span>
+<a id="__codelineno-0-403" name="__codelineno-0-403"></a>        <span class="n">tissue_val</span>    <span class="o">=</span> <span class="n">resolve_tissue_value</span><span class="p">(</span><span class="n">tissue</span><span class="p">,</span> <span class="n">effective_lut</span><span class="p">)</span>
+<a id="__codelineno-0-404" name="__codelineno-0-404"></a>
+<a id="__codelineno-0-405" name="__codelineno-0-405"></a>        <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">label_array</span> <span class="o">==</span> <span class="n">tissue_val</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<a id="__codelineno-0-406" name="__codelineno-0-406"></a>        <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">label_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
+<a id="__codelineno-0-407" name="__codelineno-0-407"></a>
+<a id="__codelineno-0-408" name="__codelineno-0-408"></a>    <span class="nd">@staticmethod</span>
+<a id="__codelineno-0-409" name="__codelineno-0-409"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_intersect_masks</span><span class="p">(</span>
+<a id="__codelineno-0-410" name="__codelineno-0-410"></a>        <span class="n">mask_a</span><span class="p">:</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">,</span>
+<a id="__codelineno-0-411" name="__codelineno-0-411"></a>        <span class="n">mask_b</span><span class="p">:</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">,</span>
+<a id="__codelineno-0-412" name="__codelineno-0-412"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
+<a id="__codelineno-0-413" name="__codelineno-0-413"></a><span class="w">        </span><span class="sd">"""Binary intersection of two masks (mask_b resampled onto mask_a)."""</span>
+<a id="__codelineno-0-414" name="__codelineno-0-414"></a>        <span class="n">mask_b</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">resample_to_img</span><span class="p">(</span><span class="n">mask_b</span><span class="p">,</span> <span class="n">mask_a</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">)</span>
+<a id="__codelineno-0-415" name="__codelineno-0-415"></a>        <span class="n">combined</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-0-416" name="__codelineno-0-416"></a>            <span class="n">ROI</span><span class="o">.</span><span class="n">_fdata_3d</span><span class="p">(</span><span class="n">mask_a</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+<a id="__codelineno-0-417" name="__codelineno-0-417"></a>            <span class="o">&amp;</span> <span class="n">ROI</span><span class="o">.</span><span class="n">_fdata_3d</span><span class="p">(</span><span class="n">mask_b</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+<a id="__codelineno-0-418" name="__codelineno-0-418"></a>        <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<a id="__codelineno-0-419" name="__codelineno-0-419"></a>        <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">combined</span><span class="p">,</span> <span class="n">mask_a</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
+<a id="__codelineno-0-420" name="__codelineno-0-420"></a>
+<a id="__codelineno-0-421" name="__codelineno-0-421"></a>    <span class="c1"># ------------------------------------------------------------------</span>
+<a id="__codelineno-0-422" name="__codelineno-0-422"></a>    <span class="c1"># Export  (delegates to io/)</span>
+<a id="__codelineno-0-423" name="__codelineno-0-423"></a>    <span class="c1"># ------------------------------------------------------------------</span>
+<a id="__codelineno-0-424" name="__codelineno-0-424"></a>
+<a id="__codelineno-0-425" name="__codelineno-0-425"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span>
+<a id="__codelineno-0-426" name="__codelineno-0-426"></a>        <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-427" name="__codelineno-0-427"></a>        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
+<a id="__codelineno-0-428" name="__codelineno-0-428"></a>        <span class="n">metrics</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-429" name="__codelineno-0-429"></a>        <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"tsv"</span><span class="p">,</span>
+<a id="__codelineno-0-430" name="__codelineno-0-430"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<a id="__codelineno-0-431" name="__codelineno-0-431"></a><span class="w">        </span><span class="sd">"""Export statistics to disk (tsv or csv)."""</span>
+<a id="__codelineno-0-432" name="__codelineno-0-432"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">..io.export</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_results</span>
+<a id="__codelineno-0-433" name="__codelineno-0-433"></a>        <span class="k">return</span> <span class="n">save_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">(),</span> <span class="n">path</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
+<a id="__codelineno-0-434" name="__codelineno-0-434"></a>
+<a id="__codelineno-0-435" name="__codelineno-0-435"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">save_nifti</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<a id="__codelineno-0-436" name="__codelineno-0-436"></a><span class="w">        </span><span class="sd">"""Write ``cleaned_img`` (or ``masked_img``) to a NIfTI file."""</span>
+<a id="__codelineno-0-437" name="__codelineno-0-437"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">..io.nifti</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_nifti</span>
+<a id="__codelineno-0-438" name="__codelineno-0-438"></a>        <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_img</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">masked_img</span>
+<a id="__codelineno-0-439" name="__codelineno-0-439"></a>        <span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-440" name="__codelineno-0-440"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-441" name="__codelineno-0-441"></a>                <span class="s2">"No volumetric image to save. Call .postprocess() first, "</span>
+<a id="__codelineno-0-442" name="__codelineno-0-442"></a>                <span class="s2">"or use .save() to export stats only."</span>
+<a id="__codelineno-0-443" name="__codelineno-0-443"></a>            <span class="p">)</span>
+<a id="__codelineno-0-444" name="__codelineno-0-444"></a>        <span class="k">return</span> <span class="n">save_nifti</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -2777,19 +2801,7 @@ then resolved automatically from <code>segmentation.tissue_labeling_upsampled</c
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>simnibs_reader/nifti/roi.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-329">329</a></span>
-<span class="normal"><a href="#__codelineno-0-330">330</a></span>
-<span class="normal"><a href="#__codelineno-0-331">331</a></span>
-<span class="normal"><a href="#__codelineno-0-332">332</a></span>
-<span class="normal"><a href="#__codelineno-0-333">333</a></span>
-<span class="normal"><a href="#__codelineno-0-334">334</a></span>
-<span class="normal"><a href="#__codelineno-0-335">335</a></span>
-<span class="normal"><a href="#__codelineno-0-336">336</a></span>
-<span class="normal"><a href="#__codelineno-0-337">337</a></span>
-<span class="normal"><a href="#__codelineno-0-338">338</a></span>
-<span class="normal"><a href="#__codelineno-0-339">339</a></span>
-<span class="normal"><a href="#__codelineno-0-340">340</a></span>
-<span class="normal"><a href="#__codelineno-0-341">341</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-341">341</a></span>
 <span class="normal"><a href="#__codelineno-0-342">342</a></span>
 <span class="normal"><a href="#__codelineno-0-343">343</a></span>
 <span class="normal"><a href="#__codelineno-0-344">344</a></span>
@@ -2805,35 +2817,47 @@ then resolved automatically from <code>segmentation.tissue_labeling_upsampled</c
 <span class="normal"><a href="#__codelineno-0-354">354</a></span>
 <span class="normal"><a href="#__codelineno-0-355">355</a></span>
 <span class="normal"><a href="#__codelineno-0-356">356</a></span>
-<span class="normal"><a href="#__codelineno-0-357">357</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-329" name="__codelineno-0-329"></a><span class="k">def</span><span class="w"> </span><span class="nf">filter_tissue</span><span class="p">(</span>
-<a id="__codelineno-0-330" name="__codelineno-0-330"></a>    <span class="bp">self</span><span class="p">,</span>
-<a id="__codelineno-0-331" name="__codelineno-0-331"></a>    <span class="n">tissue</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<a id="__codelineno-0-332" name="__codelineno-0-332"></a>    <span class="n">label_img</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-333" name="__codelineno-0-333"></a>    <span class="n">lut</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-334" name="__codelineno-0-334"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ROI</span><span class="p">:</span>
-<a id="__codelineno-0-335" name="__codelineno-0-335"></a><span class="w">    </span><span class="sd">"""Restrict the ROI to a specific tissue type.</span>
-<a id="__codelineno-0-336" name="__codelineno-0-336"></a>
-<a id="__codelineno-0-337" name="__codelineno-0-337"></a><span class="sd">    Returns a **new** ``ROI`` — the original is never mutated.</span>
-<a id="__codelineno-0-338" name="__codelineno-0-338"></a>
-<a id="__codelineno-0-339" name="__codelineno-0-339"></a><span class="sd">    ``label_img`` can be omitted when a ``SegmentationResult`` has been</span>
-<a id="__codelineno-0-340" name="__codelineno-0-340"></a><span class="sd">    attached to the parent simulation via ``set_segmentation``; the path is</span>
-<a id="__codelineno-0-341" name="__codelineno-0-341"></a><span class="sd">    then resolved automatically from ``segmentation.tissue_labeling_upsampled``.</span>
-<a id="__codelineno-0-342" name="__codelineno-0-342"></a>
-<a id="__codelineno-0-343" name="__codelineno-0-343"></a><span class="sd">    Parameters</span>
-<a id="__codelineno-0-344" name="__codelineno-0-344"></a><span class="sd">    ----------</span>
-<a id="__codelineno-0-345" name="__codelineno-0-345"></a><span class="sd">    tissue : str</span>
-<a id="__codelineno-0-346" name="__codelineno-0-346"></a><span class="sd">        Tissue name (e.g. ``"Gray-Matter"``). Case-insensitive.</span>
-<a id="__codelineno-0-347" name="__codelineno-0-347"></a><span class="sd">    label_img : str, Path, or None</span>
-<a id="__codelineno-0-348" name="__codelineno-0-348"></a><span class="sd">        Path to the SimNIBS tissue labeling NIfTI. ``None`` → auto-resolve.</span>
-<a id="__codelineno-0-349" name="__codelineno-0-349"></a><span class="sd">    lut : str, Path, or None</span>
-<a id="__codelineno-0-350" name="__codelineno-0-350"></a><span class="sd">        Path to ``*_LUT.txt``. If omitted, the standard SimNIBS mapping is used.</span>
-<a id="__codelineno-0-351" name="__codelineno-0-351"></a><span class="sd">    """</span>
-<a id="__codelineno-0-352" name="__codelineno-0-352"></a>    <span class="n">resolved_label_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_label_img</span><span class="p">(</span><span class="n">label_img</span><span class="p">)</span>
-<a id="__codelineno-0-353" name="__codelineno-0-353"></a>    <span class="n">tissue_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tissue_mask</span><span class="p">(</span><span class="n">resolved_label_img</span><span class="p">,</span> <span class="n">tissue</span><span class="p">,</span> <span class="n">lut</span><span class="p">)</span>
-<a id="__codelineno-0-354" name="__codelineno-0-354"></a>    <span class="n">new_mask</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_intersect_masks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_img</span><span class="p">,</span> <span class="n">tissue_mask</span><span class="p">)</span>
-<a id="__codelineno-0-355" name="__codelineno-0-355"></a>
-<a id="__codelineno-0-356" name="__codelineno-0-356"></a>    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">masking</span><span class="o">.</span><span class="n">apply_mask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">new_mask</span><span class="p">))</span>     <span class="c1"># .img !</span>
-<a id="__codelineno-0-357" name="__codelineno-0-357"></a>    <span class="k">return</span> <span class="n">ROI</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">mask_img</span><span class="o">=</span><span class="n">new_mask</span><span class="p">,</span> <span class="n">efield</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="p">)</span>
+<span class="normal"><a href="#__codelineno-0-357">357</a></span>
+<span class="normal"><a href="#__codelineno-0-358">358</a></span>
+<span class="normal"><a href="#__codelineno-0-359">359</a></span>
+<span class="normal"><a href="#__codelineno-0-360">360</a></span>
+<span class="normal"><a href="#__codelineno-0-361">361</a></span>
+<span class="normal"><a href="#__codelineno-0-362">362</a></span>
+<span class="normal"><a href="#__codelineno-0-363">363</a></span>
+<span class="normal"><a href="#__codelineno-0-364">364</a></span>
+<span class="normal"><a href="#__codelineno-0-365">365</a></span>
+<span class="normal"><a href="#__codelineno-0-366">366</a></span>
+<span class="normal"><a href="#__codelineno-0-367">367</a></span>
+<span class="normal"><a href="#__codelineno-0-368">368</a></span>
+<span class="normal"><a href="#__codelineno-0-369">369</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-341" name="__codelineno-0-341"></a><span class="k">def</span><span class="w"> </span><span class="nf">filter_tissue</span><span class="p">(</span>
+<a id="__codelineno-0-342" name="__codelineno-0-342"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-343" name="__codelineno-0-343"></a>    <span class="n">tissue</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-0-344" name="__codelineno-0-344"></a>    <span class="n">label_img</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-345" name="__codelineno-0-345"></a>    <span class="n">lut</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-346" name="__codelineno-0-346"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ROI</span><span class="p">:</span>
+<a id="__codelineno-0-347" name="__codelineno-0-347"></a><span class="w">    </span><span class="sd">"""Restrict the ROI to a specific tissue type.</span>
+<a id="__codelineno-0-348" name="__codelineno-0-348"></a>
+<a id="__codelineno-0-349" name="__codelineno-0-349"></a><span class="sd">    Returns a **new** ``ROI`` — the original is never mutated.</span>
+<a id="__codelineno-0-350" name="__codelineno-0-350"></a>
+<a id="__codelineno-0-351" name="__codelineno-0-351"></a><span class="sd">    ``label_img`` can be omitted when a ``SegmentationResult`` has been</span>
+<a id="__codelineno-0-352" name="__codelineno-0-352"></a><span class="sd">    attached to the parent simulation via ``set_segmentation``; the path is</span>
+<a id="__codelineno-0-353" name="__codelineno-0-353"></a><span class="sd">    then resolved automatically from ``segmentation.tissue_labeling_upsampled``.</span>
+<a id="__codelineno-0-354" name="__codelineno-0-354"></a>
+<a id="__codelineno-0-355" name="__codelineno-0-355"></a><span class="sd">    Parameters</span>
+<a id="__codelineno-0-356" name="__codelineno-0-356"></a><span class="sd">    ----------</span>
+<a id="__codelineno-0-357" name="__codelineno-0-357"></a><span class="sd">    tissue : str</span>
+<a id="__codelineno-0-358" name="__codelineno-0-358"></a><span class="sd">        Tissue name (e.g. ``"Gray-Matter"``). Case-insensitive.</span>
+<a id="__codelineno-0-359" name="__codelineno-0-359"></a><span class="sd">    label_img : str, Path, or None</span>
+<a id="__codelineno-0-360" name="__codelineno-0-360"></a><span class="sd">        Path to the SimNIBS tissue labeling NIfTI. ``None`` → auto-resolve.</span>
+<a id="__codelineno-0-361" name="__codelineno-0-361"></a><span class="sd">    lut : str, Path, or None</span>
+<a id="__codelineno-0-362" name="__codelineno-0-362"></a><span class="sd">        Path to ``*_LUT.txt``. If omitted, the standard SimNIBS mapping is used.</span>
+<a id="__codelineno-0-363" name="__codelineno-0-363"></a><span class="sd">    """</span>
+<a id="__codelineno-0-364" name="__codelineno-0-364"></a>    <span class="n">resolved_label_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_label_img</span><span class="p">(</span><span class="n">label_img</span><span class="p">)</span>
+<a id="__codelineno-0-365" name="__codelineno-0-365"></a>    <span class="n">tissue_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tissue_mask</span><span class="p">(</span><span class="n">resolved_label_img</span><span class="p">,</span> <span class="n">tissue</span><span class="p">,</span> <span class="n">lut</span><span class="p">)</span>
+<a id="__codelineno-0-366" name="__codelineno-0-366"></a>    <span class="n">new_mask</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_intersect_masks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_img</span><span class="p">,</span> <span class="n">tissue_mask</span><span class="p">)</span>
+<a id="__codelineno-0-367" name="__codelineno-0-367"></a>
+<a id="__codelineno-0-368" name="__codelineno-0-368"></a>    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">masking</span><span class="o">.</span><span class="n">apply_mask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">new_mask</span><span class="p">))</span>     <span class="c1"># .img !</span>
+<a id="__codelineno-0-369" name="__codelineno-0-369"></a>    <span class="k">return</span> <span class="n">ROI</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">mask_img</span><span class="o">=</span><span class="n">new_mask</span><span class="p">,</span> <span class="n">efield</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">efield</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2856,23 +2880,23 @@ then resolved automatically from <code>segmentation.tissue_labeling_upsampled</c
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>simnibs_reader/nifti/roi.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-413">413</a></span>
-<span class="normal"><a href="#__codelineno-0-414">414</a></span>
-<span class="normal"><a href="#__codelineno-0-415">415</a></span>
-<span class="normal"><a href="#__codelineno-0-416">416</a></span>
-<span class="normal"><a href="#__codelineno-0-417">417</a></span>
-<span class="normal"><a href="#__codelineno-0-418">418</a></span>
-<span class="normal"><a href="#__codelineno-0-419">419</a></span>
-<span class="normal"><a href="#__codelineno-0-420">420</a></span>
-<span class="normal"><a href="#__codelineno-0-421">421</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-413" name="__codelineno-0-413"></a><span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span>
-<a id="__codelineno-0-414" name="__codelineno-0-414"></a>    <span class="bp">self</span><span class="p">,</span>
-<a id="__codelineno-0-415" name="__codelineno-0-415"></a>    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
-<a id="__codelineno-0-416" name="__codelineno-0-416"></a>    <span class="n">metrics</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-417" name="__codelineno-0-417"></a>    <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"tsv"</span><span class="p">,</span>
-<a id="__codelineno-0-418" name="__codelineno-0-418"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<a id="__codelineno-0-419" name="__codelineno-0-419"></a><span class="w">    </span><span class="sd">"""Export statistics to disk (tsv or csv)."""</span>
-<a id="__codelineno-0-420" name="__codelineno-0-420"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">..io.export</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_results</span>
-<a id="__codelineno-0-421" name="__codelineno-0-421"></a>    <span class="k">return</span> <span class="n">save_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">(),</span> <span class="n">path</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-425">425</a></span>
+<span class="normal"><a href="#__codelineno-0-426">426</a></span>
+<span class="normal"><a href="#__codelineno-0-427">427</a></span>
+<span class="normal"><a href="#__codelineno-0-428">428</a></span>
+<span class="normal"><a href="#__codelineno-0-429">429</a></span>
+<span class="normal"><a href="#__codelineno-0-430">430</a></span>
+<span class="normal"><a href="#__codelineno-0-431">431</a></span>
+<span class="normal"><a href="#__codelineno-0-432">432</a></span>
+<span class="normal"><a href="#__codelineno-0-433">433</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-425" name="__codelineno-0-425"></a><span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span>
+<a id="__codelineno-0-426" name="__codelineno-0-426"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-427" name="__codelineno-0-427"></a>    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
+<a id="__codelineno-0-428" name="__codelineno-0-428"></a>    <span class="n">metrics</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-429" name="__codelineno-0-429"></a>    <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"tsv"</span><span class="p">,</span>
+<a id="__codelineno-0-430" name="__codelineno-0-430"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<a id="__codelineno-0-431" name="__codelineno-0-431"></a><span class="w">    </span><span class="sd">"""Export statistics to disk (tsv or csv)."""</span>
+<a id="__codelineno-0-432" name="__codelineno-0-432"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">..io.export</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_results</span>
+<a id="__codelineno-0-433" name="__codelineno-0-433"></a>    <span class="k">return</span> <span class="n">save_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">(),</span> <span class="n">path</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2895,25 +2919,25 @@ then resolved automatically from <code>segmentation.tissue_labeling_upsampled</c
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>simnibs_reader/nifti/roi.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-423">423</a></span>
-<span class="normal"><a href="#__codelineno-0-424">424</a></span>
-<span class="normal"><a href="#__codelineno-0-425">425</a></span>
-<span class="normal"><a href="#__codelineno-0-426">426</a></span>
-<span class="normal"><a href="#__codelineno-0-427">427</a></span>
-<span class="normal"><a href="#__codelineno-0-428">428</a></span>
-<span class="normal"><a href="#__codelineno-0-429">429</a></span>
-<span class="normal"><a href="#__codelineno-0-430">430</a></span>
-<span class="normal"><a href="#__codelineno-0-431">431</a></span>
-<span class="normal"><a href="#__codelineno-0-432">432</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-423" name="__codelineno-0-423"></a><span class="k">def</span><span class="w"> </span><span class="nf">save_nifti</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<a id="__codelineno-0-424" name="__codelineno-0-424"></a><span class="w">    </span><span class="sd">"""Write ``cleaned_img`` (or ``masked_img``) to a NIfTI file."""</span>
-<a id="__codelineno-0-425" name="__codelineno-0-425"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">..io.nifti</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_nifti</span>
-<a id="__codelineno-0-426" name="__codelineno-0-426"></a>    <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_img</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">masked_img</span>
-<a id="__codelineno-0-427" name="__codelineno-0-427"></a>    <span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-428" name="__codelineno-0-428"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-429" name="__codelineno-0-429"></a>            <span class="s2">"No volumetric image to save. Call .postprocess() first, "</span>
-<a id="__codelineno-0-430" name="__codelineno-0-430"></a>            <span class="s2">"or use .save() to export stats only."</span>
-<a id="__codelineno-0-431" name="__codelineno-0-431"></a>        <span class="p">)</span>
-<a id="__codelineno-0-432" name="__codelineno-0-432"></a>    <span class="k">return</span> <span class="n">save_nifti</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-435">435</a></span>
+<span class="normal"><a href="#__codelineno-0-436">436</a></span>
+<span class="normal"><a href="#__codelineno-0-437">437</a></span>
+<span class="normal"><a href="#__codelineno-0-438">438</a></span>
+<span class="normal"><a href="#__codelineno-0-439">439</a></span>
+<span class="normal"><a href="#__codelineno-0-440">440</a></span>
+<span class="normal"><a href="#__codelineno-0-441">441</a></span>
+<span class="normal"><a href="#__codelineno-0-442">442</a></span>
+<span class="normal"><a href="#__codelineno-0-443">443</a></span>
+<span class="normal"><a href="#__codelineno-0-444">444</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-435" name="__codelineno-0-435"></a><span class="k">def</span><span class="w"> </span><span class="nf">save_nifti</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<a id="__codelineno-0-436" name="__codelineno-0-436"></a><span class="w">    </span><span class="sd">"""Write ``cleaned_img`` (or ``masked_img``) to a NIfTI file."""</span>
+<a id="__codelineno-0-437" name="__codelineno-0-437"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">..io.nifti</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_nifti</span>
+<a id="__codelineno-0-438" name="__codelineno-0-438"></a>    <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_img</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">masked_img</span>
+<a id="__codelineno-0-439" name="__codelineno-0-439"></a>    <span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-440" name="__codelineno-0-440"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-441" name="__codelineno-0-441"></a>            <span class="s2">"No volumetric image to save. Call .postprocess() first, "</span>
+<a id="__codelineno-0-442" name="__codelineno-0-442"></a>            <span class="s2">"or use .save() to export stats only."</span>
+<a id="__codelineno-0-443" name="__codelineno-0-443"></a>        <span class="p">)</span>
+<a id="__codelineno-0-444" name="__codelineno-0-444"></a>    <span class="k">return</span> <span class="n">save_nifti</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

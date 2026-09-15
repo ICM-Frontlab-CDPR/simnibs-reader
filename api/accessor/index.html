@@ -815,6 +815,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#simnibs_reader.nifti.efield.EField.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;__init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#simnibs_reader.nifti.efield.EField.get_roi" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -984,6 +995,17 @@
     <span class="md-ellipsis">
       
         <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simnibs_reader.nifti.efield.EField.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;__init__
       
     </span>
   </a>
@@ -1270,7 +1292,93 @@
 <span class="normal"><a href="#__codelineno-0-224">224</a></span>
 <span class="normal"><a href="#__codelineno-0-225">225</a></span>
 <span class="normal"><a href="#__codelineno-0-226">226</a></span>
-<span class="normal"><a href="#__codelineno-0-227">227</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="k">class</span><span class="w"> </span><span class="nc">EField</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-227">227</a></span>
+<span class="normal"><a href="#__codelineno-0-228">228</a></span>
+<span class="normal"><a href="#__codelineno-0-229">229</a></span>
+<span class="normal"><a href="#__codelineno-0-230">230</a></span>
+<span class="normal"><a href="#__codelineno-0-231">231</a></span>
+<span class="normal"><a href="#__codelineno-0-232">232</a></span>
+<span class="normal"><a href="#__codelineno-0-233">233</a></span>
+<span class="normal"><a href="#__codelineno-0-234">234</a></span>
+<span class="normal"><a href="#__codelineno-0-235">235</a></span>
+<span class="normal"><a href="#__codelineno-0-236">236</a></span>
+<span class="normal"><a href="#__codelineno-0-237">237</a></span>
+<span class="normal"><a href="#__codelineno-0-238">238</a></span>
+<span class="normal"><a href="#__codelineno-0-239">239</a></span>
+<span class="normal"><a href="#__codelineno-0-240">240</a></span>
+<span class="normal"><a href="#__codelineno-0-241">241</a></span>
+<span class="normal"><a href="#__codelineno-0-242">242</a></span>
+<span class="normal"><a href="#__codelineno-0-243">243</a></span>
+<span class="normal"><a href="#__codelineno-0-244">244</a></span>
+<span class="normal"><a href="#__codelineno-0-245">245</a></span>
+<span class="normal"><a href="#__codelineno-0-246">246</a></span>
+<span class="normal"><a href="#__codelineno-0-247">247</a></span>
+<span class="normal"><a href="#__codelineno-0-248">248</a></span>
+<span class="normal"><a href="#__codelineno-0-249">249</a></span>
+<span class="normal"><a href="#__codelineno-0-250">250</a></span>
+<span class="normal"><a href="#__codelineno-0-251">251</a></span>
+<span class="normal"><a href="#__codelineno-0-252">252</a></span>
+<span class="normal"><a href="#__codelineno-0-253">253</a></span>
+<span class="normal"><a href="#__codelineno-0-254">254</a></span>
+<span class="normal"><a href="#__codelineno-0-255">255</a></span>
+<span class="normal"><a href="#__codelineno-0-256">256</a></span>
+<span class="normal"><a href="#__codelineno-0-257">257</a></span>
+<span class="normal"><a href="#__codelineno-0-258">258</a></span>
+<span class="normal"><a href="#__codelineno-0-259">259</a></span>
+<span class="normal"><a href="#__codelineno-0-260">260</a></span>
+<span class="normal"><a href="#__codelineno-0-261">261</a></span>
+<span class="normal"><a href="#__codelineno-0-262">262</a></span>
+<span class="normal"><a href="#__codelineno-0-263">263</a></span>
+<span class="normal"><a href="#__codelineno-0-264">264</a></span>
+<span class="normal"><a href="#__codelineno-0-265">265</a></span>
+<span class="normal"><a href="#__codelineno-0-266">266</a></span>
+<span class="normal"><a href="#__codelineno-0-267">267</a></span>
+<span class="normal"><a href="#__codelineno-0-268">268</a></span>
+<span class="normal"><a href="#__codelineno-0-269">269</a></span>
+<span class="normal"><a href="#__codelineno-0-270">270</a></span>
+<span class="normal"><a href="#__codelineno-0-271">271</a></span>
+<span class="normal"><a href="#__codelineno-0-272">272</a></span>
+<span class="normal"><a href="#__codelineno-0-273">273</a></span>
+<span class="normal"><a href="#__codelineno-0-274">274</a></span>
+<span class="normal"><a href="#__codelineno-0-275">275</a></span>
+<span class="normal"><a href="#__codelineno-0-276">276</a></span>
+<span class="normal"><a href="#__codelineno-0-277">277</a></span>
+<span class="normal"><a href="#__codelineno-0-278">278</a></span>
+<span class="normal"><a href="#__codelineno-0-279">279</a></span>
+<span class="normal"><a href="#__codelineno-0-280">280</a></span>
+<span class="normal"><a href="#__codelineno-0-281">281</a></span>
+<span class="normal"><a href="#__codelineno-0-282">282</a></span>
+<span class="normal"><a href="#__codelineno-0-283">283</a></span>
+<span class="normal"><a href="#__codelineno-0-284">284</a></span>
+<span class="normal"><a href="#__codelineno-0-285">285</a></span>
+<span class="normal"><a href="#__codelineno-0-286">286</a></span>
+<span class="normal"><a href="#__codelineno-0-287">287</a></span>
+<span class="normal"><a href="#__codelineno-0-288">288</a></span>
+<span class="normal"><a href="#__codelineno-0-289">289</a></span>
+<span class="normal"><a href="#__codelineno-0-290">290</a></span>
+<span class="normal"><a href="#__codelineno-0-291">291</a></span>
+<span class="normal"><a href="#__codelineno-0-292">292</a></span>
+<span class="normal"><a href="#__codelineno-0-293">293</a></span>
+<span class="normal"><a href="#__codelineno-0-294">294</a></span>
+<span class="normal"><a href="#__codelineno-0-295">295</a></span>
+<span class="normal"><a href="#__codelineno-0-296">296</a></span>
+<span class="normal"><a href="#__codelineno-0-297">297</a></span>
+<span class="normal"><a href="#__codelineno-0-298">298</a></span>
+<span class="normal"><a href="#__codelineno-0-299">299</a></span>
+<span class="normal"><a href="#__codelineno-0-300">300</a></span>
+<span class="normal"><a href="#__codelineno-0-301">301</a></span>
+<span class="normal"><a href="#__codelineno-0-302">302</a></span>
+<span class="normal"><a href="#__codelineno-0-303">303</a></span>
+<span class="normal"><a href="#__codelineno-0-304">304</a></span>
+<span class="normal"><a href="#__codelineno-0-305">305</a></span>
+<span class="normal"><a href="#__codelineno-0-306">306</a></span>
+<span class="normal"><a href="#__codelineno-0-307">307</a></span>
+<span class="normal"><a href="#__codelineno-0-308">308</a></span>
+<span class="normal"><a href="#__codelineno-0-309">309</a></span>
+<span class="normal"><a href="#__codelineno-0-310">310</a></span>
+<span class="normal"><a href="#__codelineno-0-311">311</a></span>
+<span class="normal"><a href="#__codelineno-0-312">312</a></span>
+<span class="normal"><a href="#__codelineno-0-313">313</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="k">class</span><span class="w"> </span><span class="nc">EField</span><span class="p">:</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">    </span><span class="sd">"""E-field NIfTI image with simulation-aware extra methods.</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    Wraps a ``nib.Nifti1Image`` — pass ``efield.img`` or</span>
@@ -1281,209 +1389,295 @@
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>        <span class="bp">self</span><span class="p">,</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a>        <span class="n">simulation</span><span class="p">:</span> <span class="n">SimulationResult</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a>            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"NIfTI file not found: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span> <span class="o">=</span> <span class="n">simulation</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">:</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>  <span class="c1"># memmap → pas chargé en RAM</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a>    <span class="c1"># ── Accès au Nifti1Image sous-jacent ─────────────────────────</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a>    <span class="nd">@property</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">img</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="w">        </span><span class="sd">"""Le vrai ``Nifti1Image`` — à passer à nilearn/nibabel."""</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a>    <span class="c1"># ── Délégation des attributs courants ────────────────────────</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a>    <span class="nd">@property</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">affine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">affine</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a>    <span class="nd">@property</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">header</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a>        <span class="n">space</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"native"</span><span class="p">,</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="w">        </span><span class="sd">"""</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        Parameters</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        ----------</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        path : str or Path</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">            Path to the NIfTI volume.</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        simulation : SimulationResult, optional</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">            Parent simulation; gives access to the attached segmentation.</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        space : {"native", "mni"}</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">            The space this volume lives in. Determines whether coordinates</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">            given in MNI need warping before use — see :meth:`get_roi`.</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        """</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a>            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"NIfTI file not found: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a>        <span class="k">if</span> <span class="n">space</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"native"</span><span class="p">,</span> <span class="s2">"mni"</span><span class="p">):</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"space must be 'native' or 'mni', got </span><span class="si">{</span><span class="n">space</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span> <span class="o">=</span> <span class="n">simulation</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="n">space</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">:</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>  <span class="c1"># memmap → pas chargé en RAM</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a>    <span class="c1"># ── Accès au Nifti1Image sous-jacent ─────────────────────────</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a>    <span class="nd">@property</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a>    <span class="nd">@property</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="w">        </span><span class="sd">"""Volume data as ``float32`` array (lu paresseusement par nibabel)."""</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_fdata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"EField('</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">')"</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">img</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="w">        </span><span class="sd">"""Le vrai ``Nifti1Image`` — à passer à nilearn/nibabel."""</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a>    <span class="c1"># ── Délégation des attributs courants ────────────────────────</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a>    <span class="nd">@property</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">affine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">affine</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="nd">@property</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">header</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="c1"># ------------------------------------------------------------------</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a>    <span class="c1"># ROI extraction</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>    <span class="c1"># ------------------------------------------------------------------</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="nd">@property</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">shape</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_roi</span><span class="p">(</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a>        <span class="bp">self</span><span class="p">,</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a>        <span class="o">*</span><span class="p">,</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a>        <span class="n">mask</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>        <span class="n">coords</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>        <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>        <span class="n">atlas</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a>        <span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ROI</span><span class="p">:</span>  <span class="c1"># noqa: F821 — forward ref résolu à l'exécution</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="w">        </span><span class="sd">"""Extract e-field values within a region of interest.</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a>    <span class="nd">@property</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="w">        </span><span class="sd">"""Volume data as ``float32`` array (lu paresseusement par nibabel)."""</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_fdata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"EField('</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">')"</span>
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        Exactly one source must be given:</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">          - ``mask=``             : path to a binary NIfTI mask</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">          - ``coords=`` (+radius) : spherical ROI in the e-field's own space</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">          - ``atlas=`` (+region)  : atlas-based parcel</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        """</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">masking</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">.roi</span><span class="w"> </span><span class="kn">import</span> <span class="n">ROI</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>        <span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">coords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">atlas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a>        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a>                <span class="s2">"Provide exactly one ROI source: `mask=`, `coords=` (+radius), "</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a>                <span class="sa">f</span><span class="s2">"or `atlas=` (+region). Got </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>            <span class="p">)</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="c1"># ------------------------------------------------------------------</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>    <span class="c1"># ROI extraction</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>    <span class="c1"># ------------------------------------------------------------------</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_roi</span><span class="p">(</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>        <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>        <span class="o">*</span><span class="p">,</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>        <span class="n">mask</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a>        <span class="n">coords</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>        <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a>        <span class="n">atlas</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a>        <span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>        <span class="n">coords_space</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ROI</span><span class="p">:</span>  <span class="c1"># noqa: F821 — forward ref résolu à l'exécution</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="w">        </span><span class="sd">"""Extract e-field values within a region of interest.</span>
 <a id="__codelineno-0-94" name="__codelineno-0-94"></a>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a>        <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a>            <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a>        <span class="k">elif</span> <span class="n">coords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>            <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_sphere</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>        <span class="c1"># radius → radius_mm (positionnel)</span>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a>            <span class="k">if</span> <span class="n">region</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"`atlas=` requires `region=`."</span><span class="p">)</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a>            <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_atlas</span><span class="p">(</span><span class="n">atlas</span><span class="p">,</span> <span class="n">region</span><span class="p">)</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a>        <span class="c1"># cible = niimg, pas EField</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a>        <span class="n">mask_img</span> <span class="o">=</span> <span class="n">resample_to_img</span><span class="p">(</span><span class="n">mask_img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">)</span>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a>        <span class="c1"># extraction 1-D → ROI « modèle B » (values, mask_img, efield)</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="c1"># squeeze : apply_mask sur un volume (X,Y,Z,1) renvoie (1, N) → (N,)</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a>        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">masking</span><span class="o">.</span><span class="n">apply_mask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">mask_img</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a>        <span class="k">return</span> <span class="n">ROI</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">mask_img</span><span class="o">=</span><span class="n">mask_img</span><span class="p">,</span> <span class="n">efield</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
-<a id="__codelineno-0-111" name="__codelineno-0-111"></a>
-<a id="__codelineno-0-112" name="__codelineno-0-112"></a>    <span class="c1"># ------------------------------------------------------------------</span>
-<a id="__codelineno-0-113" name="__codelineno-0-113"></a>    <span class="c1"># Private mask builders</span>
-<a id="__codelineno-0-114" name="__codelineno-0-114"></a>    <span class="c1"># ------------------------------------------------------------------</span>
-<a id="__codelineno-0-115" name="__codelineno-0-115"></a>
-<a id="__codelineno-0-116" name="__codelineno-0-116"></a>    <span class="nd">@staticmethod</span>
-<a id="__codelineno-0-117" name="__codelineno-0-117"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_from_mask</span><span class="p">(</span><span class="n">mask_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
-<a id="__codelineno-0-118" name="__codelineno-0-118"></a><span class="w">        </span><span class="sd">"""Load an existing binary NIfTI mask."""</span>
-<a id="__codelineno-0-119" name="__codelineno-0-119"></a>        <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">mask_path</span><span class="p">))</span>
-<a id="__codelineno-0-120" name="__codelineno-0-120"></a>
-<a id="__codelineno-0-121" name="__codelineno-0-121"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_from_sphere</span><span class="p">(</span>
-<a id="__codelineno-0-122" name="__codelineno-0-122"></a>        <span class="bp">self</span><span class="p">,</span> <span class="n">coords</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">radius_mm</span><span class="p">:</span> <span class="nb">float</span>
-<a id="__codelineno-0-123" name="__codelineno-0-123"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
-<a id="__codelineno-0-124" name="__codelineno-0-124"></a><span class="w">        </span><span class="sd">"""Build a binary spherical mask centred on world coordinates.</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        Exactly one source must be given:</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">          - ``mask=``             : path to a binary NIfTI mask</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">          - ``coords=`` (+radius) : spherical ROI</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">          - ``atlas=`` (+region)  : atlas-based parcel</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">        Parameters</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">        ----------</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">        coords_space : {"mni", "native", None}</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">            Which space ``coords=`` and ``atlas=`` are expressed in. Defaults</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">            to this volume's own space (:attr:`space`), i.e. no warping.</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">            Set ``coords_space="mni"`` on a native-space volume to have MNI</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="sd">            targets warped onto the subject grid. This needs an attached</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">            segmentation — call ``sim.set_segmentation(seg)`` first — because</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">            the deformation field lives in ``m2m_&lt;sub&gt;/toMNI/``.</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="sd">        Raises</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="sd">        ------</span>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a><span class="sd">        ValueError</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a><span class="sd">            If more or fewer than one source is given, if *coords_space* is</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a><span class="sd">            invalid, or if warping is required but no segmentation is attached.</span>
+<a id="__codelineno-0-116" name="__codelineno-0-116"></a>
+<a id="__codelineno-0-117" name="__codelineno-0-117"></a><span class="sd">        Notes</span>
+<a id="__codelineno-0-118" name="__codelineno-0-118"></a><span class="sd">        -----</span>
+<a id="__codelineno-0-119" name="__codelineno-0-119"></a><span class="sd">        Atlases are defined in MNI space, so ``atlas=`` on a native-space</span>
+<a id="__codelineno-0-120" name="__codelineno-0-120"></a><span class="sd">        volume implies ``coords_space="mni"`` and is warped automatically.</span>
+<a id="__codelineno-0-121" name="__codelineno-0-121"></a><span class="sd">        """</span>
+<a id="__codelineno-0-122" name="__codelineno-0-122"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">masking</span>
+<a id="__codelineno-0-123" name="__codelineno-0-123"></a>
+<a id="__codelineno-0-124" name="__codelineno-0-124"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">.roi</span><span class="w"> </span><span class="kn">import</span> <span class="n">ROI</span>
 <a id="__codelineno-0-125" name="__codelineno-0-125"></a>
-<a id="__codelineno-0-126" name="__codelineno-0-126"></a><span class="sd">        Parameters</span>
-<a id="__codelineno-0-127" name="__codelineno-0-127"></a><span class="sd">        ----------</span>
-<a id="__codelineno-0-128" name="__codelineno-0-128"></a><span class="sd">        coords : list of 3 floats</span>
-<a id="__codelineno-0-129" name="__codelineno-0-129"></a><span class="sd">            Centre in world (MNI or subject) coordinates [x, y, z].</span>
-<a id="__codelineno-0-130" name="__codelineno-0-130"></a><span class="sd">        radius_mm : float</span>
-<a id="__codelineno-0-131" name="__codelineno-0-131"></a><span class="sd">            Sphere radius in millimetres.</span>
-<a id="__codelineno-0-132" name="__codelineno-0-132"></a><span class="sd">        """</span>
-<a id="__codelineno-0-133" name="__codelineno-0-133"></a>        <span class="n">ref_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span>
-<a id="__codelineno-0-134" name="__codelineno-0-134"></a>        <span class="n">affine</span> <span class="o">=</span> <span class="n">ref_img</span><span class="o">.</span><span class="n">affine</span>
-<a id="__codelineno-0-135" name="__codelineno-0-135"></a>        <span class="n">shape</span> <span class="o">=</span> <span class="n">ref_img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
-<a id="__codelineno-0-136" name="__codelineno-0-136"></a>
-<a id="__codelineno-0-137" name="__codelineno-0-137"></a>        <span class="c1"># world → voxel</span>
-<a id="__codelineno-0-138" name="__codelineno-0-138"></a>        <span class="n">centre_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-<a id="__codelineno-0-139" name="__codelineno-0-139"></a>        <span class="n">vox_centre</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">affine</span><span class="p">)</span> <span class="o">@</span> <span class="n">centre_h</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span>
-<a id="__codelineno-0-140" name="__codelineno-0-140"></a>
-<a id="__codelineno-0-141" name="__codelineno-0-141"></a>        <span class="c1"># voxel-space radius (isotropic approximation)</span>
-<a id="__codelineno-0-142" name="__codelineno-0-142"></a>        <span class="n">voxel_size</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">affine</span><span class="p">)[:</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-<a id="__codelineno-0-143" name="__codelineno-0-143"></a>        <span class="n">radius_vox</span> <span class="o">=</span> <span class="n">radius_mm</span> <span class="o">/</span> <span class="n">voxel_size</span>
-<a id="__codelineno-0-144" name="__codelineno-0-144"></a>
-<a id="__codelineno-0-145" name="__codelineno-0-145"></a>        <span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">,</span> <span class="n">kk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[:</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">:</span> <span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
-<a id="__codelineno-0-146" name="__codelineno-0-146"></a>        <span class="n">dist_sq</span> <span class="o">=</span> <span class="p">(</span>
-<a id="__codelineno-0-147" name="__codelineno-0-147"></a>            <span class="p">(</span><span class="n">ii</span> <span class="o">-</span> <span class="n">vox_centre</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
-<a id="__codelineno-0-148" name="__codelineno-0-148"></a>            <span class="o">+</span> <span class="p">(</span><span class="n">jj</span> <span class="o">-</span> <span class="n">vox_centre</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
-<a id="__codelineno-0-149" name="__codelineno-0-149"></a>            <span class="o">+</span> <span class="p">(</span><span class="n">kk</span> <span class="o">-</span> <span class="n">vox_centre</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
-<a id="__codelineno-0-150" name="__codelineno-0-150"></a>        <span class="p">)</span>
-<a id="__codelineno-0-151" name="__codelineno-0-151"></a>        <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">dist_sq</span> <span class="o">&lt;=</span> <span class="n">radius_vox</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-<a id="__codelineno-0-152" name="__codelineno-0-152"></a>        <span class="k">return</span> <span class="n">new_img_like</span><span class="p">(</span><span class="n">ref_img</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">affine</span><span class="o">=</span><span class="n">affine</span><span class="p">)</span>
-<a id="__codelineno-0-153" name="__codelineno-0-153"></a>
-<a id="__codelineno-0-154" name="__codelineno-0-154"></a>    <span class="nd">@staticmethod</span>
-<a id="__codelineno-0-155" name="__codelineno-0-155"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_from_atlas</span><span class="p">(</span>
-<a id="__codelineno-0-156" name="__codelineno-0-156"></a>        <span class="n">atlas</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<a id="__codelineno-0-157" name="__codelineno-0-157"></a>        <span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-<a id="__codelineno-0-158" name="__codelineno-0-158"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
-<a id="__codelineno-0-159" name="__codelineno-0-159"></a><span class="w">        </span><span class="sd">"""Build a binary mask from one or more atlas parcels.</span>
-<a id="__codelineno-0-160" name="__codelineno-0-160"></a>
-<a id="__codelineno-0-161" name="__codelineno-0-161"></a><span class="sd">        The mask is returned in the native atlas space; ``get_roi`` then</span>
-<a id="__codelineno-0-162" name="__codelineno-0-162"></a><span class="sd">        resamples it to the e-field grid via ``resample_to_img``.</span>
-<a id="__codelineno-0-163" name="__codelineno-0-163"></a>
-<a id="__codelineno-0-164" name="__codelineno-0-164"></a><span class="sd">        Parameters</span>
-<a id="__codelineno-0-165" name="__codelineno-0-165"></a><span class="sd">        ----------</span>
-<a id="__codelineno-0-166" name="__codelineno-0-166"></a><span class="sd">        atlas : str</span>
-<a id="__codelineno-0-167" name="__codelineno-0-167"></a><span class="sd">            One of ``'harvard-oxford'``, ``'aal'``, ``'destrieux'``.</span>
-<a id="__codelineno-0-168" name="__codelineno-0-168"></a><span class="sd">        region : str or list of str</span>
-<a id="__codelineno-0-169" name="__codelineno-0-169"></a><span class="sd">            One or more parcel labels whose union forms the mask.</span>
-<a id="__codelineno-0-170" name="__codelineno-0-170"></a><span class="sd">        """</span>
-<a id="__codelineno-0-171" name="__codelineno-0-171"></a>        <span class="kn">import</span><span class="w"> </span><span class="nn">urllib3</span>
-<a id="__codelineno-0-172" name="__codelineno-0-172"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span> <span class="k">as</span> <span class="n">nl_datasets</span>
-<a id="__codelineno-0-173" name="__codelineno-0-173"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">requests.adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPAdapter</span>
-<a id="__codelineno-0-174" name="__codelineno-0-174"></a>
-<a id="__codelineno-0-175" name="__codelineno-0-175"></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-<a id="__codelineno-0-176" name="__codelineno-0-176"></a>            <span class="n">region</span> <span class="o">=</span> <span class="p">[</span><span class="n">region</span><span class="p">]</span>
-<a id="__codelineno-0-177" name="__codelineno-0-177"></a>
-<a id="__codelineno-0-178" name="__codelineno-0-178"></a>        <span class="n">_FETCHERS</span> <span class="o">=</span> <span class="p">{</span>
-<a id="__codelineno-0-179" name="__codelineno-0-179"></a>            <span class="s2">"harvard-oxford"</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">nl_datasets</span><span class="o">.</span><span class="n">fetch_atlas_harvard_oxford</span><span class="p">(</span>
-<a id="__codelineno-0-180" name="__codelineno-0-180"></a>                <span class="s2">"cort-maxprob-thr25-1mm"</span>
-<a id="__codelineno-0-181" name="__codelineno-0-181"></a>            <span class="p">),</span>
-<a id="__codelineno-0-182" name="__codelineno-0-182"></a>            <span class="s2">"aal"</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">nl_datasets</span><span class="o">.</span><span class="n">fetch_atlas_aal</span><span class="p">(),</span>
-<a id="__codelineno-0-183" name="__codelineno-0-183"></a>            <span class="s2">"destrieux"</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">nl_datasets</span><span class="o">.</span><span class="n">fetch_atlas_destrieux_2009</span><span class="p">(),</span>
-<a id="__codelineno-0-184" name="__codelineno-0-184"></a>        <span class="p">}</span>
-<a id="__codelineno-0-185" name="__codelineno-0-185"></a>        <span class="k">if</span> <span class="n">atlas</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_FETCHERS</span><span class="p">:</span>
-<a id="__codelineno-0-186" name="__codelineno-0-186"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-187" name="__codelineno-0-187"></a>                <span class="sa">f</span><span class="s2">"Atlas '</span><span class="si">{</span><span class="n">atlas</span><span class="si">}</span><span class="s2">' not supported. Available: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">_FETCHERS</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
-<a id="__codelineno-0-188" name="__codelineno-0-188"></a>            <span class="p">)</span>
-<a id="__codelineno-0-189" name="__codelineno-0-189"></a>
-<a id="__codelineno-0-190" name="__codelineno-0-190"></a>        <span class="c1"># Disable SSL verification for atlas downloads (self-signed / macOS cert issue)</span>
-<a id="__codelineno-0-191" name="__codelineno-0-191"></a>        <span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">(</span><span class="n">urllib3</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">InsecureRequestWarning</span><span class="p">)</span>
-<a id="__codelineno-0-192" name="__codelineno-0-192"></a>        <span class="n">_orig_send</span> <span class="o">=</span> <span class="n">HTTPAdapter</span><span class="o">.</span><span class="n">send</span>
-<a id="__codelineno-0-193" name="__codelineno-0-193"></a>        <span class="n">HTTPAdapter</span><span class="o">.</span><span class="n">send</span> <span class="o">=</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">_orig_send</span><span class="p">(</span>
-<a id="__codelineno-0-194" name="__codelineno-0-194"></a>            <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="o">**</span><span class="n">kw</span><span class="p">,</span> <span class="s2">"verify"</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
-<a id="__codelineno-0-195" name="__codelineno-0-195"></a>        <span class="p">)</span>
-<a id="__codelineno-0-196" name="__codelineno-0-196"></a>        <span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-0-197" name="__codelineno-0-197"></a>            <span class="n">atlas_data</span> <span class="o">=</span> <span class="n">_FETCHERS</span><span class="p">[</span><span class="n">atlas</span><span class="p">]()</span>
-<a id="__codelineno-0-198" name="__codelineno-0-198"></a>        <span class="k">finally</span><span class="p">:</span>
-<a id="__codelineno-0-199" name="__codelineno-0-199"></a>            <span class="n">HTTPAdapter</span><span class="o">.</span><span class="n">send</span> <span class="o">=</span> <span class="n">_orig_send</span>
-<a id="__codelineno-0-200" name="__codelineno-0-200"></a>
-<a id="__codelineno-0-201" name="__codelineno-0-201"></a>        <span class="n">maps</span> <span class="o">=</span> <span class="n">atlas_data</span><span class="o">.</span><span class="n">maps</span>
-<a id="__codelineno-0-202" name="__codelineno-0-202"></a>        <span class="n">atlas_img</span> <span class="o">=</span> <span class="n">maps</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">maps</span><span class="p">,</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">)</span> <span class="k">else</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">maps</span><span class="p">)</span>
-<a id="__codelineno-0-203" name="__codelineno-0-203"></a>        <span class="n">atlas_array</span> <span class="o">=</span> <span class="n">atlas_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span>
-<a id="__codelineno-0-204" name="__codelineno-0-204"></a>        <span class="n">raw_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">atlas_data</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span>
-<a id="__codelineno-0-205" name="__codelineno-0-205"></a>
-<a id="__codelineno-0-206" name="__codelineno-0-206"></a>        <span class="c1"># AAL fournit une liste `indices` séparée ; les autres atlas utilisent l'indice positionnel</span>
-<a id="__codelineno-0-207" name="__codelineno-0-207"></a>        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">atlas_data</span><span class="p">,</span> <span class="s2">"indices"</span><span class="p">):</span>
-<a id="__codelineno-0-208" name="__codelineno-0-208"></a>            <span class="n">label_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-<a id="__codelineno-0-209" name="__codelineno-0-209"></a>                <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">):</span> <span class="nb">int</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
-<a id="__codelineno-0-210" name="__codelineno-0-210"></a>                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">raw_labels</span><span class="p">,</span> <span class="n">atlas_data</span><span class="o">.</span><span class="n">indices</span><span class="p">)</span>
-<a id="__codelineno-0-211" name="__codelineno-0-211"></a>            <span class="p">}</span>
-<a id="__codelineno-0-212" name="__codelineno-0-212"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-213" name="__codelineno-0-213"></a>            <span class="n">label_map</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">):</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">raw_labels</span><span class="p">)}</span>
-<a id="__codelineno-0-214" name="__codelineno-0-214"></a>
-<a id="__codelineno-0-215" name="__codelineno-0-215"></a>        <span class="n">mask_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">atlas_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-<a id="__codelineno-0-216" name="__codelineno-0-216"></a>        <span class="k">for</span> <span class="n">region_name</span> <span class="ow">in</span> <span class="n">region</span><span class="p">:</span>
-<a id="__codelineno-0-217" name="__codelineno-0-217"></a>            <span class="k">if</span> <span class="n">region_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">label_map</span><span class="p">:</span>
-<a id="__codelineno-0-218" name="__codelineno-0-218"></a>                <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">label_map</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">region_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
-<a id="__codelineno-0-219" name="__codelineno-0-219"></a>                <span class="k">if</span> <span class="ow">not</span> <span class="n">matches</span><span class="p">:</span>
-<a id="__codelineno-0-220" name="__codelineno-0-220"></a>                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-221" name="__codelineno-0-221"></a>                        <span class="sa">f</span><span class="s2">"Region '</span><span class="si">{</span><span class="n">region_name</span><span class="si">}</span><span class="s2">' not found in atlas '</span><span class="si">{</span><span class="n">atlas</span><span class="si">}</span><span class="s2">'. "</span>
-<a id="__codelineno-0-222" name="__codelineno-0-222"></a>                        <span class="sa">f</span><span class="s2">"First available labels: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">label_map</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
-<a id="__codelineno-0-223" name="__codelineno-0-223"></a>                    <span class="p">)</span>
-<a id="__codelineno-0-224" name="__codelineno-0-224"></a>                <span class="n">region_name</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-225" name="__codelineno-0-225"></a>            <span class="n">mask_data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">atlas_array</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="n">label_map</span><span class="p">[</span><span class="n">region_name</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+<a id="__codelineno-0-126" name="__codelineno-0-126"></a>        <span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">coords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">atlas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+<a id="__codelineno-0-127" name="__codelineno-0-127"></a>        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-128" name="__codelineno-0-128"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-129" name="__codelineno-0-129"></a>                <span class="s2">"Provide exactly one ROI source: `mask=`, `coords=` (+radius), "</span>
+<a id="__codelineno-0-130" name="__codelineno-0-130"></a>                <span class="sa">f</span><span class="s2">"or `atlas=` (+region). Got </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span>
+<a id="__codelineno-0-131" name="__codelineno-0-131"></a>            <span class="p">)</span>
+<a id="__codelineno-0-132" name="__codelineno-0-132"></a>
+<a id="__codelineno-0-133" name="__codelineno-0-133"></a>        <span class="c1"># Atlases only exist in MNI; anything else defaults to our own space.</span>
+<a id="__codelineno-0-134" name="__codelineno-0-134"></a>        <span class="k">if</span> <span class="n">coords_space</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-135" name="__codelineno-0-135"></a>            <span class="n">coords_space</span> <span class="o">=</span> <span class="s2">"mni"</span> <span class="k">if</span> <span class="n">atlas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">space</span>
+<a id="__codelineno-0-136" name="__codelineno-0-136"></a>        <span class="k">if</span> <span class="n">coords_space</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"native"</span><span class="p">,</span> <span class="s2">"mni"</span><span class="p">):</span>
+<a id="__codelineno-0-137" name="__codelineno-0-137"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-138" name="__codelineno-0-138"></a>                <span class="sa">f</span><span class="s2">"coords_space must be 'native' or 'mni', got </span><span class="si">{</span><span class="n">coords_space</span><span class="si">!r}</span><span class="s2">"</span>
+<a id="__codelineno-0-139" name="__codelineno-0-139"></a>            <span class="p">)</span>
+<a id="__codelineno-0-140" name="__codelineno-0-140"></a>        <span class="n">needs_warp</span> <span class="o">=</span> <span class="n">coords_space</span> <span class="o">==</span> <span class="s2">"mni"</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">space</span> <span class="o">==</span> <span class="s2">"native"</span>
+<a id="__codelineno-0-141" name="__codelineno-0-141"></a>
+<a id="__codelineno-0-142" name="__codelineno-0-142"></a>        <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-143" name="__codelineno-0-143"></a>            <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+<a id="__codelineno-0-144" name="__codelineno-0-144"></a>            <span class="k">if</span> <span class="n">needs_warp</span><span class="p">:</span>
+<a id="__codelineno-0-145" name="__codelineno-0-145"></a>                <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warp_mask_from_mni</span><span class="p">(</span><span class="n">mask_img</span><span class="p">)</span>
+<a id="__codelineno-0-146" name="__codelineno-0-146"></a>        <span class="k">elif</span> <span class="n">coords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-147" name="__codelineno-0-147"></a>            <span class="k">if</span> <span class="n">needs_warp</span><span class="p">:</span>
+<a id="__codelineno-0-148" name="__codelineno-0-148"></a>                <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warp_coords_from_mni</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+<a id="__codelineno-0-149" name="__codelineno-0-149"></a>            <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_sphere</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>        <span class="c1"># radius → radius_mm (positionnel)</span>
+<a id="__codelineno-0-150" name="__codelineno-0-150"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-151" name="__codelineno-0-151"></a>            <span class="k">if</span> <span class="n">region</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-152" name="__codelineno-0-152"></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"`atlas=` requires `region=`."</span><span class="p">)</span>
+<a id="__codelineno-0-153" name="__codelineno-0-153"></a>            <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_atlas</span><span class="p">(</span><span class="n">atlas</span><span class="p">,</span> <span class="n">region</span><span class="p">)</span>
+<a id="__codelineno-0-154" name="__codelineno-0-154"></a>            <span class="k">if</span> <span class="n">needs_warp</span><span class="p">:</span>
+<a id="__codelineno-0-155" name="__codelineno-0-155"></a>                <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warp_mask_from_mni</span><span class="p">(</span><span class="n">mask_img</span><span class="p">)</span>
+<a id="__codelineno-0-156" name="__codelineno-0-156"></a>
+<a id="__codelineno-0-157" name="__codelineno-0-157"></a>        <span class="c1"># cible = niimg, pas EField</span>
+<a id="__codelineno-0-158" name="__codelineno-0-158"></a>        <span class="n">mask_img</span> <span class="o">=</span> <span class="n">resample_to_img</span><span class="p">(</span><span class="n">mask_img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">)</span>
+<a id="__codelineno-0-159" name="__codelineno-0-159"></a>
+<a id="__codelineno-0-160" name="__codelineno-0-160"></a>        <span class="c1"># extraction 1-D → ROI « modèle B » (values, mask_img, efield)</span>
+<a id="__codelineno-0-161" name="__codelineno-0-161"></a>        <span class="c1"># squeeze : apply_mask sur un volume (X,Y,Z,1) renvoie (1, N) → (N,)</span>
+<a id="__codelineno-0-162" name="__codelineno-0-162"></a>        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">masking</span><span class="o">.</span><span class="n">apply_mask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">mask_img</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<a id="__codelineno-0-163" name="__codelineno-0-163"></a>        <span class="k">return</span> <span class="n">ROI</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">mask_img</span><span class="o">=</span><span class="n">mask_img</span><span class="p">,</span> <span class="n">efield</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+<a id="__codelineno-0-164" name="__codelineno-0-164"></a>
+<a id="__codelineno-0-165" name="__codelineno-0-165"></a>    <span class="c1"># ------------------------------------------------------------------</span>
+<a id="__codelineno-0-166" name="__codelineno-0-166"></a>    <span class="c1"># MNI → native warping</span>
+<a id="__codelineno-0-167" name="__codelineno-0-167"></a>    <span class="c1"># ------------------------------------------------------------------</span>
+<a id="__codelineno-0-168" name="__codelineno-0-168"></a>
+<a id="__codelineno-0-169" name="__codelineno-0-169"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_warp_field</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-170" name="__codelineno-0-170"></a><span class="w">        </span><span class="sd">"""Load this subject's deformation field, or explain what is missing."""</span>
+<a id="__codelineno-0-171" name="__codelineno-0-171"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">._warp</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_warp</span>
+<a id="__codelineno-0-172" name="__codelineno-0-172"></a>
+<a id="__codelineno-0-173" name="__codelineno-0-173"></a>        <span class="n">sim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span>
+<a id="__codelineno-0-174" name="__codelineno-0-174"></a>        <span class="n">seg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="s2">"segmentation"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">sim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+<a id="__codelineno-0-175" name="__codelineno-0-175"></a>        <span class="k">if</span> <span class="n">seg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-176" name="__codelineno-0-176"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-177" name="__codelineno-0-177"></a>                <span class="s2">"coords_space='mni' on a native-space volume requires the "</span>
+<a id="__codelineno-0-178" name="__codelineno-0-178"></a>                <span class="s2">"subject's deformation field, which lives in the segmentation "</span>
+<a id="__codelineno-0-179" name="__codelineno-0-179"></a>                <span class="s2">"folder.</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-0-180" name="__codelineno-0-180"></a>                <span class="s2">"Attach it first:  sim.set_segmentation(snr.segmentation(m2m_dir))"</span>
+<a id="__codelineno-0-181" name="__codelineno-0-181"></a>            <span class="p">)</span>
+<a id="__codelineno-0-182" name="__codelineno-0-182"></a>        <span class="k">return</span> <span class="n">load_warp</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">warp_conform_to_mni</span><span class="p">)</span>
+<a id="__codelineno-0-183" name="__codelineno-0-183"></a>
+<a id="__codelineno-0-184" name="__codelineno-0-184"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_warp_coords_from_mni</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coords</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<a id="__codelineno-0-185" name="__codelineno-0-185"></a><span class="w">        </span><span class="sd">"""Map an MNI point to the nearest subject-space point."""</span>
+<a id="__codelineno-0-186" name="__codelineno-0-186"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">._warp</span><span class="w"> </span><span class="kn">import</span> <span class="n">mni_to_native_coords</span>
+<a id="__codelineno-0-187" name="__codelineno-0-187"></a>
+<a id="__codelineno-0-188" name="__codelineno-0-188"></a>        <span class="n">warp_img</span><span class="p">,</span> <span class="n">warp_coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warp_field</span><span class="p">()</span>
+<a id="__codelineno-0-189" name="__codelineno-0-189"></a>        <span class="k">return</span> <span class="n">mni_to_native_coords</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">warp_img</span><span class="p">,</span> <span class="n">warp_coords</span><span class="p">)</span>
+<a id="__codelineno-0-190" name="__codelineno-0-190"></a>
+<a id="__codelineno-0-191" name="__codelineno-0-191"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_warp_mask_from_mni</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mask_img</span><span class="p">:</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
+<a id="__codelineno-0-192" name="__codelineno-0-192"></a><span class="w">        </span><span class="sd">"""Resample an MNI-space binary mask onto the subject grid."""</span>
+<a id="__codelineno-0-193" name="__codelineno-0-193"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">._warp</span><span class="w"> </span><span class="kn">import</span> <span class="n">warp_mni_mask_to_native</span>
+<a id="__codelineno-0-194" name="__codelineno-0-194"></a>
+<a id="__codelineno-0-195" name="__codelineno-0-195"></a>        <span class="n">warp_img</span><span class="p">,</span> <span class="n">warp_coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warp_field</span><span class="p">()</span>
+<a id="__codelineno-0-196" name="__codelineno-0-196"></a>        <span class="k">return</span> <span class="n">warp_mni_mask_to_native</span><span class="p">(</span><span class="n">mask_img</span><span class="p">,</span> <span class="n">warp_img</span><span class="p">,</span> <span class="n">warp_coords</span><span class="p">)</span>
+<a id="__codelineno-0-197" name="__codelineno-0-197"></a>
+<a id="__codelineno-0-198" name="__codelineno-0-198"></a>    <span class="c1"># ------------------------------------------------------------------</span>
+<a id="__codelineno-0-199" name="__codelineno-0-199"></a>    <span class="c1"># Private mask builders</span>
+<a id="__codelineno-0-200" name="__codelineno-0-200"></a>    <span class="c1"># ------------------------------------------------------------------</span>
+<a id="__codelineno-0-201" name="__codelineno-0-201"></a>
+<a id="__codelineno-0-202" name="__codelineno-0-202"></a>    <span class="nd">@staticmethod</span>
+<a id="__codelineno-0-203" name="__codelineno-0-203"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_from_mask</span><span class="p">(</span><span class="n">mask_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
+<a id="__codelineno-0-204" name="__codelineno-0-204"></a><span class="w">        </span><span class="sd">"""Load an existing binary NIfTI mask."""</span>
+<a id="__codelineno-0-205" name="__codelineno-0-205"></a>        <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">mask_path</span><span class="p">))</span>
+<a id="__codelineno-0-206" name="__codelineno-0-206"></a>
+<a id="__codelineno-0-207" name="__codelineno-0-207"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_from_sphere</span><span class="p">(</span>
+<a id="__codelineno-0-208" name="__codelineno-0-208"></a>        <span class="bp">self</span><span class="p">,</span> <span class="n">coords</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">radius_mm</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-0-209" name="__codelineno-0-209"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
+<a id="__codelineno-0-210" name="__codelineno-0-210"></a><span class="w">        </span><span class="sd">"""Build a binary spherical mask centred on world coordinates.</span>
+<a id="__codelineno-0-211" name="__codelineno-0-211"></a>
+<a id="__codelineno-0-212" name="__codelineno-0-212"></a><span class="sd">        Parameters</span>
+<a id="__codelineno-0-213" name="__codelineno-0-213"></a><span class="sd">        ----------</span>
+<a id="__codelineno-0-214" name="__codelineno-0-214"></a><span class="sd">        coords : list of 3 floats</span>
+<a id="__codelineno-0-215" name="__codelineno-0-215"></a><span class="sd">            Centre in world (MNI or subject) coordinates [x, y, z].</span>
+<a id="__codelineno-0-216" name="__codelineno-0-216"></a><span class="sd">        radius_mm : float</span>
+<a id="__codelineno-0-217" name="__codelineno-0-217"></a><span class="sd">            Sphere radius in millimetres.</span>
+<a id="__codelineno-0-218" name="__codelineno-0-218"></a><span class="sd">        """</span>
+<a id="__codelineno-0-219" name="__codelineno-0-219"></a>        <span class="n">ref_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span>
+<a id="__codelineno-0-220" name="__codelineno-0-220"></a>        <span class="n">affine</span> <span class="o">=</span> <span class="n">ref_img</span><span class="o">.</span><span class="n">affine</span>
+<a id="__codelineno-0-221" name="__codelineno-0-221"></a>        <span class="n">shape</span> <span class="o">=</span> <span class="n">ref_img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+<a id="__codelineno-0-222" name="__codelineno-0-222"></a>
+<a id="__codelineno-0-223" name="__codelineno-0-223"></a>        <span class="c1"># world → voxel</span>
+<a id="__codelineno-0-224" name="__codelineno-0-224"></a>        <span class="n">centre_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<a id="__codelineno-0-225" name="__codelineno-0-225"></a>        <span class="n">vox_centre</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">affine</span><span class="p">)</span> <span class="o">@</span> <span class="n">centre_h</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span>
 <a id="__codelineno-0-226" name="__codelineno-0-226"></a>
-<a id="__codelineno-0-227" name="__codelineno-0-227"></a>        <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">mask_data</span><span class="p">,</span> <span class="n">atlas_img</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
+<a id="__codelineno-0-227" name="__codelineno-0-227"></a>        <span class="c1"># voxel-space radius (isotropic approximation)</span>
+<a id="__codelineno-0-228" name="__codelineno-0-228"></a>        <span class="n">voxel_size</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">affine</span><span class="p">)[:</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<a id="__codelineno-0-229" name="__codelineno-0-229"></a>        <span class="n">radius_vox</span> <span class="o">=</span> <span class="n">radius_mm</span> <span class="o">/</span> <span class="n">voxel_size</span>
+<a id="__codelineno-0-230" name="__codelineno-0-230"></a>
+<a id="__codelineno-0-231" name="__codelineno-0-231"></a>        <span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">,</span> <span class="n">kk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[:</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">:</span> <span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+<a id="__codelineno-0-232" name="__codelineno-0-232"></a>        <span class="n">dist_sq</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-0-233" name="__codelineno-0-233"></a>            <span class="p">(</span><span class="n">ii</span> <span class="o">-</span> <span class="n">vox_centre</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+<a id="__codelineno-0-234" name="__codelineno-0-234"></a>            <span class="o">+</span> <span class="p">(</span><span class="n">jj</span> <span class="o">-</span> <span class="n">vox_centre</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+<a id="__codelineno-0-235" name="__codelineno-0-235"></a>            <span class="o">+</span> <span class="p">(</span><span class="n">kk</span> <span class="o">-</span> <span class="n">vox_centre</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+<a id="__codelineno-0-236" name="__codelineno-0-236"></a>        <span class="p">)</span>
+<a id="__codelineno-0-237" name="__codelineno-0-237"></a>        <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">dist_sq</span> <span class="o">&lt;=</span> <span class="n">radius_vox</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<a id="__codelineno-0-238" name="__codelineno-0-238"></a>        <span class="k">return</span> <span class="n">new_img_like</span><span class="p">(</span><span class="n">ref_img</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">affine</span><span class="o">=</span><span class="n">affine</span><span class="p">)</span>
+<a id="__codelineno-0-239" name="__codelineno-0-239"></a>
+<a id="__codelineno-0-240" name="__codelineno-0-240"></a>    <span class="nd">@staticmethod</span>
+<a id="__codelineno-0-241" name="__codelineno-0-241"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_from_atlas</span><span class="p">(</span>
+<a id="__codelineno-0-242" name="__codelineno-0-242"></a>        <span class="n">atlas</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-0-243" name="__codelineno-0-243"></a>        <span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+<a id="__codelineno-0-244" name="__codelineno-0-244"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">:</span>
+<a id="__codelineno-0-245" name="__codelineno-0-245"></a><span class="w">        </span><span class="sd">"""Build a binary mask from one or more atlas parcels.</span>
+<a id="__codelineno-0-246" name="__codelineno-0-246"></a>
+<a id="__codelineno-0-247" name="__codelineno-0-247"></a><span class="sd">        The mask is returned in the native atlas space; ``get_roi`` then</span>
+<a id="__codelineno-0-248" name="__codelineno-0-248"></a><span class="sd">        resamples it to the e-field grid via ``resample_to_img``.</span>
+<a id="__codelineno-0-249" name="__codelineno-0-249"></a>
+<a id="__codelineno-0-250" name="__codelineno-0-250"></a><span class="sd">        Parameters</span>
+<a id="__codelineno-0-251" name="__codelineno-0-251"></a><span class="sd">        ----------</span>
+<a id="__codelineno-0-252" name="__codelineno-0-252"></a><span class="sd">        atlas : str</span>
+<a id="__codelineno-0-253" name="__codelineno-0-253"></a><span class="sd">            One of ``'harvard-oxford'``, ``'aal'``, ``'destrieux'``.</span>
+<a id="__codelineno-0-254" name="__codelineno-0-254"></a><span class="sd">        region : str or list of str</span>
+<a id="__codelineno-0-255" name="__codelineno-0-255"></a><span class="sd">            One or more parcel labels whose union forms the mask.</span>
+<a id="__codelineno-0-256" name="__codelineno-0-256"></a><span class="sd">        """</span>
+<a id="__codelineno-0-257" name="__codelineno-0-257"></a>        <span class="kn">import</span><span class="w"> </span><span class="nn">urllib3</span>
+<a id="__codelineno-0-258" name="__codelineno-0-258"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span> <span class="k">as</span> <span class="n">nl_datasets</span>
+<a id="__codelineno-0-259" name="__codelineno-0-259"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">requests.adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPAdapter</span>
+<a id="__codelineno-0-260" name="__codelineno-0-260"></a>
+<a id="__codelineno-0-261" name="__codelineno-0-261"></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+<a id="__codelineno-0-262" name="__codelineno-0-262"></a>            <span class="n">region</span> <span class="o">=</span> <span class="p">[</span><span class="n">region</span><span class="p">]</span>
+<a id="__codelineno-0-263" name="__codelineno-0-263"></a>
+<a id="__codelineno-0-264" name="__codelineno-0-264"></a>        <span class="n">_FETCHERS</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-0-265" name="__codelineno-0-265"></a>            <span class="s2">"harvard-oxford"</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">nl_datasets</span><span class="o">.</span><span class="n">fetch_atlas_harvard_oxford</span><span class="p">(</span>
+<a id="__codelineno-0-266" name="__codelineno-0-266"></a>                <span class="s2">"cort-maxprob-thr25-1mm"</span>
+<a id="__codelineno-0-267" name="__codelineno-0-267"></a>            <span class="p">),</span>
+<a id="__codelineno-0-268" name="__codelineno-0-268"></a>            <span class="s2">"aal"</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">nl_datasets</span><span class="o">.</span><span class="n">fetch_atlas_aal</span><span class="p">(),</span>
+<a id="__codelineno-0-269" name="__codelineno-0-269"></a>            <span class="s2">"destrieux"</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">nl_datasets</span><span class="o">.</span><span class="n">fetch_atlas_destrieux_2009</span><span class="p">(),</span>
+<a id="__codelineno-0-270" name="__codelineno-0-270"></a>        <span class="p">}</span>
+<a id="__codelineno-0-271" name="__codelineno-0-271"></a>        <span class="k">if</span> <span class="n">atlas</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_FETCHERS</span><span class="p">:</span>
+<a id="__codelineno-0-272" name="__codelineno-0-272"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-273" name="__codelineno-0-273"></a>                <span class="sa">f</span><span class="s2">"Atlas '</span><span class="si">{</span><span class="n">atlas</span><span class="si">}</span><span class="s2">' not supported. Available: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">_FETCHERS</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+<a id="__codelineno-0-274" name="__codelineno-0-274"></a>            <span class="p">)</span>
+<a id="__codelineno-0-275" name="__codelineno-0-275"></a>
+<a id="__codelineno-0-276" name="__codelineno-0-276"></a>        <span class="c1"># Disable SSL verification for atlas downloads (self-signed / macOS cert issue)</span>
+<a id="__codelineno-0-277" name="__codelineno-0-277"></a>        <span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">(</span><span class="n">urllib3</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">InsecureRequestWarning</span><span class="p">)</span>
+<a id="__codelineno-0-278" name="__codelineno-0-278"></a>        <span class="n">_orig_send</span> <span class="o">=</span> <span class="n">HTTPAdapter</span><span class="o">.</span><span class="n">send</span>
+<a id="__codelineno-0-279" name="__codelineno-0-279"></a>        <span class="n">HTTPAdapter</span><span class="o">.</span><span class="n">send</span> <span class="o">=</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">_orig_send</span><span class="p">(</span>
+<a id="__codelineno-0-280" name="__codelineno-0-280"></a>            <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="o">**</span><span class="n">kw</span><span class="p">,</span> <span class="s2">"verify"</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+<a id="__codelineno-0-281" name="__codelineno-0-281"></a>        <span class="p">)</span>
+<a id="__codelineno-0-282" name="__codelineno-0-282"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-283" name="__codelineno-0-283"></a>            <span class="n">atlas_data</span> <span class="o">=</span> <span class="n">_FETCHERS</span><span class="p">[</span><span class="n">atlas</span><span class="p">]()</span>
+<a id="__codelineno-0-284" name="__codelineno-0-284"></a>        <span class="k">finally</span><span class="p">:</span>
+<a id="__codelineno-0-285" name="__codelineno-0-285"></a>            <span class="n">HTTPAdapter</span><span class="o">.</span><span class="n">send</span> <span class="o">=</span> <span class="n">_orig_send</span>
+<a id="__codelineno-0-286" name="__codelineno-0-286"></a>
+<a id="__codelineno-0-287" name="__codelineno-0-287"></a>        <span class="n">maps</span> <span class="o">=</span> <span class="n">atlas_data</span><span class="o">.</span><span class="n">maps</span>
+<a id="__codelineno-0-288" name="__codelineno-0-288"></a>        <span class="n">atlas_img</span> <span class="o">=</span> <span class="n">maps</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">maps</span><span class="p">,</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">)</span> <span class="k">else</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">maps</span><span class="p">)</span>
+<a id="__codelineno-0-289" name="__codelineno-0-289"></a>        <span class="n">atlas_array</span> <span class="o">=</span> <span class="n">atlas_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span>
+<a id="__codelineno-0-290" name="__codelineno-0-290"></a>        <span class="n">raw_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">atlas_data</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span>
+<a id="__codelineno-0-291" name="__codelineno-0-291"></a>
+<a id="__codelineno-0-292" name="__codelineno-0-292"></a>        <span class="c1"># AAL fournit une liste `indices` séparée ; les autres atlas utilisent l'indice positionnel</span>
+<a id="__codelineno-0-293" name="__codelineno-0-293"></a>        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">atlas_data</span><span class="p">,</span> <span class="s2">"indices"</span><span class="p">):</span>
+<a id="__codelineno-0-294" name="__codelineno-0-294"></a>            <span class="n">label_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-0-295" name="__codelineno-0-295"></a>                <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">):</span> <span class="nb">int</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+<a id="__codelineno-0-296" name="__codelineno-0-296"></a>                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">raw_labels</span><span class="p">,</span> <span class="n">atlas_data</span><span class="o">.</span><span class="n">indices</span><span class="p">)</span>
+<a id="__codelineno-0-297" name="__codelineno-0-297"></a>            <span class="p">}</span>
+<a id="__codelineno-0-298" name="__codelineno-0-298"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-299" name="__codelineno-0-299"></a>            <span class="n">label_map</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">):</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">raw_labels</span><span class="p">)}</span>
+<a id="__codelineno-0-300" name="__codelineno-0-300"></a>
+<a id="__codelineno-0-301" name="__codelineno-0-301"></a>        <span class="n">mask_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">atlas_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<a id="__codelineno-0-302" name="__codelineno-0-302"></a>        <span class="k">for</span> <span class="n">region_name</span> <span class="ow">in</span> <span class="n">region</span><span class="p">:</span>
+<a id="__codelineno-0-303" name="__codelineno-0-303"></a>            <span class="k">if</span> <span class="n">region_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">label_map</span><span class="p">:</span>
+<a id="__codelineno-0-304" name="__codelineno-0-304"></a>                <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">label_map</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">region_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+<a id="__codelineno-0-305" name="__codelineno-0-305"></a>                <span class="k">if</span> <span class="ow">not</span> <span class="n">matches</span><span class="p">:</span>
+<a id="__codelineno-0-306" name="__codelineno-0-306"></a>                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-307" name="__codelineno-0-307"></a>                        <span class="sa">f</span><span class="s2">"Region '</span><span class="si">{</span><span class="n">region_name</span><span class="si">}</span><span class="s2">' not found in atlas '</span><span class="si">{</span><span class="n">atlas</span><span class="si">}</span><span class="s2">'. "</span>
+<a id="__codelineno-0-308" name="__codelineno-0-308"></a>                        <span class="sa">f</span><span class="s2">"First available labels: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">label_map</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+<a id="__codelineno-0-309" name="__codelineno-0-309"></a>                    <span class="p">)</span>
+<a id="__codelineno-0-310" name="__codelineno-0-310"></a>                <span class="n">region_name</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-311" name="__codelineno-0-311"></a>            <span class="n">mask_data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">atlas_array</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="n">label_map</span><span class="p">[</span><span class="n">region_name</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+<a id="__codelineno-0-312" name="__codelineno-0-312"></a>
+<a id="__codelineno-0-313" name="__codelineno-0-313"></a>        <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">mask_data</span><span class="p">,</span> <span class="n">atlas_img</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -1547,8 +1741,142 @@
 <div class="doc doc-object doc-function">
 
 
+<h3 id="simnibs_reader.nifti.efield.EField.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">simulation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="s1">'native'</span><span class="p">)</span></code>
+
+<a href="#simnibs_reader.nifti.efield.EField.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>path</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> or <span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Path to the NIfTI volume.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>simulation</code>
+            </td>
+            <td>
+                  <code><span title="simnibs_reader.core.simulation.SimulationResult">SimulationResult</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Parent simulation; gives access to the attached segmentation.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>space</code>
+            </td>
+            <td>
+                  <code>(&#39;native&#39;, &#39;mni&#39;)</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The space this volume lives in. Determines whether coordinates
+given in MNI need warping before use — see :meth:<code>get_roi</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#34;native&#34;</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>simnibs_reader/nifti/efield.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#__codelineno-0-34">34</a></span>
+<span class="normal"><a href="#__codelineno-0-35">35</a></span>
+<span class="normal"><a href="#__codelineno-0-36">36</a></span>
+<span class="normal"><a href="#__codelineno-0-37">37</a></span>
+<span class="normal"><a href="#__codelineno-0-38">38</a></span>
+<span class="normal"><a href="#__codelineno-0-39">39</a></span>
+<span class="normal"><a href="#__codelineno-0-40">40</a></span>
+<span class="normal"><a href="#__codelineno-0-41">41</a></span>
+<span class="normal"><a href="#__codelineno-0-42">42</a></span>
+<span class="normal"><a href="#__codelineno-0-43">43</a></span>
+<span class="normal"><a href="#__codelineno-0-44">44</a></span>
+<span class="normal"><a href="#__codelineno-0-45">45</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a>    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a>    <span class="n">simulation</span><span class="p">:</span> <span class="n">SimulationResult</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a>    <span class="n">space</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"native"</span><span class="p">,</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="w">    </span><span class="sd">"""</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    Parameters</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    ----------</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    path : str or Path</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        Path to the NIfTI volume.</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    simulation : SimulationResult, optional</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        Parent simulation; gives access to the attached segmentation.</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    space : {"native", "mni"}</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        The space this volume lives in. Determines whether coordinates</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        given in MNI need warping before use — see :meth:`get_roi`.</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    """</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a>        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"NIfTI file not found: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a>    <span class="k">if</span> <span class="n">space</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"native"</span><span class="p">,</span> <span class="s2">"mni"</span><span class="p">):</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"space must be 'native' or 'mni', got </span><span class="si">{</span><span class="n">space</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span> <span class="o">=</span> <span class="n">simulation</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="n">space</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">:</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>  <span class="c1"># memmap → pas chargé en RAM</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h3 id="simnibs_reader.nifti.efield.EField.get_roi" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">get_roi</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">atlas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">get_roi</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">atlas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coords_space</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#simnibs_reader.nifti.efield.EField.get_roi" class="headerlink" title="Permanent link">&para;</a></h3>
 
@@ -1558,28 +1886,79 @@
         <p>Extract e-field values within a region of interest.</p>
 <p>Exactly one source must be given:
   - <code>mask=</code>             : path to a binary NIfTI mask
-  - <code>coords=</code> (+radius) : spherical ROI in the e-field's own space
+  - <code>coords=</code> (+radius) : spherical ROI
   - <code>atlas=</code> (+region)  : atlas-based parcel</p>
 
 
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>coords_space</code>
+            </td>
+            <td>
+                  <code>(&#39;mni&#39;, &#39;native&#39;, None)</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Which space <code>coords=</code> and <code>atlas=</code> are expressed in. Defaults
+to this volume's own space (:attr:<code>space</code>), i.e. no warping.</p>
+<p>Set <code>coords_space="mni"</code> on a native-space volume to have MNI
+targets warped onto the subject grid. This needs an attached
+segmentation — call <code>sim.set_segmentation(seg)</code> first — because
+the deformation field lives in <code>m2m_&lt;sub&gt;/toMNI/</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#34;mni&#34;</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If more or fewer than one source is given, if <em>coords_space</em> is
+invalid, or if warping is required but no segmentation is attached.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Notes</summary>
+  <p>Atlases are defined in MNI space, so <code>atlas=</code> on a native-space
+volume implies <code>coords_space="mni"</code> and is warped automatically.</p>
+</details>
+
             <details class="mkdocstrings-source">
               <summary>Source code in <code>simnibs_reader/nifti/efield.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-68"> 68</a></span>
-<span class="normal"><a href="#__codelineno-0-69"> 69</a></span>
-<span class="normal"><a href="#__codelineno-0-70"> 70</a></span>
-<span class="normal"><a href="#__codelineno-0-71"> 71</a></span>
-<span class="normal"><a href="#__codelineno-0-72"> 72</a></span>
-<span class="normal"><a href="#__codelineno-0-73"> 73</a></span>
-<span class="normal"><a href="#__codelineno-0-74"> 74</a></span>
-<span class="normal"><a href="#__codelineno-0-75"> 75</a></span>
-<span class="normal"><a href="#__codelineno-0-76"> 76</a></span>
-<span class="normal"><a href="#__codelineno-0-77"> 77</a></span>
-<span class="normal"><a href="#__codelineno-0-78"> 78</a></span>
-<span class="normal"><a href="#__codelineno-0-79"> 79</a></span>
-<span class="normal"><a href="#__codelineno-0-80"> 80</a></span>
-<span class="normal"><a href="#__codelineno-0-81"> 81</a></span>
-<span class="normal"><a href="#__codelineno-0-82"> 82</a></span>
-<span class="normal"><a href="#__codelineno-0-83"> 83</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-83"> 83</a></span>
 <span class="normal"><a href="#__codelineno-0-84"> 84</a></span>
 <span class="normal"><a href="#__codelineno-0-85"> 85</a></span>
 <span class="normal"><a href="#__codelineno-0-86"> 86</a></span>
@@ -1606,49 +1985,140 @@
 <span class="normal"><a href="#__codelineno-0-107">107</a></span>
 <span class="normal"><a href="#__codelineno-0-108">108</a></span>
 <span class="normal"><a href="#__codelineno-0-109">109</a></span>
-<span class="normal"><a href="#__codelineno-0-110">110</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_roi</span><span class="p">(</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a>    <span class="bp">self</span><span class="p">,</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a>    <span class="o">*</span><span class="p">,</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a>    <span class="n">mask</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="n">coords</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>    <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>    <span class="n">atlas</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a>    <span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ROI</span><span class="p">:</span>  <span class="c1"># noqa: F821 — forward ref résolu à l'exécution</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="w">    </span><span class="sd">"""Extract e-field values within a region of interest.</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    Exactly one source must be given:</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">      - ``mask=``             : path to a binary NIfTI mask</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">      - ``coords=`` (+radius) : spherical ROI in the e-field's own space</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">      - ``atlas=`` (+region)  : atlas-based parcel</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">    """</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">masking</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">.roi</span><span class="w"> </span><span class="kn">import</span> <span class="n">ROI</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">coords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">atlas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a>    <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a>            <span class="s2">"Provide exactly one ROI source: `mask=`, `coords=` (+radius), "</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a>            <span class="sa">f</span><span class="s2">"or `atlas=` (+region). Got </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>        <span class="p">)</span>
+<span class="normal"><a href="#__codelineno-0-110">110</a></span>
+<span class="normal"><a href="#__codelineno-0-111">111</a></span>
+<span class="normal"><a href="#__codelineno-0-112">112</a></span>
+<span class="normal"><a href="#__codelineno-0-113">113</a></span>
+<span class="normal"><a href="#__codelineno-0-114">114</a></span>
+<span class="normal"><a href="#__codelineno-0-115">115</a></span>
+<span class="normal"><a href="#__codelineno-0-116">116</a></span>
+<span class="normal"><a href="#__codelineno-0-117">117</a></span>
+<span class="normal"><a href="#__codelineno-0-118">118</a></span>
+<span class="normal"><a href="#__codelineno-0-119">119</a></span>
+<span class="normal"><a href="#__codelineno-0-120">120</a></span>
+<span class="normal"><a href="#__codelineno-0-121">121</a></span>
+<span class="normal"><a href="#__codelineno-0-122">122</a></span>
+<span class="normal"><a href="#__codelineno-0-123">123</a></span>
+<span class="normal"><a href="#__codelineno-0-124">124</a></span>
+<span class="normal"><a href="#__codelineno-0-125">125</a></span>
+<span class="normal"><a href="#__codelineno-0-126">126</a></span>
+<span class="normal"><a href="#__codelineno-0-127">127</a></span>
+<span class="normal"><a href="#__codelineno-0-128">128</a></span>
+<span class="normal"><a href="#__codelineno-0-129">129</a></span>
+<span class="normal"><a href="#__codelineno-0-130">130</a></span>
+<span class="normal"><a href="#__codelineno-0-131">131</a></span>
+<span class="normal"><a href="#__codelineno-0-132">132</a></span>
+<span class="normal"><a href="#__codelineno-0-133">133</a></span>
+<span class="normal"><a href="#__codelineno-0-134">134</a></span>
+<span class="normal"><a href="#__codelineno-0-135">135</a></span>
+<span class="normal"><a href="#__codelineno-0-136">136</a></span>
+<span class="normal"><a href="#__codelineno-0-137">137</a></span>
+<span class="normal"><a href="#__codelineno-0-138">138</a></span>
+<span class="normal"><a href="#__codelineno-0-139">139</a></span>
+<span class="normal"><a href="#__codelineno-0-140">140</a></span>
+<span class="normal"><a href="#__codelineno-0-141">141</a></span>
+<span class="normal"><a href="#__codelineno-0-142">142</a></span>
+<span class="normal"><a href="#__codelineno-0-143">143</a></span>
+<span class="normal"><a href="#__codelineno-0-144">144</a></span>
+<span class="normal"><a href="#__codelineno-0-145">145</a></span>
+<span class="normal"><a href="#__codelineno-0-146">146</a></span>
+<span class="normal"><a href="#__codelineno-0-147">147</a></span>
+<span class="normal"><a href="#__codelineno-0-148">148</a></span>
+<span class="normal"><a href="#__codelineno-0-149">149</a></span>
+<span class="normal"><a href="#__codelineno-0-150">150</a></span>
+<span class="normal"><a href="#__codelineno-0-151">151</a></span>
+<span class="normal"><a href="#__codelineno-0-152">152</a></span>
+<span class="normal"><a href="#__codelineno-0-153">153</a></span>
+<span class="normal"><a href="#__codelineno-0-154">154</a></span>
+<span class="normal"><a href="#__codelineno-0-155">155</a></span>
+<span class="normal"><a href="#__codelineno-0-156">156</a></span>
+<span class="normal"><a href="#__codelineno-0-157">157</a></span>
+<span class="normal"><a href="#__codelineno-0-158">158</a></span>
+<span class="normal"><a href="#__codelineno-0-159">159</a></span>
+<span class="normal"><a href="#__codelineno-0-160">160</a></span>
+<span class="normal"><a href="#__codelineno-0-161">161</a></span>
+<span class="normal"><a href="#__codelineno-0-162">162</a></span>
+<span class="normal"><a href="#__codelineno-0-163">163</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_roi</span><span class="p">(</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="o">*</span><span class="p">,</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>    <span class="n">mask</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a>    <span class="n">coords</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a>    <span class="n">atlas</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a>    <span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>    <span class="n">coords_space</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ROI</span><span class="p">:</span>  <span class="c1"># noqa: F821 — forward ref résolu à l'exécution</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="w">    </span><span class="sd">"""Extract e-field values within a region of interest.</span>
 <a id="__codelineno-0-94" name="__codelineno-0-94"></a>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a>    <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a>        <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a>    <span class="k">elif</span> <span class="n">coords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>        <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_sphere</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>        <span class="c1"># radius → radius_mm (positionnel)</span>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a>        <span class="k">if</span> <span class="n">region</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"`atlas=` requires `region=`."</span><span class="p">)</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a>        <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_atlas</span><span class="p">(</span><span class="n">atlas</span><span class="p">,</span> <span class="n">region</span><span class="p">)</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="c1"># cible = niimg, pas EField</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a>    <span class="n">mask_img</span> <span class="o">=</span> <span class="n">resample_to_img</span><span class="p">(</span><span class="n">mask_img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">)</span>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a>    <span class="c1"># extraction 1-D → ROI « modèle B » (values, mask_img, efield)</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a>    <span class="c1"># squeeze : apply_mask sur un volume (X,Y,Z,1) renvoie (1, N) → (N,)</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a>    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">masking</span><span class="o">.</span><span class="n">apply_mask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">mask_img</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="k">return</span> <span class="n">ROI</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">mask_img</span><span class="o">=</span><span class="n">mask_img</span><span class="p">,</span> <span class="n">efield</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">    Exactly one source must be given:</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">      - ``mask=``             : path to a binary NIfTI mask</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">      - ``coords=`` (+radius) : spherical ROI</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">      - ``atlas=`` (+region)  : atlas-based parcel</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">    Parameters</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">    ----------</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">    coords_space : {"mni", "native", None}</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">        Which space ``coords=`` and ``atlas=`` are expressed in. Defaults</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">        to this volume's own space (:attr:`space`), i.e. no warping.</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">        Set ``coords_space="mni"`` on a native-space volume to have MNI</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="sd">        targets warped onto the subject grid. This needs an attached</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">        segmentation — call ``sim.set_segmentation(seg)`` first — because</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">        the deformation field lives in ``m2m_&lt;sub&gt;/toMNI/``.</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="sd">    Raises</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="sd">    ------</span>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a><span class="sd">    ValueError</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a><span class="sd">        If more or fewer than one source is given, if *coords_space* is</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a><span class="sd">        invalid, or if warping is required but no segmentation is attached.</span>
+<a id="__codelineno-0-116" name="__codelineno-0-116"></a>
+<a id="__codelineno-0-117" name="__codelineno-0-117"></a><span class="sd">    Notes</span>
+<a id="__codelineno-0-118" name="__codelineno-0-118"></a><span class="sd">    -----</span>
+<a id="__codelineno-0-119" name="__codelineno-0-119"></a><span class="sd">    Atlases are defined in MNI space, so ``atlas=`` on a native-space</span>
+<a id="__codelineno-0-120" name="__codelineno-0-120"></a><span class="sd">    volume implies ``coords_space="mni"`` and is warped automatically.</span>
+<a id="__codelineno-0-121" name="__codelineno-0-121"></a><span class="sd">    """</span>
+<a id="__codelineno-0-122" name="__codelineno-0-122"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">masking</span>
+<a id="__codelineno-0-123" name="__codelineno-0-123"></a>
+<a id="__codelineno-0-124" name="__codelineno-0-124"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">.roi</span><span class="w"> </span><span class="kn">import</span> <span class="n">ROI</span>
+<a id="__codelineno-0-125" name="__codelineno-0-125"></a>
+<a id="__codelineno-0-126" name="__codelineno-0-126"></a>    <span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">coords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">atlas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+<a id="__codelineno-0-127" name="__codelineno-0-127"></a>    <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-128" name="__codelineno-0-128"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-129" name="__codelineno-0-129"></a>            <span class="s2">"Provide exactly one ROI source: `mask=`, `coords=` (+radius), "</span>
+<a id="__codelineno-0-130" name="__codelineno-0-130"></a>            <span class="sa">f</span><span class="s2">"or `atlas=` (+region). Got </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span>
+<a id="__codelineno-0-131" name="__codelineno-0-131"></a>        <span class="p">)</span>
+<a id="__codelineno-0-132" name="__codelineno-0-132"></a>
+<a id="__codelineno-0-133" name="__codelineno-0-133"></a>    <span class="c1"># Atlases only exist in MNI; anything else defaults to our own space.</span>
+<a id="__codelineno-0-134" name="__codelineno-0-134"></a>    <span class="k">if</span> <span class="n">coords_space</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-135" name="__codelineno-0-135"></a>        <span class="n">coords_space</span> <span class="o">=</span> <span class="s2">"mni"</span> <span class="k">if</span> <span class="n">atlas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">space</span>
+<a id="__codelineno-0-136" name="__codelineno-0-136"></a>    <span class="k">if</span> <span class="n">coords_space</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"native"</span><span class="p">,</span> <span class="s2">"mni"</span><span class="p">):</span>
+<a id="__codelineno-0-137" name="__codelineno-0-137"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-138" name="__codelineno-0-138"></a>            <span class="sa">f</span><span class="s2">"coords_space must be 'native' or 'mni', got </span><span class="si">{</span><span class="n">coords_space</span><span class="si">!r}</span><span class="s2">"</span>
+<a id="__codelineno-0-139" name="__codelineno-0-139"></a>        <span class="p">)</span>
+<a id="__codelineno-0-140" name="__codelineno-0-140"></a>    <span class="n">needs_warp</span> <span class="o">=</span> <span class="n">coords_space</span> <span class="o">==</span> <span class="s2">"mni"</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">space</span> <span class="o">==</span> <span class="s2">"native"</span>
+<a id="__codelineno-0-141" name="__codelineno-0-141"></a>
+<a id="__codelineno-0-142" name="__codelineno-0-142"></a>    <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-143" name="__codelineno-0-143"></a>        <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+<a id="__codelineno-0-144" name="__codelineno-0-144"></a>        <span class="k">if</span> <span class="n">needs_warp</span><span class="p">:</span>
+<a id="__codelineno-0-145" name="__codelineno-0-145"></a>            <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warp_mask_from_mni</span><span class="p">(</span><span class="n">mask_img</span><span class="p">)</span>
+<a id="__codelineno-0-146" name="__codelineno-0-146"></a>    <span class="k">elif</span> <span class="n">coords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-147" name="__codelineno-0-147"></a>        <span class="k">if</span> <span class="n">needs_warp</span><span class="p">:</span>
+<a id="__codelineno-0-148" name="__codelineno-0-148"></a>            <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warp_coords_from_mni</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+<a id="__codelineno-0-149" name="__codelineno-0-149"></a>        <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_sphere</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>        <span class="c1"># radius → radius_mm (positionnel)</span>
+<a id="__codelineno-0-150" name="__codelineno-0-150"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-151" name="__codelineno-0-151"></a>        <span class="k">if</span> <span class="n">region</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-152" name="__codelineno-0-152"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"`atlas=` requires `region=`."</span><span class="p">)</span>
+<a id="__codelineno-0-153" name="__codelineno-0-153"></a>        <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_atlas</span><span class="p">(</span><span class="n">atlas</span><span class="p">,</span> <span class="n">region</span><span class="p">)</span>
+<a id="__codelineno-0-154" name="__codelineno-0-154"></a>        <span class="k">if</span> <span class="n">needs_warp</span><span class="p">:</span>
+<a id="__codelineno-0-155" name="__codelineno-0-155"></a>            <span class="n">mask_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warp_mask_from_mni</span><span class="p">(</span><span class="n">mask_img</span><span class="p">)</span>
+<a id="__codelineno-0-156" name="__codelineno-0-156"></a>
+<a id="__codelineno-0-157" name="__codelineno-0-157"></a>    <span class="c1"># cible = niimg, pas EField</span>
+<a id="__codelineno-0-158" name="__codelineno-0-158"></a>    <span class="n">mask_img</span> <span class="o">=</span> <span class="n">resample_to_img</span><span class="p">(</span><span class="n">mask_img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">)</span>
+<a id="__codelineno-0-159" name="__codelineno-0-159"></a>
+<a id="__codelineno-0-160" name="__codelineno-0-160"></a>    <span class="c1"># extraction 1-D → ROI « modèle B » (values, mask_img, efield)</span>
+<a id="__codelineno-0-161" name="__codelineno-0-161"></a>    <span class="c1"># squeeze : apply_mask sur un volume (X,Y,Z,1) renvoie (1, N) → (N,)</span>
+<a id="__codelineno-0-162" name="__codelineno-0-162"></a>    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">masking</span><span class="o">.</span><span class="n">apply_mask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">mask_img</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<a id="__codelineno-0-163" name="__codelineno-0-163"></a>    <span class="k">return</span> <span class="n">ROI</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">mask_img</span><span class="o">=</span><span class="n">mask_img</span><span class="p">,</span> <span class="n">efield</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
