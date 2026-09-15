@@ -22,7 +22,6 @@ from simnibs_reader.nifti._warp import (
 )
 from simnibs_reader.nifti.efield import EField
 
-
 # ---------------------------------------------------------------------------
 # Fixtures: a toy subject whose space is MNI shifted by a known offset
 # ---------------------------------------------------------------------------
