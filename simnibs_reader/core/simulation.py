@@ -97,6 +97,7 @@ class SimulationResult(SimNIBSResult):
         return EField(
             self._find_one("mni_volumes/*_MNI_magnE.nii.gz"),
             simulation=self,
+            space="mni",
         )
 
     @cached_property
@@ -105,6 +106,7 @@ class SimulationResult(SimNIBSResult):
         return EField(
             self._find_one("mni_volumes/*_MNI_magnJ.nii.gz"),
             simulation=self,
+            space="mni",
         )
 
     @cached_property
@@ -113,6 +115,7 @@ class SimulationResult(SimNIBSResult):
         return EField(
             self._find_one("mni_volumes/*_MNI_E.nii.gz"),
             simulation=self,
+            space="mni",
         )
 
     @cached_property
@@ -121,6 +124,7 @@ class SimulationResult(SimNIBSResult):
         return EField(
             self._find_one("mni_volumes/*_MNI_J.nii.gz"),
             simulation=self,
+            space="mni",
         )
 
     # ------------------------------------------------------------------
@@ -133,6 +137,7 @@ class SimulationResult(SimNIBSResult):
         return EField(
             self._find_one("subject_volumes/*_magnE.nii.gz"),
             simulation=self,
+            space="native",
         )
 
     @cached_property
@@ -141,6 +146,7 @@ class SimulationResult(SimNIBSResult):
         return EField(
             self._find_one("subject_volumes/*_magnJ.nii.gz"),
             simulation=self,
+            space="native",
         )
 
     @cached_property
@@ -149,6 +155,7 @@ class SimulationResult(SimNIBSResult):
         return EField(
             self._find_one("subject_volumes/*_E.nii.gz"),
             simulation=self,
+            space="native",
         )
 
     @cached_property
@@ -157,6 +164,7 @@ class SimulationResult(SimNIBSResult):
         return EField(
             self._find_one("subject_volumes/*_J.nii.gz"),
             simulation=self,
+            space="native",
         )
 
     # ------------------------------------------------------------------

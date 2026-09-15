@@ -4,6 +4,40 @@ All notable changes to **simnibs-reader** are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.3.0] — 2026-09-15
+
+### Added
+- **`EField.get_roi(coords_space=...)`** — state which space `coords=` or
+  `atlas=` are expressed in. Set `coords_space="mni"` on a native-space volume
+  and the target is warped onto the subject grid using the SimNIBS deformation
+  field from `m2m_<sub>/toMNI/`. Requires an attached segmentation.
+- **`EField.space`** — volumes now know whether they are native or MNI.
+  `SimulationResult` sets it on all eight accessors.
+- **`simnibs_reader.nifti._warp`** — `load_warp`, `mni_to_native_coords` and
+  `warp_mni_mask_to_native`, with the deformation field cached per subject.
+
+### Fixed
+- **MNI coordinates on a native volume silently produced an empty ROI.**
+  `_from_sphere` mapped world coordinates through `inv(affine)`, assuming they
+  were already in the volume's own space, so an MNI target landed outside the
+  head. The only symptom was a downstream nilearn error, *"The mask is invalid
+  as it is empty: it masks all data"*, which pointed nowhere near the cause.
+  Requesting a warp without an attached segmentation now fails immediately with
+  a message naming `set_segmentation`.
+- **`ROI.complement()` picked the wrong tissue map in MNI space.** It always
+  read `final_tissues` (subject space); on an MNI e-field that mask is on the
+  wrong grid. It now selects `final_tissues_mni` based on the e-field's space.
+- **`scipy` was used but undeclared** — now a declared dependency.
+
+### Changed
+- Atlas-based ROIs on a native volume are warped automatically, since atlases
+  are only defined in MNI space.
+
+### Migration
+`coords_space` defaults to the volume's own space, so existing calls behave
+exactly as before. Native-space pipelines passing MNI coordinates were silently
+broken and should now pass `coords_space="mni"`.
+
 ## [0.2.0] — 2026-07-20
 
 First consolidated release of the three-layer reader (`core/` → `nifti/` → `io/`)

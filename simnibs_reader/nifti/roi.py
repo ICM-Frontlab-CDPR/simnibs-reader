@@ -300,11 +300,17 @@ class ROI:
         return ROI(values=values, mask_img=extra_mask, efield=self.efield)
 
     def _resolve_brain_mask(self, brain_mask: str | Path | None) -> nib.Nifti1Image:
-        """Return a binary brain mask image.
+        """Return a binary brain mask image, in the e-field's own space.
 
         Priority:
         1. Explicit *brain_mask* path.
-        2. ``segmentation.final_tissues`` binarised (value > 0).
+        2. The attached segmentation's tissue map, binarised (value > 0),
+           picking the MNI-space version when the e-field is in MNI space.
+
+        Raises
+        ------
+        ValueError
+            If no *brain_mask* is given and no segmentation is attached.
         """
         if brain_mask is not None:
             return nib.load(str(brain_mask))
@@ -312,7 +318,13 @@ class ROI:
         sim = getattr(self.efield, "simulation", None)
         seg = getattr(sim, "segmentation", None) if sim is not None else None
         if seg is not None:
-            tissues_nii = nib.load(str(seg.final_tissues))
+            # An MNI e-field needs an MNI tissue map: the native one would be
+            # resampled onto the wrong grid and mask out everything.
+            if getattr(self.efield, "space", "native") == "mni":
+                tissues_path = seg.final_tissues_mni
+            else:
+                tissues_path = seg.final_tissues
+            tissues_nii = nib.load(str(tissues_path))
             data = (self._fdata_3d(tissues_nii) > 0).astype(np.uint8)   # squeeze → 3D
             return nib.Nifti1Image(data, tissues_nii.affine)
 

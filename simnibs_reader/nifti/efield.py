@@ -22,11 +22,26 @@ class EField:
         self,
         path: str | Path,
         simulation: SimulationResult | None = None,
+        space: str = "native",
     ) -> None:
+        """
+        Parameters
+        ----------
+        path : str or Path
+            Path to the NIfTI volume.
+        simulation : SimulationResult, optional
+            Parent simulation; gives access to the attached segmentation.
+        space : {"native", "mni"}
+            The space this volume lives in. Determines whether coordinates
+            given in MNI need warping before use — see :meth:`get_roi`.
+        """
         self.path = Path(path)
         if not self.path.exists():
             raise FileNotFoundError(f"NIfTI file not found: {self.path}")
+        if space not in ("native", "mni"):
+            raise ValueError(f"space must be 'native' or 'mni', got {space!r}")
         self.simulation = simulation
+        self.space = space
         self._img: nib.Nifti1Image = nib.load(str(self.path))  # memmap → pas chargé en RAM
 
     # ── Accès au Nifti1Image sous-jacent ─────────────────────────
@@ -73,13 +88,36 @@ class EField:
         radius: float = 10.0,
         atlas: str | None = None,
         region: str | list[str] | None = None,
+        coords_space: str | None = None,
     ) -> ROI:  # noqa: F821 — forward ref résolu à l'exécution
         """Extract e-field values within a region of interest.
 
         Exactly one source must be given:
           - ``mask=``             : path to a binary NIfTI mask
-          - ``coords=`` (+radius) : spherical ROI in the e-field's own space
+          - ``coords=`` (+radius) : spherical ROI
           - ``atlas=`` (+region)  : atlas-based parcel
+
+        Parameters
+        ----------
+        coords_space : {"mni", "native", None}
+            Which space ``coords=`` and ``atlas=`` are expressed in. Defaults
+            to this volume's own space (:attr:`space`), i.e. no warping.
+
+            Set ``coords_space="mni"`` on a native-space volume to have MNI
+            targets warped onto the subject grid. This needs an attached
+            segmentation — call ``sim.set_segmentation(seg)`` first — because
+            the deformation field lives in ``m2m_<sub>/toMNI/``.
+
+        Raises
+        ------
+        ValueError
+            If more or fewer than one source is given, if *coords_space* is
+            invalid, or if warping is required but no segmentation is attached.
+
+        Notes
+        -----
+        Atlases are defined in MNI space, so ``atlas=`` on a native-space
+        volume implies ``coords_space="mni"`` and is warped automatically.
         """
         from nilearn import masking
 
@@ -92,14 +130,29 @@ class EField:
                 f"or `atlas=` (+region). Got {sum(sources)}."
             )
 
+        # Atlases only exist in MNI; anything else defaults to our own space.
+        if coords_space is None:
+            coords_space = "mni" if atlas is not None else self.space
+        if coords_space not in ("native", "mni"):
+            raise ValueError(
+                f"coords_space must be 'native' or 'mni', got {coords_space!r}"
+            )
+        needs_warp = coords_space == "mni" and self.space == "native"
+
         if mask is not None:
             mask_img = self._from_mask(mask)
+            if needs_warp:
+                mask_img = self._warp_mask_from_mni(mask_img)
         elif coords is not None:
+            if needs_warp:
+                coords = self._warp_coords_from_mni(coords)
             mask_img = self._from_sphere(coords, radius)        # radius → radius_mm (positionnel)
         else:
             if region is None:
                 raise ValueError("`atlas=` requires `region=`.")
             mask_img = self._from_atlas(atlas, region)
+            if needs_warp:
+                mask_img = self._warp_mask_from_mni(mask_img)
 
         # cible = niimg, pas EField
         mask_img = resample_to_img(mask_img, self.img, interpolation="nearest")
@@ -108,6 +161,39 @@ class EField:
         # squeeze : apply_mask sur un volume (X,Y,Z,1) renvoie (1, N) → (N,)
         values = np.squeeze(masking.apply_mask(self.img, mask_img)).astype(np.float64)
         return ROI(values=values, mask_img=mask_img, efield=self)
+
+    # ------------------------------------------------------------------
+    # MNI → native warping
+    # ------------------------------------------------------------------
+
+    def _warp_field(self):
+        """Load this subject's deformation field, or explain what is missing."""
+        from ._warp import load_warp
+
+        sim = self.simulation
+        seg = getattr(sim, "segmentation", None) if sim is not None else None
+        if seg is None:
+            raise ValueError(
+                "coords_space='mni' on a native-space volume requires the "
+                "subject's deformation field, which lives in the segmentation "
+                "folder.\n"
+                "Attach it first:  sim.set_segmentation(snr.segmentation(m2m_dir))"
+            )
+        return load_warp(seg.warp_conform_to_mni)
+
+    def _warp_coords_from_mni(self, coords: list[float]) -> list[float]:
+        """Map an MNI point to the nearest subject-space point."""
+        from ._warp import mni_to_native_coords
+
+        warp_img, warp_coords = self._warp_field()
+        return mni_to_native_coords(coords, warp_img, warp_coords)
+
+    def _warp_mask_from_mni(self, mask_img: nib.Nifti1Image) -> nib.Nifti1Image:
+        """Resample an MNI-space binary mask onto the subject grid."""
+        from ._warp import warp_mni_mask_to_native
+
+        warp_img, warp_coords = self._warp_field()
+        return warp_mni_mask_to_native(mask_img, warp_img, warp_coords)
 
     # ------------------------------------------------------------------
     # Private mask builders
