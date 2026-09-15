@@ -4,6 +4,10 @@ hide:
 ---
 # simnibs-reader
 
+!!! info "Documentation for version 0.3.0"
+    See the
+    [changelog](https://github.com/ICM-Frontlab-CDPR/simnibs-reader/blob/main/CHANGELOG.md).
+
 **Load, extract, clean and analyze SimNIBS e-field NIfTI outputs — in one line.**
 
 `simnibs-reader` is a lightweight Python library that turns SimNIBS simulation

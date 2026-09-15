@@ -351,3 +351,26 @@ class TestResampleToRef:
 
         _, plain = load_nifti(efield_nii)
         assert plain.shape == nib.load(str(efield_nii)).shape
+
+
+# ===========================================================================
+# Docs / packaging consistency
+# ===========================================================================
+
+
+class TestDocsVersionInSync:
+    """A hardcoded version in the docs goes stale silently."""
+
+    def test_landing_page_states_the_version(self) -> None:
+        import simnibs_reader
+
+        root = Path(simnibs_reader.__file__).resolve().parents[1]
+        index = (root / "docs" / "index.md").read_text()
+        assert f"version {simnibs_reader.__version__}" in index
+
+    def test_mkdocs_extra_version_matches(self) -> None:
+        import simnibs_reader
+
+        root = Path(simnibs_reader.__file__).resolve().parents[1]
+        mkdocs = (root / "mkdocs.yml").read_text()
+        assert f'version: "{simnibs_reader.__version__}"' in mkdocs
