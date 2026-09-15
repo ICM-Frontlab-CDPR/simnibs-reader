@@ -1,0 +1,42 @@
+.
+├── 0001_TDCS_1_el_currents.geo
+├── 0001_TDCS_1_scalar.msh
+├── 0001_TDCS_1_scalar.msh.opt
+├── fields_summary.txt
+├── mni_volumes
+│   ├── 0001_TDCS_1_scalar_MNI_E.nii.gz
+│   ├── 0001_TDCS_1_scalar_MNI_J.nii.gz
+│   ├── 0001_TDCS_1_scalar_MNI_magnE_extra_fef_cleaned.nii.gz
+│   ├── 0001_TDCS_1_scalar_MNI_magnE_extra_fef_masked.nii.gz
+│   ├── 0001_TDCS_1_scalar_MNI_magnE_fef_cleaned.nii.gz
+│   ├── 0001_TDCS_1_scalar_MNI_magnE_fef_masked.nii.gz
+│   ├── 0001_TDCS_1_scalar_MNI_magnE.nii.gz
+│   └── 0001_TDCS_1_scalar_MNI_magnJ.nii.gz
+├── simnibs_simulation_20260526-133548.log
+├── simnibs_simulation_20260526-133548.mat
+├── subject_overlays
+│   ├── 0001_TDCS_1_scalar_central.msh
+│   ├── 0001_TDCS_1_scalar_central.msh.opt
+│   ├── lh.0001_TDCS_1_scalar.central.E.angle
+│   ├── lh.0001_TDCS_1_scalar.central.E.magn
+│   ├── lh.0001_TDCS_1_scalar.central.E.normal
+│   ├── lh.0001_TDCS_1_scalar.central.E.tangent
+│   ├── lh.0001_TDCS_1_scalar.central.J.angle
+│   ├── lh.0001_TDCS_1_scalar.central.J.magn
+│   ├── lh.0001_TDCS_1_scalar.central.J.normal
+│   ├── lh.0001_TDCS_1_scalar.central.J.tangent
+│   ├── lh.central
+│   ├── rh.0001_TDCS_1_scalar.central.E.angle
+│   ├── rh.0001_TDCS_1_scalar.central.E.magn
+│   ├── rh.0001_TDCS_1_scalar.central.E.normal
+│   ├── rh.0001_TDCS_1_scalar.central.E.tangent
+│   ├── rh.0001_TDCS_1_scalar.central.J.angle
+│   ├── rh.0001_TDCS_1_scalar.central.J.magn
+│   ├── rh.0001_TDCS_1_scalar.central.J.normal
+│   ├── rh.0001_TDCS_1_scalar.central.J.tangent
+│   └── rh.central
+└── subject_volumes
+    ├── 0001_TDCS_1_scalar_E.nii.gz
+    ├── 0001_TDCS_1_scalar_J.nii.gz
+    ├── 0001_TDCS_1_scalar_magnE.nii.gz
+    └── 0001_TDCS_1_scalar_magnJ.nii.gz

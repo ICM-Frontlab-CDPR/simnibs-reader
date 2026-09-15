@@ -59,6 +59,27 @@ class SegmentationResult(SimNIBSResult):
         """Extract subject ID from folder name (e.g. ``m2m_sub01`` → ``sub01``)."""
         return self.path.name.removeprefix("m2m_")
 
+    @cached_property
+    def simnibs_version(self) -> str | None:
+        """SimNIBS version that produced this folder, read from charm's own logs.
+
+        Returns
+        -------
+        str or None
+            e.g. ``"4.6.0"``, or ``None`` when the folder records no version.
+
+        Notes
+        -----
+        Detected from the files SimNIBS writes; SimNIBS itself is never called
+        and need not be installed. A version outside
+        :data:`~simnibs_reader._simnibs_version.SUPPORTED_VERSIONS` emits a
+        warning on first access rather than failing, since the output layout
+        has been stable across 4.x.
+        """
+        from .._simnibs_version import warn_if_unsupported
+
+        return warn_if_unsupported(self.path)
+
     # ------------------------------------------------------------------
     # Anatomical images
     # ------------------------------------------------------------------

@@ -4,6 +4,33 @@ All notable changes to **simnibs-reader** are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.4.0] — 2026-09-15
+
+### Added
+- **`SegmentationResult.simnibs_version`** — reads which SimNIBS version wrote
+  an `m2m_<sub>/` folder, from charm's own log files. SimNIBS is never called
+  and need not be installed. Returns `None` when the folder records no version,
+  which is not an error.
+- **`SUPPORTED_VERSIONS`** in `simnibs_reader._simnibs_version`, declaring the
+  layouts the reader has been checked against: **4.5 and 4.6**. A folder from
+  anything else warns once on access, rather than failing — the layout has been
+  stable across 4.x, so refusing would be worse than saying so.
+- Reference tree for **4.6** under `_simnibs-tree/`, plus a README explaining
+  the per-version layout. A test enforces that every supported version has one.
+- Documentation page on version compatibility.
+
+### Notes
+SimNIBS 4.6 moves and renames nothing: its changes are internal to charm (new
+probabilistic atlas, AI-based cortical surface reconstruction, new affine
+registration, numpy 2). The 4.5 and 4.6 reference trees are identical.
+
+One 4.6 change alters interpretation rather than location: interfaces to
+internal air cavities now carry their own tissue number in `final_tissues`, so
+a mask built as *any label > 0* — what `ROI.complement()` uses — covers
+slightly more than under 4.5. Focality ratios are therefore not strictly
+comparable across a 4.5/4.6 boundary. This is documented, not worked around:
+silently remapping labels would hide a real difference in the data.
+
 ## [0.3.0] — 2026-09-15
 
 ### Added

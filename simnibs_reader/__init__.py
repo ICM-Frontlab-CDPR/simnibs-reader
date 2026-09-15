@@ -17,7 +17,7 @@ from .core.optimization import OptimizationResult
 from .core.segmentation import SegmentationResult
 from .core.simulation import SimulationResult
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 
 # ── Public factory functions ──────────────────────────────────────────────

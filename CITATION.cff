@@ -14,7 +14,7 @@ authors:
     affiliation: "ICM Frontlab, Institut du Cerveau (ICM), Paris"
 license: MIT
 repository-code: https://github.com/ICM-Frontlab-CDPR/simnibs-reader
-version: 0.3.0
+version: 0.4.0
 date-released: "2026-09-15"
 abstract: >-
   Lightweight Python reader for SimNIBS output directories (segmentation,

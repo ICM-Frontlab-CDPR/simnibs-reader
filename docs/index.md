@@ -4,7 +4,7 @@ hide:
 ---
 # simnibs-reader
 
-!!! info "Documentation for version 0.3.0"
+!!! info "Documentation for version 0.4.0"
     See the
     [changelog](https://github.com/ICM-Frontlab-CDPR/simnibs-reader/blob/main/CHANGELOG.md).
 

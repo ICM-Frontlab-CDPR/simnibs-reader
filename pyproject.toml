@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "simnibs-reader"
-version = "0.3.0"
+version = "0.4.0"
 description = "Lightweight reader for SimNIBS output directories (segmentation, simulation, optimization)"
 readme = "README.md"
 requires-python = ">=3.10"

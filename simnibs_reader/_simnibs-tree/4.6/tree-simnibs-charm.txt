@@ -1,0 +1,85 @@
+.
+├── 0001.msh
+├── 0001.msh.opt
+├── charm_log.html
+├── charm_report.html
+├── dMRI_prep
+│   ├── d2c_check.opt
+│   ├── dti_results_rawspace
+│   │   ├── DTI_FA_to_T1_brain.log
+│   │   ├── DTI_FA.nii.gz
+│   │   ├── DTI_sse.nii.gz
+│   │   ├── DTI_tensor.nii.gz
+│   │   ├── DWIbvals
+│   │   ├── DWIbvecs
+│   │   ├── DWIforfit.nii.gz
+│   │   ├── nodif_brain_mask.nii.gz
+│   │   └── nodif_brain.nii.gz
+│   ├── dti_results_T1space
+│   │   ├── DTI_coregT1_FA.nii.gz
+│   │   ├── DTI_coregT1_V1.nii.gz
+│   │   ├── DTI_FA_6dof_QA.nii.gz
+│   │   ├── DTI_SSE_6dof_QA.nii.gz
+│   │   ├── DTIraw_FA_6dof_QA.nii.gz
+│   │   ├── DTIraw_SSE_6dof_QA.nii.gz
+│   │   ├── FA2T1_warp.nii.gz
+│   │   ├── FA2T1.mat
+│   │   ├── T1_brain.nii.gz
+│   │   └── T1_brainrim_QA.nii.gz
+│   ├── dwi2cond_log.html
+│   └── first_ev_for_check.msh
+├── DTI_coregT1_tensor.nii.gz
+├── eeg_positions
+│   ├── easycap_BC_TMS64_X21.csv
+│   ├── easycap_BC_TMS64_X21.geo
+│   ├── EEG10-10_Cutini_2011.csv
+│   ├── EEG10-10_Cutini_2011.geo
+│   ├── EEG10-10_Neuroelectrics.csv
+│   ├── EEG10-10_Neuroelectrics.geo
+│   ├── EEG10-10_UI_Jurak_2007.csv
+│   ├── EEG10-10_UI_Jurak_2007.geo
+│   ├── EEG10-20_extended_SPM12.csv
+│   ├── EEG10-20_extended_SPM12.geo
+│   ├── EEG10-20_Okamoto_2004.csv
+│   ├── EEG10-20_Okamoto_2004.geo
+│   ├── Fiducials.csv
+│   └── Fiducials.geo
+├── final_tissues_LUT.txt
+├── final_tissues.nii.gz
+├── label_prep
+│   ├── T1_upsampled.nii.gz
+│   ├── T2_upsampled.nii.gz
+│   ├── tissue_labeling_upsampled_LUT.txt
+│   ├── tissue_labeling_upsampled.nii.gz
+│   └── upper_part.nii.gz
+├── segmentation
+│   ├── atlas_level1.txt.gz
+│   ├── atlas_level2.txt.gz
+│   ├── coregistrationMatrices.mat
+│   ├── labeling_LUT.txt
+│   ├── labeling.nii.gz
+│   ├── T1_bias_corrected.nii.gz
+│   ├── T2_bias_corrected.nii.gz
+│   └── template_coregistered.mgz
+├── settings.ini
+├── surfaces
+│   ├── cereb_mask.nii.gz
+│   ├── hemi_mask.nii.gz
+│   ├── lh.central.gii
+│   ├── lh.pial.gii
+│   ├── lh.sphere.gii
+│   ├── lh.sphere.reg.gii
+│   ├── lh.thickness
+│   ├── norm_image.nii.gz
+│   ├── rh.central.gii
+│   ├── rh.pial.gii
+│   ├── rh.sphere.gii
+│   ├── rh.sphere.reg.gii
+│   ├── rh.thickness
+│   └── subcortical_mask.nii.gz
+├── T1.nii.gz
+├── T2_reg.nii.gz
+└── toMNI
+    ├── Conform2MNI_nonl.nii.gz
+    ├── final_tissues_MNI.nii.gz
+    └── MNI2Conform_nonl.nii.gz
