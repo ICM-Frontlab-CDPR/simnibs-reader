@@ -80,14 +80,14 @@ roi = sim.magnE_native.get_roi(coords=[28, -8, 54], coords_space="mni")
     [:octicons-arrow-right-24: GitHub Pages](https://ICM-Frontlab-CDPR.github.io/simnibs-analyze/)
     · [:octicons-mark-github-16: Repo](https://github.com/ICM-Frontlab-CDPR/simnibs-analyze)
 
--   :material-lightning-bolt:{ .lg .middle } **simnibs-pipeline**
+-   :material-lightning-bolt:{ .lg .middle } **OptiStims**
 
     ---
 
     End-to-end automated stroke lesion-aware tDCS pipeline.
 
-    [:octicons-arrow-right-24: GitHub Pages](https://ICM-Frontlab-CDPR.github.io/simnibs-pipeline/)
-    · [:octicons-mark-github-16: Repo](https://github.com/ICM-Frontlab-CDPR/simnibs-pipeline)
+    [:octicons-arrow-right-24: GitHub Pages](https://ICM-Frontlab-CDPR.github.io/OptiStims/)
+    · [:octicons-mark-github-16: Repo](https://github.com/ICM-Frontlab-CDPR/OptiStims)
 
 </div>
 <!-- ``` -->
