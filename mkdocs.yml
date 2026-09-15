@@ -70,7 +70,6 @@ exclude_docs: |
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
-  - SimNIBS versions: simnibs-versions.md
   - Tutorials:
       - Overview: tutorials.md
       - FreeSurfer guide:
